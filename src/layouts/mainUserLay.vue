@@ -1,0 +1,115 @@
+<template>
+  <q-layout view="lHr lpR lFf">
+    <q-header
+      bordered
+      class="text-teal-7 bg-grey-3 row items-center"
+      height-hint="78"
+      style="height: 60px"
+    >
+      <q-toolbar>
+        <q-toolbar-title class="flex">
+          <q-avatar>logo </q-avatar>
+          <div class="q-ml-md row">
+            <q-btn
+              style="height: 100%"
+              flat
+              label="Главная"
+              class="button text-weight-bold text-subtitle1 full-height"
+            />
+            <q-btn
+              flat
+              label="Каталог"
+              class="button text-weight-bold text-subtitle1"
+            />
+            <q-btn
+              flat
+              label="Корзина"
+              class="button text-weight-bold text-subtitle1"
+            />
+            <q-btn
+              flat
+              label="Профиль"
+              @click="toggleRightDrawer"
+              class="button text-weight-bold text-subtitle1"
+            />
+          </div>
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" bordered>
+      <!-- drawer content -->
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+
+    <q-footer reveal bordered class="bg-grey-2 text-teal-7">
+      <q-toolbar class="flex justify-between">
+        <q-btn flat class="button route" padding="0">
+          <div class="column items-center">
+            <q-avatar size="30px" font-size="18px" icon="view_stream" />
+            <div class="button route mobile text-weight-bold">Главная</div>
+          </div>
+        </q-btn>
+        <q-btn flat class="button route mobile" padding="0">
+          <div class="column items-center">
+            <q-avatar size="30px" font-size="18px" icon="view_list" />
+            <div class="button route mobile text-weight-bold">Каталог</div>
+          </div>
+        </q-btn>
+        <q-btn flat class="button route mobile" padding="0">
+          <div class="column items-center">
+            <q-avatar size="30px" font-size="18px" icon="shopping_bag" />
+            <div class="button route mobile text-weight-bold">Корзина</div>
+          </div>
+        </q-btn>
+        <q-btn
+          flat
+          class="button route mobile"
+          padding="0"
+          @click="toggleRightDrawer"
+        >
+          <div class="column items-center">
+            <q-avatar size="30px" font-size="18px" icon="person" />
+            <div class="button route mobile text-weight-bold">Профиль</div>
+          </div>
+        </q-btn>
+      </q-toolbar>
+    </q-footer>
+  </q-layout>
+</template>
+
+<script>
+import { defineComponent, ref } from "vue";
+
+export default defineComponent({
+  name: "MainLayout",
+
+  components: {},
+
+  setup() {
+    const rightDrawerOpen = ref(false);
+
+    return {
+      rightDrawerOpen,
+      toggleRightDrawer() {
+        rightDrawerOpen.value = !rightDrawerOpen.value;
+      },
+    };
+  },
+});
+</script>
+<style lang="scss" scoped>
+.button {
+  text-transform: none;
+  height: 100%;
+  &.route {
+    flex-grow: 1;
+    &.mobile {
+      font-size: 12px;
+    }
+  }
+}
+</style>
