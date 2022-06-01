@@ -1,10 +1,15 @@
 <template>
   <q-layout view="hHr lpR fFf">
-    <q-header bordered class="text-teal-7 bg-grey-3">
+    <q-header
+      bordered
+      class="text-teal-7 flex items-center bg-layout"
+      style="height: 60px"
+    >
       <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar> Logo </q-avatar>
-          Title
+        <q-toolbar-title class="q-gutter-md">
+          <q-avatar size="40px" rounded color="teal"></q-avatar>
+          <q-avatar size="40px" rounded color="purple-4"></q-avatar>
+          <q-avatar size="40px" rounded color="orange-4"></q-avatar>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>

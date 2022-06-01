@@ -3,4 +3,26 @@
 
 body {
   font-family: "Open Sans", sans-serif !important;
+  overflow-x: hidden;
+}
+.bg-layout {
+  background: rgba(238, 238, 238, 0.396);
+  backdrop-filter: blur(7px);
+}
+.max {
+  &-xs {
+    max-width: 150px;
+  }
+  &-sm {
+    max-width: 300px;
+  }
+  &-md {
+    max-width: 500px;
+  }
+  &-lg {
+    max-width: 700px;
+  }
+  &-xl {
+    max-width: 900px;
+  }
 }

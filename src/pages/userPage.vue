@@ -1,7 +1,9 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="">
-      <div class="text-h3">Страница когда пользователь авторизировался</div>
+  <q-page full-height class="">
+    <!-- <div class="">
+      <div class="flex justify-center text-h6">
+        Страница когда пользователь авторизировался
+      </div>
       <div class="flex justify-center">
         <q-btn class="q-ma-md bg-teal-7" label="404" to="dasdasdas" />
         <q-btn
@@ -11,7 +13,7 @@
           to="/"
         />
       </div>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
