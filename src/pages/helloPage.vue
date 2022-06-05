@@ -47,6 +47,9 @@
         <div class="text-h6 word">
           tg id : <span class="bg-red">{{ tg_id }}</span>
         </div>
+        <div class="text-h6 word">
+          Проверка : <span class="bg-red">{{ valid }}</span>
+        </div>
       </div>
 
       <q-btn
@@ -114,6 +117,9 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+
+import validate from "src/telegram/index";
+
 const tg = window.Telegram.WebApp;
 export default defineComponent({
   name: "IndexPage",
@@ -123,16 +129,63 @@ export default defineComponent({
       code: ref(""),
       url: ref(window.location.search),
       tg_id: ref(0),
+      valid: ref(false),
     };
   },
   methods: {
     ...mapActions(["rnd"]),
     ...mapMutations(["increment"]),
+    convertToArr(str) {
+      if (str == "") {
+        return [];
+      } else {
+        let arr = [];
+        let check = "";
+        [...str].forEach((el, index) => {
+          if (el == "&" || el == "?" || index == str.length - 1) {
+            arr.push(check);
+            check = "";
+          } else {
+            check += el;
+          }
+        });
+        arr.shift();
+        arr.forEach((el, arrindex) => {
+          let mes = true;
+          let objval = "";
+          let objkey = "";
+          [...el].forEach((letter, index) => {
+            if (letter == "=") {
+              mes = false;
+            } else if (index == el.length - 1) {
+              arr[arrindex] = this.createObj(objkey, objval);
+            } else {
+              if (mes) {
+                objkey += letter;
+              } else {
+                objval += letter;
+              }
+            }
+          });
+        });
+        return arr;
+      }
+    },
+    createObj(key, value) {
+      let obj = {};
+      obj[key] = value;
+      return obj;
+    },
   },
   computed: mapGetters(["show"]),
   mounted() {
-    console.log(this.url);
+    this.convertToArr("?sec=1111111112231231231242434&bot=399393");
+
     tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 0);
+    this.valid = validate(
+      tg.initData,
+      this.convertToArr(window.location.search)
+    );
   },
   unmounted() {},
   watch: {},
