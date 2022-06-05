@@ -40,12 +40,15 @@
       </div>
     </div>
     <div class="container q-pa-xl column flex-center q-gutter-lg">
-      <div class="text-h6">
-        Get параметры : <span class="bg-red">{{ url }}</span>
+      <div class="column">
+        <div class="text-h6 word">
+          Get параметры : <span class="bg-red">{{ url }}</span>
+        </div>
+        <div class="text-h6 word">
+          tg id : <span class="bg-red">{{ tg_id }}</span>
+        </div>
       </div>
-      <div class="text-h6">
-        tg id : <span class="bg-red">{{ tg_id }}</span>
-      </div>
+
       <q-btn
         padding="16px 64px"
         label="Ввести код"
@@ -138,6 +141,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   max-width: 500px;
+}
+.word {
+  max-width: 200px;
+  word-break: break-all;
 }
 .avatar {
   flex-grow: 1;
