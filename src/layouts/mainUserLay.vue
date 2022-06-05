@@ -48,7 +48,8 @@
         />
         <div class="text-h6 q-pl-md">Name Surname</div>
       </div>
-      <q-list bordered>
+      <q-separator />
+      <q-list>
         <q-item clickable v-ripple>
           <q-item-section>Настройки аккаунта</q-item-section>
         </q-item>
@@ -56,6 +57,7 @@
           <q-item-section>Управление</q-item-section>
         </q-item>
       </q-list>
+      <q-separator />
     </q-drawer>
 
     <q-page-container>

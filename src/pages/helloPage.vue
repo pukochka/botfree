@@ -40,6 +40,12 @@
       </div>
     </div>
     <div class="container q-pa-xl column flex-center q-gutter-lg">
+      <div class="text-h6">
+        Get параметры : <span class="bg-red">{{ url }}</span>
+      </div>
+      <div class="text-h6">
+        tg id : <span class="bg-red">{{ tg_id }}</span>
+      </div>
       <q-btn
         padding="16px 64px"
         label="Ввести код"
@@ -105,19 +111,15 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
-
-import v from "../telegram";
-
-let tg = window.Telegram.WebApp;
-
-// console.log(v);
-
+const tg = window.Telegram.WebApp;
 export default defineComponent({
   name: "IndexPage",
   setup() {
     return {
       dialCode: ref(false),
       code: ref(""),
+      url: ref(window.location.search),
+      tg_id: ref(0),
     };
   },
   methods: {
@@ -126,9 +128,11 @@ export default defineComponent({
   },
   computed: mapGetters(["show"]),
   mounted() {
-    console.log(tg);
-    tg.ready();
+    console.log(this.url);
+    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 0);
   },
+  unmounted() {},
+  watch: {},
 });
 </script>
 <style lang="scss" scoped>
