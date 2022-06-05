@@ -50,6 +50,9 @@
         <div class="text-h6 word">
           Проверка : <span class="bg-red">{{ valid }}</span>
         </div>
+        <div class="text-h6 word">
+          Search : <span class="bg-red">{{ arr }}</span>
+        </div>
       </div>
 
       <q-btn
@@ -130,6 +133,7 @@ export default defineComponent({
       url: ref(window.location.search),
       tg_id: ref(0),
       valid: ref(false),
+      arr: ref([]),
     };
   },
   methods: {
@@ -180,8 +184,10 @@ export default defineComponent({
   computed: mapGetters(["show"]),
   mounted() {
     this.convertToArr("?sec=1111111112231231231242434&bot=399393");
-
-    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 0);
+    this.arr = this.convertToArr(window.location.search);
+    tg.initData != ""
+      ? (this.tg_id = JSON.parse(tg.initData))
+      : (this.tg_id = 0);
     this.valid = validate(
       tg.initData,
       this.convertToArr(window.location.search)
