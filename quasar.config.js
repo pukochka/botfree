@@ -9,7 +9,7 @@
 // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js
 
 const ESLintPlugin = require("eslint-webpack-plugin");
-
+const webpack = require("webpack");
 const { configure } = require("quasar/wrappers");
 
 module.exports = configure(function (ctx) {
@@ -17,6 +17,12 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli-webpack/supporting-ts
     supportTS: false,
 
+    htmlVariables: {
+      title: "Сайт",
+      some: {
+        prop: "my-prop",
+      },
+    },
     // https://v2.quasar.dev/quasar-cli-webpack/prefetch-feature
     // preFetch: true,
 
@@ -45,7 +51,9 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-build
     build: {
       vueRouterMode: "history", // available values: 'hash', 'history'
-
+      node: {
+        fs: "empty",
+      },
       // transpile: false,
       publicPath: "/botfree/",
 
@@ -65,11 +73,24 @@ module.exports = configure(function (ctx) {
 
       // https://v2.quasar.dev/quasar-cli-webpack/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-
+      extendWebpack(cfg, { isServer, isClient }) {
+        cfg.resolve.fallback = {
+          fs: false,
+          crypto: false,
+          path: false,
+          buffer: require.resolve("buffer/"),
+          process: require.resolve("process/browser"),
+        };
+        cfg.plugins.push(
+          new webpack.ProvidePlugin({ process: "process/browser" })
+        );
+      },
       chainWebpack(chain) {
         chain
           .plugin("eslint-webpack-plugin")
           .use(ESLintPlugin, [{ extensions: ["js", "vue"] }]);
+        const nodePolyfillWebpackPlugin = require("node-polyfill-webpack-plugin");
+        chain.plugin("node-polyfill").use(nodePolyfillWebpackPlugin);
       },
     },
 

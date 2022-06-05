@@ -106,6 +106,12 @@
 import { defineComponent, ref } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
+import v from "../telegram";
+
+let tg = window.Telegram.WebApp;
+
+// console.log(v);
+
 export default defineComponent({
   name: "IndexPage",
   setup() {
@@ -120,7 +126,8 @@ export default defineComponent({
   },
   computed: mapGetters(["show"]),
   mounted() {
-    console.log(this.$store);
+    console.log(tg);
+    tg.ready();
   },
 });
 </script>
