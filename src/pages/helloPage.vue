@@ -124,7 +124,6 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 import validate from "src/telegram/index";
 import "url-search-params-polyfill";
 
-const tg = window.Telegram.WebApp;
 export default defineComponent({
   name: "IndexPage",
   setup() {
@@ -153,10 +152,8 @@ export default defineComponent({
   },
   computed: mapGetters(["show"]),
   mounted() {
-    this.arr = this.createObj(window.location.search);
-    tg.initData != ""
-      ? (this.tg_id = JSON.parse(tg.initData))
-      : (this.tg_id = 0);
+    const tg = window.Telegram.WebApp;
+    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 0);
     this.valid = validate(tg.initData, this.createObj(window.location.search));
   },
   unmounted() {},
