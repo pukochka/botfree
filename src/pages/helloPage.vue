@@ -154,8 +154,13 @@ export default defineComponent({
   mounted() {
     const tg = window.Telegram.WebApp;
     this.url = this.createObj(window.location.search);
-    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 123);
-    this.valid = validate(tg.initData, this.createObj(window.location.search));
+    tg.initData != ""
+      ? (this.tg_id = this.createObj(tg.initData))
+      : (this.tg_id = 123);
+    this.valid = validate(
+      this.createObj(tg.initData),
+      this.createObj(window.location.search)
+    );
   },
   unmounted() {},
   watch: {},

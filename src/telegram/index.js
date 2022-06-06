@@ -5,7 +5,7 @@ export default function (init, { secretKey }) {
   if (init == 0) {
     return false;
   } else {
-    let data = JSON.parse(init);
+    let data = init;
     let hash = data.hash;
 
     data.user = decodeURIComponent(data.user);
