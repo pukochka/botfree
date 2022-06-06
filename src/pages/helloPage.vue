@@ -130,7 +130,7 @@ export default defineComponent({
     return {
       dialCode: ref(false),
       code: ref(""),
-      url: ref(window.location.search),
+      url: ref(""),
       tg_id: ref(0),
       valid: ref(false),
       arr: ref([]),
@@ -153,7 +153,8 @@ export default defineComponent({
   computed: mapGetters(["show"]),
   mounted() {
     const tg = window.Telegram.WebApp;
-    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 0);
+    this.url = this.createObj(window.location.search);
+    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 123);
     this.valid = validate(tg.initData, this.createObj(window.location.search));
   },
   unmounted() {},
