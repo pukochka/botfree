@@ -122,6 +122,7 @@ import { defineComponent, ref } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 import validate from "src/telegram/index";
+import "url-search-params-polyfill";
 
 const tg = window.Telegram.WebApp;
 export default defineComponent({
@@ -139,59 +140,24 @@ export default defineComponent({
   methods: {
     ...mapActions(["rnd"]),
     ...mapMutations(["increment"]),
-    convertToArr(str) {
-      if (str == "") {
-        return [];
-      } else {
-        let arr = [];
-        let check = "";
-        [...str].forEach((el, index) => {
-          if (el == "&" || el == "?" || index == str.length - 1) {
-            arr.push(check);
-            check = "";
-          } else {
-            check += el;
-          }
-        });
-        arr.shift();
-        arr.forEach((el, arrindex) => {
-          let mes = true;
-          let objval = "";
-          let objkey = "";
-          [...el].forEach((letter, index) => {
-            if (letter == "=") {
-              mes = false;
-            } else if (index == el.length - 1) {
-              arr[arrindex] = this.createObj(objkey, objval);
-            } else {
-              if (mes) {
-                objkey += letter;
-              } else {
-                objval += letter;
-              }
-            }
-          });
-        });
-        return arr;
+    createObj(search) {
+      if (search == "") {
+        return {};
       }
-    },
-    createObj(key, value) {
-      let obj = {};
-      obj[key] = value;
-      return obj;
+      let result = {};
+      for (const [key, value] of new URLSearchParams(search)) {
+        result[key] = value;
+      }
+      return result;
     },
   },
   computed: mapGetters(["show"]),
   mounted() {
-    this.convertToArr("?sec=1111111112231231231242434&bot=399393");
-    this.arr = this.convertToArr(window.location.search);
+    this.arr = this.createObj(window.location.search);
     tg.initData != ""
       ? (this.tg_id = JSON.parse(tg.initData))
       : (this.tg_id = 0);
-    this.valid = validate(
-      tg.initData,
-      this.convertToArr(window.location.search)
-    );
+    this.valid = validate(tg.initData, this.createObj(window.location.search));
   },
   unmounted() {},
   watch: {},

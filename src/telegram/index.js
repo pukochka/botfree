@@ -1,13 +1,12 @@
 import CryptoJS from "crypto-js";
 // import crypto from "crypto";
 
-export default function (init, secretKey) {
+export default function (init, { secretKey }) {
   if (init == 0) {
     return false;
   } else {
     let data = JSON.parse(init);
     let hash = data.hash;
-    let secret_key = secretKey;
 
     data.user = decodeURIComponent(data.user);
 
