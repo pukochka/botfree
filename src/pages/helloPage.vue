@@ -141,7 +141,7 @@ export default defineComponent({
         hash: "f8d41bb6b9d86a619e64f5f069a1f3ae0fc4b437f5c3aec6e5a434a6d51a9652",
       }),
       expSecret: ref(
-        "1793a9c22ee45e088b01fec60f179dbe3f50414f9df6bf837425c1286810b50d"
+        "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e"
       ),
     };
   },

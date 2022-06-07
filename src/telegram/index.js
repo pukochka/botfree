@@ -1,5 +1,4 @@
 import CryptoJS from "crypto-js";
-import crypto from "crypto";
 
 export default function (init, params) {
   if (init == 0) {
@@ -14,15 +13,14 @@ export default function (init, params) {
       .sort()
       .join("\n");
 
+    console.log();
+
     const signature = CryptoJS.HmacSHA256(
       checkString,
       CryptoJS.enc.Hex.parse(params.secretKey)
     ).toString(CryptoJS.enc.Hex);
 
-    if (
-      CryptoJS.HmacSHA256(checkString, secretKey).toString(CryptoJS.enc.Hex) ==
-      hash
-    ) {
+    if (signature == hash) {
       return true;
     } else {
       return false;
