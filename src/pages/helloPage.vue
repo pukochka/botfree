@@ -164,11 +164,10 @@ export default defineComponent({
     const tg = window.Telegram.WebApp;
     this.url = this.convertURL(window.location.search);
     tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 123);
-    // this.valid = validate(
-    //   this.convertURL(tg.initData),
-    //   this.convertURL(window.location.search)
-    // );
-    // this.valid = validate(this.expInit, this.expSecret);
+    this.valid = validate(
+      this.convertURL(tg.initData),
+      this.convertURL(window.location.search)
+    );
   },
   unmounted() {},
   watch: {},
