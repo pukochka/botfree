@@ -14,24 +14,18 @@ export default function (init, params) {
       .sort()
       .join("\n");
 
-    console.log(checkString);
-
     const signature = CryptoJS.HmacSHA256(
       checkString,
       CryptoJS.enc.Hex.parse(params.secretKey)
     ).toString(CryptoJS.enc.Hex);
 
-    console.log("original hash:", hash);
-    console.log("computed hash:", signature);
-
-    // console.log(CryptoJS.HmacSHA256(checkString, secretKey));
-    // if (
-    //   CryptoJS.HmacSHA256(checkString, secretKey).toString(CryptoJS.enc.Hex) ==
-    //   hash
-    // ) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    if (
+      CryptoJS.HmacSHA256(checkString, secretKey).toString(CryptoJS.enc.Hex) ==
+      hash
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
