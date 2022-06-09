@@ -42,16 +42,7 @@
     <div class="container q-pa-xl column flex-center q-gutter-lg">
       <div class="column">
         <div class="text-h6 word">
-          Get параметры : <span class="bg-red">{{ url }}</span>
-        </div>
-        <div class="text-h6 word">
-          tg id : <span class="bg-red">{{ tg_id }}</span>
-        </div>
-        <div class="text-h6 word">
-          Проверка : <span class="bg-red">{{ valid }}</span>
-        </div>
-        <div class="text-h6 word">
-          Search : <span class="bg-red">{{ arr }}</span>
+          Проверка : <span class="bg-red">{{ userValidator }}</span>
         </div>
       </div>
 
@@ -67,16 +58,10 @@
         class="bg-teal text-white"
         @click="dialCode = !dialCode"
       />
-      <q-btn
-        padding="16px 64px"
-        icon="add"
-        class="bg-teal text-white"
-        @click="rnd"
-      />
+      <q-btn padding="16px 64px" icon="add" class="bg-teal text-white" />
     </div>
-    <div class="">{{ show }}</div>
     <q-separator />
-    <div class="footer q-pa-lg row justify-between">
+    <div class="footer q-pa-lg row justify-between items-center">
       <q-btn
         flat
         dense
@@ -110,7 +95,7 @@
 
         <q-card-actions align="right" class="text-primary">
           <q-btn class="text-teal-6" flat label="Отмена" v-close-popup />
-          <q-btn class="text-teal-6" flat label="Войти" to="/auth/user" />
+          <q-btn class="text-teal-6" flat label="Войти" to="/auth" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -119,7 +104,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions, mapState } from "vuex";
 
 import validate from "src/telegram/index";
 import "url-search-params-polyfill";
@@ -130,44 +115,37 @@ export default defineComponent({
     return {
       dialCode: ref(false),
       code: ref(""),
-      url: ref(""),
-      tg_id: ref(0),
-      valid: ref(false),
-      arr: ref([]),
-      expInit: ref({
-        query_id: "AAF5WlE9AAAAAHlaUT0lO1ai",
-        user: '{"id":1028741753,"first_name":"Artemi","last_name":"Puka","username":"melart1","language_code":"ru"}',
-        auth_date: "1654545368",
-        hash: "f8d41bb6b9d86a619e64f5f069a1f3ae0fc4b437f5c3aec6e5a434a6d51a9652",
-      }),
-      expSecret: ref(
-        "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e"
-      ),
+      userValidator: ref(false),
     };
   },
   methods: {
-    ...mapActions(["rnd"]),
-    ...mapMutations(["increment"]),
+    ...mapActions(["getUserData"]),
+    ...mapMutations(["changeValidator"]),
+    ...mapGetters(["userValid"]),
     convertURL(search) {
       if (search == "") {
-        return {};
+        return false;
+      } else {
+        let result = {};
+        for (const [key, value] of new URLSearchParams(search)) {
+          result[key] = value;
+        }
+        return result;
       }
-      let result = {};
-      for (const [key, value] of new URLSearchParams(search)) {
-        result[key] = value;
-      }
-      return result;
     },
   },
-  computed: mapGetters(["show"]),
+  // computed: mapGetters(["show"]),
   mounted() {
-    const tg = window.Telegram.WebApp;
-    this.url = this.convertURL(window.location.search);
-    tg.initData != "" ? (this.tg_id = tg.initData) : (this.tg_id = 123);
-    this.valid = validate(
-      this.convertURL(tg.initData),
-      this.convertURL(window.location.search)
+    this.changeValidator(
+      true
+      // validate(
+      //   this.convertURL(window.Telegram.WebApp.initData),
+      //   this.convertURL(window.location.search)
+      // )
     );
+    if (this.userValid) {
+      console.log("ok");
+    }
   },
   unmounted() {},
   watch: {},

@@ -163,9 +163,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `appFree`,
-        short_name: `appFree`,
-        description: `free bot for Telegram`,
+        name: `Web App Bot-t`,
+        short_name: `WA Bott`,
+        description: `web app for Telegram`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

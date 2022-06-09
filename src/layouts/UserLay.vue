@@ -7,34 +7,40 @@
       style="height: 60px"
     >
       <q-toolbar>
-        <q-toolbar-title class="flex">
-          <q-avatar size="40px" color="teal" rounded> </q-avatar>
-          <div class="q-ml-md row mobile-header">
-            <q-btn
-              style="height: 100%"
-              flat
-              label="Главная"
-              to="/"
-              class="button text-weight-bold text-subtitle1 full-height"
-            />
-            <q-btn
-              flat
-              label="Каталог"
-              class="button text-weight-bold text-subtitle1"
-            />
-            <q-btn
-              flat
-              label="Корзина"
-              class="button text-weight-bold text-subtitle1"
-            />
-            <q-btn
-              flat
-              label="Профиль"
-              @click="toggleRightDrawer"
-              class="button text-weight-bold text-subtitle1"
-            />
-          </div>
-        </q-toolbar-title>
+        <div class="q-gutter-sm">
+          <q-avatar size="40px" rounded color="teal"></q-avatar>
+          <q-avatar size="40px" rounded color="purple-4"></q-avatar>
+          <q-avatar size="40px" rounded color="orange-4"></q-avatar>
+        </div>
+
+        <div class="q-ml-md mobile-header q-gutter-xs">
+          <q-btn
+            flat
+            label="Главная"
+            to="/"
+            class="button text-weight-bold text-subtitle1 full-height"
+          />
+          <q-separator vertical />
+          <q-btn
+            flat
+            label="Каталог"
+            class="button text-weight-bold text-subtitle1"
+          />
+          <q-separator vertical />
+          <q-btn
+            flat
+            label="Корзина"
+            class="button text-weight-bold text-subtitle1"
+            @click="openBasket"
+          />
+          <q-separator vertical />
+          <q-btn
+            flat
+            label="Профиль"
+            @click="toggleRightDrawer"
+            class="button text-weight-bold text-subtitle1"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -65,10 +71,10 @@
     </q-page-container>
 
     <q-footer reveal bordered class="bg-grey-2 text-teal-7 mobile-footer">
-      <q-toolbar class="flex justify-between">
+      <q-toolbar class="flex justify-between" style="padding: 0">
         <q-btn flat class="button route" padding="0">
           <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="view_stream" />
+            <q-avatar size="30px" font-size="18px" icon="dehaze" />
             <div class="button route mobile text-weight-bold">Главная</div>
           </div>
         </q-btn>
@@ -78,7 +84,7 @@
             <div class="button route mobile text-weight-bold">Каталог</div>
           </div>
         </q-btn>
-        <q-btn flat class="button route mobile" padding="0">
+        <q-btn flat class="button route mobile" padding="0" @click="openBasket">
           <div class="column items-center">
             <q-avatar size="30px" font-size="18px" icon="shopping_bag" />
             <div class="button route mobile text-weight-bold">Корзина</div>
@@ -102,7 +108,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-
+import { mapMutations } from "vuex";
 export default defineComponent({
   name: "MainLayout",
 
@@ -121,6 +127,9 @@ export default defineComponent({
         rightDrawerOpen.value = !rightDrawerOpen.value;
       },
     };
+  },
+  methods: {
+    ...mapMutations(["openBasket"]),
   },
   watch: {
     scr(value) {
@@ -146,7 +155,7 @@ export default defineComponent({
     display: none;
   }
   &-header {
-    display: inline;
+    display: flex;
   }
 }
 @media (max-width: 599px) {

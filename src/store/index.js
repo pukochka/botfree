@@ -2,13 +2,13 @@ import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 
 import basket from "./modules/basket";
-import bix from "./modules/bix";
+import protucts from "./modules/protucts";
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       basket,
-      bix,
+      protucts,
     },
 
     // enable strict mode (adds overhead!)

@@ -9,6 +9,9 @@ body {
   background: rgba(238, 238, 238, 0.396);
   backdrop-filter: blur(7px);
 }
+.center {
+  margin: 0 auto;
+}
 .max {
   &-xs {
     max-width: 150px;
@@ -25,4 +28,12 @@ body {
   &-xl {
     max-width: 900px;
   }
+  &-xxl {
+    max-width: 1100px;
+  }
+}
+.end-dots {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

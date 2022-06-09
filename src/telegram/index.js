@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 
 export default function (init, params) {
-  if (init == 0) {
+  if (init == false || params.secretKey == false) {
     return false;
   } else {
     let data = init;
