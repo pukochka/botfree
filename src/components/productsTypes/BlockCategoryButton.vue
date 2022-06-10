@@ -1,7 +1,7 @@
 <template>
   <q-btn
     flat
-    icon="arrow_forward"
+    icon="visibility"
     color="grey-8"
     @click="viewChosenCategory(prod)"
   >

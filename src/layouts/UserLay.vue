@@ -70,23 +70,29 @@
       <router-view />
     </q-page-container>
 
-    <q-footer reveal bordered class="bg-grey-2 text-teal-7 mobile-footer">
+    <q-footer bordered class="bg-grey-2 text-teal-7 mobile-footer">
       <q-toolbar class="flex justify-between" style="padding: 0">
-        <q-btn flat class="button route" padding="0">
+        <q-btn
+          flat
+          class="button route"
+          padding="0"
+          @click="userValid = false"
+          to="/"
+        >
           <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="dehaze" />
+            <q-avatar size="30px" font-size="18px" icon="home" />
             <div class="button route mobile text-weight-bold">Главная</div>
           </div>
         </q-btn>
         <q-btn flat class="button route mobile" padding="0">
           <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="view_list" />
+            <q-avatar size="30px" font-size="18px" icon="manage_search" />
             <div class="button route mobile text-weight-bold">Каталог</div>
           </div>
         </q-btn>
         <q-btn flat class="button route mobile" padding="0" @click="openBasket">
           <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="shopping_bag" />
+            <q-avatar size="30px" font-size="18px" icon="shopping_cart" />
             <div class="button route mobile text-weight-bold">Корзина</div>
           </div>
         </q-btn>
@@ -108,7 +114,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default defineComponent({
   name: "MainLayout",
 
@@ -130,6 +136,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["openBasket"]),
+    ...mapGetters(["userValid"]),
   },
   watch: {
     scr(value) {

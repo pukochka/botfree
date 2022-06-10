@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ref } from "vue";
-
+import { Notify } from "quasar";
 export default {
   actions: {
     getUserData({ commit }) {
@@ -48,6 +48,21 @@ export default {
     viewCategory(state, categoryes) {
       state.products = categoryes;
     },
+    addOrRemoveInBasket(state, item) {
+      if (state.basket.find((prod) => prod == item)) {
+        state.basket = state.basket.filter((prod) => prod != item);
+        Notify.create({
+          message: `Товар ${item.design.title} удален из корзины`,
+          color: "red-3",
+        });
+      } else {
+        state.basket.push(item);
+        Notify.create({
+          message: `Товар ${item.design.title} добавлен в корзину`,
+          color: "orange-3",
+        });
+      }
+    },
   },
   getters: {
     open(state) {
@@ -59,9 +74,12 @@ export default {
     allProducts(state) {
       return state.products;
     },
+    viewBasket(state) {
+      return state.basket;
+    },
   },
   state: {
-    count: 0,
+    basket: ref([]),
     userValidate: ref(false),
     dialBasket: ref(false),
     products: ref([]),

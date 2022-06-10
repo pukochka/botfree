@@ -4,16 +4,24 @@
     <div class="flex center max-xxl q-gutter-md">
       <q-btn
         rounded
+        outline
+        color="teal"
+        icon="chevron_left"
+        title="Обратно"
+        @click="selectView = 0"
+      />
+      <q-btn
+        rounded
         :outline="selectView == 7"
         color="teal"
-        label="Все категории"
+        label="категории"
         @click="selectView = 0"
       />
       <q-btn
         rounded
         :outline="selectView == 0"
         color="teal"
-        label="Все товары"
+        label="товары"
         @click="selectView = 7"
       />
     </div>
@@ -34,10 +42,54 @@
 
     <div class="flex wrap center max-xxl min-size-xl">
       <div
-        class="text-h5 rounded-borders text-grey"
-        v-if="viewItems().length == 0"
+        class="
+          full-width
+          text-h4
+          rounded-borders
+          text-grey
+          flex flex-center
+          column
+        "
+        v-if="
+          viewItems().length == 0 && selectView == 7 && allProducts.length != 0
+        "
       >
-        Товаров пока нет
+        Товаров нет
+        <q-btn
+          class="q-ma-md"
+          padding="4px 16px"
+          rounded
+          dense
+          outline
+          color="teal"
+          label="Посмотреть Категории"
+          @click="selectView = 0"
+        />
+      </div>
+      <div
+        class="
+          text-h4
+          rounded-borders
+          text-grey
+          flex flex-center
+          full-width
+          column
+        "
+        v-if="
+          viewItems().length == 0 && selectView == 0 && allProducts.length != 0
+        "
+      >
+        Категорий нет
+        <q-btn
+          class="q-ma-md"
+          padding="4px 16px"
+          rounded
+          dense
+          outline
+          color="teal"
+          label="Посмотреть товары"
+          @click="selectView = 7"
+        />
       </div>
       <product-item
         class="col"
@@ -87,10 +139,48 @@
       transition-show="jump-up"
       transition-hide="jump-down"
     >
-      <q-card class="bg-teal text-white">
-        <q-card-actions vertical align="right">
-          <q-btn dense outline color="white" icon="close" @click="openBasket" />
-        </q-card-actions>
+      <q-card class="bg-layout text-grey-9">
+        <q-card-actions vertical align="right" class=""> </q-card-actions>
+        <div
+          class="q-pa-md text-h4 text-white max-xl center flex justify-between"
+        >
+          Корзина
+          <q-btn dense flat color="white" icon="close" @click="openBasket" />
+        </div>
+        <q-card-section class="max-xl center">
+          <product-item
+            basket
+            class=""
+            v-for="(item, index) of viewBasket"
+            :key="index"
+            :product="item"
+          />
+        </q-card-section>
+        <q-card-section class="max-xl center flex flex-center">
+          <q-card class="full-width" v-if="viewBasket.length != 0">
+            <q-card-section>
+              <div class="text-h5">Общая цена : {{ totalPrice }}</div>
+            </q-card-section>
+            <q-btn
+              v-if="viewBasket.length != 0"
+              class="text-teal q-ma-md"
+              rounded
+              outline
+              label="Оформить заказ"
+            />
+          </q-card>
+
+          <div class="text-h5 column" v-if="viewBasket.length == 0">
+            В корзине пока пусто
+            <q-btn
+              class="text-white q-ma-md"
+              rounded
+              outline
+              label="К товарам"
+              @click="openBasket"
+            />
+          </div>
+        </q-card-section>
       </q-card>
     </q-dialog>
   </q-page>
@@ -116,11 +206,32 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["open", "allProducts"]),
+    ...mapGetters(["open", "allProducts", "viewBasket"]),
+    totalPrice() {
+      let str = "";
+      let currency = [];
+      this.viewBasket.forEach((element) => {
+        currency.push({
+          vlt: element.price.currency,
+          nmb: element.price.amount,
+        });
+      });
+      this.viewBasket.forEach((element, index) => {
+        let total = 0;
+        currency
+          .filter((item) => item.vlt == element.price.currency)
+          .forEach((el) => (total += +el.nmb));
+        str +=
+          `${index == 0 ? "" : " + "}` + total + " " + element.price.currency;
+      });
+
+      return str;
+    },
   },
   methods: {
     ...mapMutations(["openBasket"]),
     ...mapActions(["getUserData", "viewAllProducts"]),
+
     changeLabel() {
       if (this.selectView == 0) {
         return "Поиск по категории";
@@ -156,7 +267,7 @@ export default defineComponent({
   min-width: 290px;
   flex-grow: 1;
   &-info {
-    max-width: 240px;
+    max-width: 80%;
   }
 }
 .min-size-xl {

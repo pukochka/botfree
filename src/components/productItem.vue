@@ -25,7 +25,7 @@
 
       <q-card-actions align="right" vertical>
         <block-category-button v-if="product.type == 0" :prod="product" />
-        <block-product-button v-if="product.type == 7" />
+        <block-product-button v-if="product.type == 7" :prod="product" />
       </q-card-actions>
     </div>
   </q-card>
@@ -50,6 +50,10 @@ export default {
       type: Object,
       required: false,
     },
+    basket: {
+      type: Boolean,
+      required: false,
+    },
   },
   setup() {},
 };
@@ -61,7 +65,7 @@ export default {
   min-width: 290px;
   flex-grow: 1;
   &-info {
-    max-width: 240px;
+    max-width: 80%;
   }
 }
 </style>

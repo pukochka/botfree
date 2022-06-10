@@ -1,11 +1,11 @@
 <template>
   <q-page class="">
-    <div class="container row q-pa-xl">
+    <div class="container row q-pa-xl q-gutter-md">
       <div class="header text-h3 non-selectable">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
         laudantium qui alias.
       </div>
-      <div class="q-pa-xl flex flex-center avatar q-gutter-md">
+      <div class="flex flex-center avatar q-gutter-md">
         <q-avatar
           size="150px"
           rounded
@@ -40,25 +40,12 @@
       </div>
     </div>
     <div class="container q-pa-xl column flex-center q-gutter-lg">
-      <div class="column">
-        <div class="text-h6 word">
-          Проверка : <span class="bg-red">{{ userValidator }}</span>
-        </div>
-      </div>
-
-      <q-btn
-        padding="16px 64px"
-        label="Ввести код"
-        class="bg-teal text-white"
-        @click="dialCode = !dialCode"
-      />
       <q-btn
         padding="16px 64px"
         label="Войти через Telegram"
         class="bg-teal text-white"
         @click="dialCode = !dialCode"
       />
-      <q-btn padding="16px 64px" icon="add" class="bg-teal text-white" />
     </div>
     <q-separator />
     <div class="footer q-pa-lg row justify-between items-center">
@@ -115,7 +102,6 @@ export default defineComponent({
     return {
       dialCode: ref(false),
       code: ref(""),
-      userValidator: ref(false),
     };
   },
   methods: {
@@ -137,14 +123,13 @@ export default defineComponent({
   // computed: mapGetters(["show"]),
   mounted() {
     this.changeValidator(
-      true
-      // validate(
-      //   this.convertURL(window.Telegram.WebApp.initData),
-      //   this.convertURL(window.location.search)
-      // )
+      validate(
+        this.convertURL(window.Telegram.WebApp.initData),
+        this.convertURL(window.location.search)
+      )
     );
-    if (this.userValid) {
-      console.log("ok");
+    if (this.userValid()) {
+      this.$router.push("/auth");
     }
   },
   unmounted() {},
