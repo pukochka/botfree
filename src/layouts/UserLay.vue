@@ -32,7 +32,15 @@
             label="Корзина"
             class="button text-weight-bold text-subtitle1"
             @click="openBasket"
-          />
+          >
+            <q-badge
+              rounded
+              color="orange"
+              floating
+              v-if="viewBasket().length > 0"
+              >{{ viewBasket().length }}</q-badge
+            ></q-btn
+          >
           <q-separator vertical />
           <q-btn
             flat
@@ -91,6 +99,9 @@
           </div>
         </q-btn>
         <q-btn flat class="button route mobile" padding="0" @click="openBasket">
+          <q-badge color="orange" floating v-if="viewBasket().length > 0">{{
+            viewBasket().length
+          }}</q-badge>
           <div class="column items-center">
             <q-avatar size="30px" font-size="18px" icon="shopping_cart" />
             <div class="button route mobile text-weight-bold">Корзина</div>
@@ -114,7 +125,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 export default defineComponent({
   name: "MainLayout",
 
@@ -136,7 +147,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["openBasket"]),
-    ...mapGetters(["userValid"]),
+    ...mapGetters(["userValid", "viewBasket"]),
   },
   watch: {
     scr(value) {

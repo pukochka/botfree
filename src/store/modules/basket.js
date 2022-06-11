@@ -48,20 +48,33 @@ export default {
     viewCategory(state, categoryes) {
       state.products = categoryes;
     },
-    addOrRemoveInBasket(state, item) {
-      if (state.basket.find((prod) => prod == item)) {
-        state.basket = state.basket.filter((prod) => prod != item);
+    increaseCountInBasket(state, item) {
+      state.basket.find((prod) => prod.data == item).count++;
+    },
+    decreaseCountInBasket(state, item) {
+      state.basket.find((prod) => prod.data == item).count--;
+      if (state.basket.find((prod) => prod.data == item).count < 1) {
+        state.basket = state.basket.filter((prod) => prod.data != item);
         Notify.create({
           message: `Товар ${item.design.title} удален из корзины`,
           color: "red-3",
-        });
-      } else {
-        state.basket.push(item);
-        Notify.create({
-          message: `Товар ${item.design.title} добавлен в корзину`,
-          color: "orange-3",
+          position: "top",
+          timeout: 1000,
         });
       }
+    },
+
+    addInBasket(state, item) {
+      state.basket.push({
+        count: 1,
+        data: item,
+      });
+      Notify.create({
+        message: `Товар ${item.design.title} добавлен в корзину`,
+        color: "orange-3",
+        position: "top",
+        timeout: 1000,
+      });
     },
   },
   getters: {

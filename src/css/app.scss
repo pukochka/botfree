@@ -33,7 +33,15 @@ body {
   }
 }
 .end-dots {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  word-wrap: break-word;
+}
+.my-card {
+  max-width: calc(100% / 4- 16px);
+  min-width: calc(100% / 4 - 16px);
+  &-info {
+    max-width: fit-content;
+    font-size: 16px;
+    line-height: 18px;
+    color: #212121;
+  }
 }
