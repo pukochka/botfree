@@ -1,19 +1,21 @@
 import axios from "axios";
 import { ref } from "vue";
 import { Notify } from "quasar";
+
 export default {
   actions: {
-    getUserData({ commit }) {
+    getUserData({ commit }, user = 1028741753, bot = 12845) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/bot/user/view-by-telegram-id?secretKey=db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e`,
+          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e`,
           {
-            bot_id: 12845,
-            telegram_id: 1028741753,
+            bot_id: bot,
+            telegram_id: user,
           }
         )
         .then((response) => {
-          console.log(response);
+          console.log(response.data.data);
+          commit("openUserData", response.data.data);
         });
     },
     viewAllProducts({ commit }, category = 0) {
@@ -45,6 +47,9 @@ export default {
     changeValidator(state, value) {
       state.userValidate = value;
     },
+    openUserData(state, value) {
+      state.userData = value;
+    },
     viewCategory(state, categoryes) {
       state.products = categoryes;
     },
@@ -63,7 +68,6 @@ export default {
         });
       }
     },
-
     addInBasket(state, item) {
       state.basket.push({
         count: 1,
@@ -78,6 +82,9 @@ export default {
     },
   },
   getters: {
+    viewUserData(state) {
+      return state.userData;
+    },
     open(state) {
       return state.dialBasket;
     },
@@ -96,5 +103,7 @@ export default {
     userValidate: ref(false),
     dialBasket: ref(false),
     products: ref([]),
+    colorScheme: ref(true),
+    userData: ref({}),
   },
 };

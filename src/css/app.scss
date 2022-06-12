@@ -45,3 +45,21 @@ body {
     color: #212121;
   }
 }
+@media (max-width: 1023px) {
+  .my-card {
+    max-width: calc(100% / 3 - 16px);
+    min-width: calc(100% / 3 - 16px);
+  }
+}
+@media (max-width: 750px) {
+  .my-card {
+    max-width: calc(100% / 2 - 16px);
+    min-width: calc(100% / 2 - 16px);
+  }
+}
+@media (max-width: 500px) {
+  .my-card {
+    max-width: calc(100% - 16px);
+    min-width: calc(100% - 16px);
+  }
+}

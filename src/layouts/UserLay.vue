@@ -37,8 +37,8 @@
               rounded
               color="orange"
               floating
-              v-if="viewBasket().length > 0"
-              >{{ viewBasket().length }}</q-badge
+              v-if="viewBasket.length > 0"
+              >{{ viewBasket.length }}</q-badge
             ></q-btn
           >
           <q-separator vertical />
@@ -59,19 +59,29 @@
           font-size="52px"
           color="teal"
           text-color="white"
+          icon="person"
         />
-        <div class="text-h6 q-pl-md">Name Surname</div>
+        <div class="text-h6 q-pl-md">
+          <div class="">
+            {{ viewUserData.first_name }} {{ viewUserData.last_name }}
+          </div>
+          <div class="text-caption">@{{ viewUserData.username }}</div>
+        </div>
       </div>
-      <q-separator />
+
       <q-list>
-        <q-item clickable v-ripple>
-          <q-item-section>Настройки аккаунта</q-item-section>
-        </q-item>
-        <q-item clickable v-ripple>
-          <q-item-section>Управление</q-item-section>
+        <q-item>
+          <q-item-section class="text-h6"
+            >Баланс : {{ viewUserData.balance }} {{ convertСurrency }}
+            <q-btn
+              color="teal"
+              label="Пополнить"
+              class="flex-grow q-my-sm"
+              padding="5px"
+            />
+          </q-item-section>
         </q-item>
       </q-list>
-      <q-separator />
     </q-drawer>
 
     <q-page-container>
@@ -99,8 +109,8 @@
           </div>
         </q-btn>
         <q-btn flat class="button route mobile" padding="0" @click="openBasket">
-          <q-badge color="orange" floating v-if="viewBasket().length > 0">{{
-            viewBasket().length
+          <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
+            viewBasket.length
           }}</q-badge>
           <div class="column items-center">
             <q-avatar size="30px" font-size="18px" icon="shopping_cart" />
@@ -145,9 +155,27 @@ export default defineComponent({
       },
     };
   },
+  computed: {
+    ...mapGetters(["userValid", "viewBasket", "viewUserData"]),
+    convertСurrency() {
+      switch (this.viewUserData.currency) {
+        case "RUB":
+          return "₽";
+        case "USD":
+          return "$";
+        case "EUR":
+          return "€";
+        case "UAH":
+          return "₴";
+        case "KZT":
+          return "₸";
+        default:
+          return this.viewUserData.currency;
+      }
+    },
+  },
   methods: {
     ...mapMutations(["openBasket"]),
-    ...mapGetters(["userValid", "viewBasket"]),
   },
   watch: {
     scr(value) {

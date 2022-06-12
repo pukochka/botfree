@@ -195,6 +195,9 @@ export default defineComponent({
   },
   mounted() {
     this.viewAllProducts();
+    this.getUserData();
+    /*this.convertURL(window.Telegram.WebApp.initData).id,
+        this.convertURL(window.location.search).bot_id*/
   },
 });
 </script>
