@@ -32,6 +32,9 @@ body {
     max-width: 1100px;
   }
 }
+.q-mb-xxl {
+  margin-bottom: 64px;
+}
 .end-dots {
   word-wrap: break-word;
 }
@@ -44,6 +47,10 @@ body {
     line-height: 18px;
     color: #212121;
   }
+}
+.q-tab__label {
+  font-size: 16px;
+  font-weight: 700 !important;
 }
 @media (max-width: 1023px) {
   .my-card {

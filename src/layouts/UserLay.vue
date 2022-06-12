@@ -7,13 +7,50 @@
       style="height: 60px"
     >
       <q-toolbar>
-        <div class="q-gutter-sm">
+        <div class="flex no-wrap q-gutter-sm">
           <q-avatar size="40px" rounded color="teal"></q-avatar>
           <q-avatar size="40px" rounded color="purple-4"></q-avatar>
           <q-avatar size="40px" rounded color="orange-4"></q-avatar>
         </div>
 
-        <div class="q-ml-md mobile-header q-gutter-xs">
+        <q-tabs
+          v-model="tab"
+          class="text-weight-bold mobile-header"
+          active-bg-color="transparent"
+          active-color="teal"
+          indicator-color="transparent"
+          align="justify"
+        >
+          <q-tab
+            class="mobile-tab top text-weight-bold"
+            name="mails"
+            label="Главная"
+            content-class=""
+            @click="userValid = false"
+            to="/"
+          />
+          <q-separator vertical />
+          <q-tab class="mobile-tab" name="alarms" label="Каталог" />
+          <q-separator vertical />
+          <q-tab
+            class="mobile-tab top"
+            name="movies"
+            label="Корзина"
+            @click="openBasket"
+          >
+            <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
+              viewBasket.length
+            }}</q-badge>
+          </q-tab>
+          <q-separator vertical />
+          <q-tab
+            class="mobile-tab top"
+            name="movies"
+            label="Профиль"
+            @click="toggleRightDrawer"
+          />
+        </q-tabs>
+        <!-- <div class="q-ml-md mobile-header q-gutter-xs">
           <q-btn
             flat
             label="Главная"
@@ -48,7 +85,7 @@
             @click="toggleRightDrawer"
             class="button text-weight-bold text-subtitle1"
           />
-        </div>
+        </div> -->
       </q-toolbar>
     </q-header>
 
@@ -88,9 +125,52 @@
       <router-view />
     </q-page-container>
 
-    <q-footer bordered class="bg-grey-2 text-teal-7 mobile-footer">
+    <q-footer bordered class="bg-grey-2 text-teal mobile-footer">
       <q-toolbar class="flex justify-between" style="padding: 0">
-        <q-btn
+        <q-tabs
+          v-model="tab"
+          dense
+          active-bg-color="transparent"
+          active-color="teal"
+          indicator-color="transparent"
+          class="bg-white full-width shadow-1"
+          align="justify"
+          content-class="mobile-tab"
+        >
+          <q-tab
+            class="flex-grow mobile-tab bottom"
+            name="mails"
+            icon="home"
+            label="Главная"
+            @click="userValid = false"
+            to="/"
+          />
+          <q-tab
+            class="flex-grow mobile-tab bottom"
+            name="alarms"
+            icon="manage_search"
+            label="Каталог"
+          />
+          <q-tab
+            class="flex-grow mobile-tab bottom"
+            name="movies"
+            icon="shopping_cart"
+            label="Корзина"
+            @click="openBasket"
+          >
+            <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
+              viewBasket.length
+            }}</q-badge>
+          </q-tab>
+          <q-tab
+            class="flex-grow mobile-tab bottom"
+            name="movies"
+            icon="person"
+            label="Профиль"
+            @click="toggleRightDrawer"
+          />
+        </q-tabs>
+        <!-- <q-btn
           flat
           class="button route"
           padding="0"
@@ -127,7 +207,7 @@
             <q-avatar size="30px" font-size="18px" icon="person" />
             <div class="button route mobile text-weight-bold">Профиль</div>
           </div>
-        </q-btn>
+        </q-btn> -->
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -150,6 +230,7 @@ export default defineComponent({
       rightDrawerOpen,
       mobileSize,
       scr,
+      tab: ref("mails"),
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
       },
@@ -199,6 +280,13 @@ export default defineComponent({
 .mobile {
   &-footer {
     display: none;
+  }
+  &-tab {
+    text-transform: none;
+    font-weight: 600 !important;
+    &.bottom {
+      padding: 0;
+    }
   }
   &-header {
     display: flex;

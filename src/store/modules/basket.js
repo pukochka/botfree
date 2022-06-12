@@ -54,12 +54,12 @@ export default {
       state.products = categoryes;
     },
     increaseCountInBasket(state, item) {
-      state.basket.find((prod) => prod.data == item).count++;
+      state.basket.find((prod) => prod.data.id == item.id).count++;
     },
     decreaseCountInBasket(state, item) {
-      state.basket.find((prod) => prod.data == item).count--;
-      if (state.basket.find((prod) => prod.data == item).count < 1) {
-        state.basket = state.basket.filter((prod) => prod.data != item);
+      state.basket.find((prod) => prod.data.id == item.id).count--;
+      if (state.basket.find((prod) => prod.data.id == item.id).count < 1) {
+        state.basket = state.basket.filter((prod) => prod.data.id != item.id);
         Notify.create({
           message: `Товар ${item.design.title} удален из корзины`,
           color: "red-3",

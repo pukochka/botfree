@@ -51,24 +51,27 @@ import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   props: ["prod"],
   setup() {},
-
+  computed: {
+    ...mapGetters(["viewBasket"]),
+  },
   methods: {
     ...mapMutations([
       "addInBasket",
       "increaseCountInBasket",
       "decreaseCountInBasket",
     ]),
-    ...mapGetters(["viewBasket"]),
+
     hasBasketItem() {
-      if (this.viewBasket().find((item) => item.data == this.prod)) {
+      if (this.viewBasket.find((item) => item.data.id == this.prod.id)) {
         return true;
       } else {
         return false;
       }
     },
     countInBasket() {
-      if (this.viewBasket().find((item) => item.data == this.prod)) {
-        return this.viewBasket().find((item) => item.data == this.prod).count;
+      if (this.viewBasket.find((item) => item.data.id == this.prod.id)) {
+        return this.viewBasket.find((item) => item.data.id == this.prod.id)
+          .count;
       }
     },
   },

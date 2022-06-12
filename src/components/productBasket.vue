@@ -24,7 +24,10 @@
         />
       </q-card-section>
       <q-card-section class="max-xl center flex flex-center">
-        <q-card class="full-width" v-if="viewBasket.length != 0">
+        <q-card
+          class="full-width q-mb-xxl relative-position"
+          v-if="viewBasket.length != 0"
+        >
           <q-card-section class="flex flex-grow justify-between">
             <div class="flex">
               <div class="q-mr-md">Товары</div>
@@ -75,28 +78,32 @@
           />
         </div>
       </q-card-section>
-      <!-- <q-card
+    </q-card>
+    <div class="full-screen">
+      <q-card
         class="
-          full-width
+          max-xl
+          fixed-bottom
+          center
           flex
           justify-between
           items-center
-          fixed-bottom
+          basket
           bg-white
         "
         style="height: 60px"
       >
-        <div class="flex">
+        <div class="flex q-pl-md">
           <div class="flex" v-for="(item, index) of totalPrice" :key="index">
-            <div class="q-px-xs">{{ item }}</div>
+            <div class="q-px-xs text-h6">{{ item }}</div>
             <div v-if="totalPrice.length > 1 && index != totalPrice.length - 1">
               +
             </div>
           </div>
         </div>
         <q-btn class="q-ma-sm" size="13px" color="teal" label="К оформлению" />
-      </q-card> -->
-    </q-card>
+      </q-card>
+    </div>
   </q-dialog>
 </template>
 <script>
@@ -167,3 +174,9 @@ export default {
   mounted() {},
 };
 </script>
+<style lang="scss" scoped>
+.basket {
+  position: fixed;
+  bottom: 10px;
+}
+</style>

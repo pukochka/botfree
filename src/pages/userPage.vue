@@ -102,23 +102,12 @@
           :product="prod"
         />
         <q-card
-          class="col my-card q-ma-sm"
+          class="my-card q-ma-sm"
           v-for="(slelton, index) in 6"
           :key="index"
           v-show="allProducts.length == 0"
         >
-          <q-skeleton height="200px" square />
-          <div class="flex no-wrap justify-between">
-            <div class="q-ma-xs q-gutter-md">
-              <q-skeleton width="200px" height="16px" square />
-              <q-skeleton width="200px" height="16px" square />
-            </div>
-
-            <q-card-actions vertical align="right" class="q-gutter-md">
-              <q-skeleton size="32px" type="QBtn" />
-              <q-skeleton size="32px" type="QBtn" />
-            </q-card-actions>
-          </div>
+          <q-skeleton height="160px" square />
         </q-card>
       </div>
     </div>
@@ -169,7 +158,17 @@ export default defineComponent({
   methods: {
     ...mapMutations(["openBasket"]),
     ...mapActions(["getUserData", "viewAllProducts"]),
-
+    convertURL(search) {
+      if (search == "") {
+        return false;
+      } else {
+        let result = {};
+        for (const [key, value] of new URLSearchParams(search)) {
+          result[key] = value;
+        }
+        return result;
+      }
+    },
     changeLabel() {
       if (this.selectView == 0) {
         return "Поиск по категории";
@@ -195,9 +194,10 @@ export default defineComponent({
   },
   mounted() {
     this.viewAllProducts();
-    this.getUserData();
-    /*this.convertURL(window.Telegram.WebApp.initData).id,
-        this.convertURL(window.location.search).bot_id*/
+    this.getUserData(
+      this.convertURL(window.Telegram.WebApp.initData).id,
+      this.convertURL(window.location.search).bot_id
+    );
   },
 });
 </script>
@@ -211,11 +211,14 @@ export default defineComponent({
     font-size: 28px;
     line-height: 1.2;
   }
-  .footer {
-    justify-content: center;
-  }
+
   .min-size-xl {
     min-height: 400px;
+  }
+}
+@media (max-width: 350px) {
+  .footer {
+    justify-content: center;
   }
 }
 </style>
