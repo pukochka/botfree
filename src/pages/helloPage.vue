@@ -1,5 +1,5 @@
 <template>
-  <q-page class="">
+  <q-page class="bg-white">
     <div class="container row q-pa-xl q-gutter-md">
       <div class="header text-h3 non-selectable">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
