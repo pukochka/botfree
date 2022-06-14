@@ -103,7 +103,7 @@
         />
         <q-card
           class="my-card q-ma-sm"
-          v-for="(slelton, index) in 6"
+          v-for="(slelton, index) in 8"
           :key="index"
           v-show="allProducts.length == 0"
         >
@@ -133,7 +133,6 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import axios from "axios";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 import productItem from "components/productItem.vue";
@@ -180,24 +179,31 @@ export default defineComponent({
       if (this.selectView == 0) {
         return this.allProducts.filter(
           (item) =>
-            item.design.title.toLowerCase().includes(this.search) &&
+            (item.design.title?.toLowerCase().trim().includes(this.search) ||
+              item.design.title?.toLowerCase().includes(this.search) ||
+              item.design.title?.includes(this.search) ||
+              item.design.rules?.includes(this.search) ||
+              item.design.rules?.toLowerCase().trim().includes(this.search) ||
+              item.design.rules?.toLowerCase().includes(this.search)) &&
             item.type == 0
         );
       } else if (this.selectView == 7) {
         return this.allProducts.filter(
           (item) =>
-            item.design.title.toLowerCase().includes(this.search) &&
+            (item.design.title?.toLowerCase().trim().includes(this.search) ||
+              item.design.title?.toLowerCase().includes(this.search) ||
+              item.design.title?.includes(this.search) ||
+              item.design.rules?.includes(this.search) ||
+              item.design.rules?.toLowerCase().trim().includes(this.search) ||
+              item.design.rules?.toLowerCase().includes(this.search)) &&
             item.type == 7
         );
       }
     },
   },
   mounted() {
+    this.getUserData();
     this.viewAllProducts();
-    this.getUserData(
-      this.convertURL(window.Telegram.WebApp.initData).id,
-      this.convertURL(window.location.search).bot_id
-    );
   },
 });
 </script>

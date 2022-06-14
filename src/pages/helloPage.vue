@@ -106,7 +106,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(["getUserData"]),
-    ...mapMutations(["changeValidator"]),
+    ...mapMutations(["changeValidator", "changeInitData"]),
     ...mapGetters(["userValid"]),
     convertURL(search) {
       if (search == "") {
@@ -120,7 +120,6 @@ export default defineComponent({
       }
     },
   },
-  // computed: mapGetters(["show"]),
   mounted() {
     this.changeValidator(
       validate(
@@ -128,6 +127,10 @@ export default defineComponent({
         this.convertURL(window.location.search)
       )
     );
+    this.changeInitData({
+      data: this.convertURL(window.Telegram.WebApp.initData),
+      search: this.convertURL(window.location.search),
+    });
     if (this.userValid()) {
       this.$router.push("/auth");
     }

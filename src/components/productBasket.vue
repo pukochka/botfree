@@ -14,13 +14,23 @@
         Корзина
         <q-btn dense flat color="white" icon="close" @click="openBasket" />
       </div>
-      <q-card-section class="max-xl center flex">
+      <q-card-actions align="right" class="max-xl center">
+        <q-btn
+          flat
+          dense
+          color="white"
+          icon="delete"
+          label="Очистить корзину"
+          @click="actionsWithBasket({ action: 'remove-all' })"
+        />
+      </q-card-actions>
+      <q-card-section class="max-xl center">
         <product-item
           basket
           class=""
           v-for="(item, index) of viewBasket"
           :key="index"
-          :product="item.data"
+          :product="item.product"
         />
       </q-card-section>
       <q-card-section class="max-xl center flex flex-center">
@@ -33,8 +43,8 @@
               <div class="q-mr-md">Товары</div>
               <div class="">
                 <div class="" v-for="(item, index) of viewBasket" :key="index">
-                  {{ item.count }} * {{ item.data.price.amount }}
-                  {{ convertСurrency(item.data.price.currency) }}
+                  {{ item.count }} * {{ item.product.price.amount }}
+                  {{ convertСurrency(item.product.price.currency) }}
                 </div>
               </div>
             </div>
@@ -81,6 +91,7 @@
     </q-card>
     <div class="full-screen">
       <q-card
+        v-if="viewBasket.length != 0"
         class="
           max-xl
           fixed-bottom
@@ -96,7 +107,10 @@
         <div class="flex q-pl-md">
           <div class="flex" v-for="(item, index) of totalPrice" :key="index">
             <div class="q-px-xs text-h6">{{ item }}</div>
-            <div v-if="totalPrice.length > 1 && index != totalPrice.length - 1">
+            <div
+              class="flex items-center text-h6"
+              v-if="totalPrice.length > 1 && index != totalPrice.length - 1"
+            >
               +
             </div>
           </div>
@@ -127,23 +141,24 @@ export default {
       let final = [];
 
       this.viewBasket.forEach((element) => {
-        items.push(element.data.price.currency);
+        items.push(element.product.price.currency);
       });
       items = new Set(items);
       items.forEach((currency) => {
         equal.push(
-          this.viewBasket.filter((item) => item.data.price.currency == currency)
+          this.viewBasket.filter(
+            (item) => item.product.price.currency == currency
+          )
         );
       });
       equal.forEach((item) => {
         total = 0;
         item.forEach((currency) => {
-          total += +currency.count * +currency.data.price.amount;
+          total += +currency.count * +currency.product.price.amount;
         });
-        total += " " + this.convertСurrency(item[0].data.price.currency);
+        total += " " + this.convertСurrency(item[0].product.price.currency);
         final.push(total);
       });
-
       return final;
     },
   },

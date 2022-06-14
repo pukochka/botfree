@@ -4,26 +4,28 @@ import { Notify } from "quasar";
 
 export default {
   actions: {
-    getUserData({ commit }, user = 1028741753, bot = 12845) {
+    getUserData({ commit, dispatch, getters }) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e`,
+          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.getInitData.search.secretKey}`,
           {
-            bot_id: bot,
-            telegram_id: user,
+            bot_id: getters.getInitData.search.bot_id,
+            telegram_id: getters.getInitData.data.id,
           }
         )
         .then((response) => {
-          console.log(response.data.data);
-          commit("openUserData", response.data.data);
+          if (response.status == 200) {
+            commit("openUserData", response.data.data);
+            dispatch("actionsWithBasket", { action: "get" });
+          }
         });
     },
-    viewAllProducts({ commit }, category = 0) {
+    viewAllProducts({ commit, getters }, category = 0) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/shoppublic/category/view?secretKey=db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e`,
+          `https://api.bot-t.ru/v1/shoppublic/category/view?secretKey=${getters.getInitData.search.secretKey}`,
           {
-            bot_id: 12845,
+            bot_id: getters.getInitData.search.bot_id,
             category_id: category,
           }
         )
@@ -36,11 +38,56 @@ export default {
           commit("viewCategory", categoryes);
         });
     },
+    actionsWithBasket({ commit, getters }, { action, category_id, count }) {
+      function isParams(...args) {
+        let arg = ["category_id", "count"];
+        let params = {
+          bot_id: getters.getInitData.search.bot_id,
+          user_id: getters.viewUserData.id,
+          secret_user_key: getters.viewUserData.secret_user_key,
+        };
+        for (let i = 0; i < args.length; i++) {
+          if (args[i] != null || args[i] != undefined) {
+            params[arg[i]] = args[i];
+          }
+        }
+        console.log(params);
+        return params;
+      }
+      axios
+        .post(
+          `https://api.bot-t.ru/v1/shopcart/cart/${action}?secretKey=${getters.getInitData.search.secretKey}`,
+          isParams(category_id, count)
+        )
+        .then((response) => {
+          console.log(response);
+          commit("toBasket", response.data.data.items);
+        });
+    },
     viewChosenCategory({ commit, dispatch }, category) {
       dispatch("viewAllProducts", category.id);
     },
   },
   mutations: {
+    changeInitData(state, data) {
+      if (data.search == "" || data.data == "") {
+        state.initData = {
+          data: {
+            id: 1028741753,
+          },
+          search: {
+            bot_id: 12845,
+            secretKey:
+              "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e",
+          },
+        };
+      } else {
+        state.initData = data;
+      }
+    },
+    toBasket(state, items) {
+      state.basket = items;
+    },
     openBasket(state) {
       state.dialBasket = !state.dialBasket;
     },
@@ -97,6 +144,9 @@ export default {
     viewBasket(state) {
       return state.basket;
     },
+    getInitData(state) {
+      return state.initData;
+    },
   },
   state: {
     basket: ref([]),
@@ -105,5 +155,9 @@ export default {
     products: ref([]),
     colorScheme: ref(true),
     userData: ref({}),
+    initData: ref({
+      data: {},
+      search: {},
+    }),
   },
 };

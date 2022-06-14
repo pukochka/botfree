@@ -2,6 +2,7 @@
   <q-card
     class="my-card no-wrap q-ma-sm justify-between"
     :style="{
+      minWidth: basket ? '98% ' : '',
       minHeight: product.type != 0 ? '335px' : '160px',
       maxHeight: product.type != 0 ? '335px' : '160px',
     }"
@@ -45,12 +46,11 @@
     <div class="flex no-wrap justify-between" v-if="product.type != 0">
       <div class="my-card-info">
         <q-card-section>
-          <div class="end-dots">{{ product.design.title }}</div>
-          <div class="q-ma-xs q-gutter-sm">
-            <BlockCategoryItems
-              :items="product.items"
-              v-if="product.type == 0"
-            />
+          <div class="end-dots title">{{ product.design.title }}</div>
+          <div
+            class="text-caption text-weight-bold text-grey-7 end-dots caption"
+          >
+            {{ product.design.rules }}
           </div>
           <q-btn
             v-if="product.type == 7"
@@ -63,10 +63,19 @@
           />
         </q-card-section>
       </div>
-
-      <q-card-actions align="right" vertical>
-        <block-category-button v-if="product.type == 0" :prod="product" />
-      </q-card-actions>
+      <div class="column q-pa-sm" v-if="basket">
+        <q-btn
+          dense
+          flat
+          color="teal"
+          icon="delete"
+          no-caps
+          label="Удалить"
+          @click="
+            actionsWithBasket({ action: 'remove', category_id: product.id })
+          "
+        />
+      </div>
     </div>
     <q-card-actions
       align="center"
@@ -81,14 +90,10 @@
 import { ref } from "vue";
 import { mapActions, mapMutations } from "vuex";
 
-import BlockCategoryItems from "src/components/productsTypes/BlockCategoryItems.vue";
-import BlockCategoryButton from "src/components/productsTypes/BlockCategoryButton.vue";
 import BlockProductButton from "src/components/productsTypes/BlockProductButton.vue";
 
 export default {
   components: {
-    BlockCategoryItems,
-    BlockCategoryButton,
     BlockProductButton,
   },
   props: {
@@ -121,7 +126,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["viewChosenCategory"]),
+    ...mapActions(["viewChosenCategory", "actionsWithBasket"]),
     openCategory() {
       if (this.product.type == 0) {
         this.viewChosenCategory(this.product);
@@ -134,5 +139,14 @@ export default {
 <style lang="scss" scoped>
 .category:hover {
   background: #1eb091 !important;
+}
+.title {
+  line-height: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.caption {
+  line-height: 14px;
+  margin-bottom: 6px;
 }
 </style>

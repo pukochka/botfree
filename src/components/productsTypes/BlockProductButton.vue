@@ -6,11 +6,8 @@
       class="fit"
       padding="5px 32px"
       v-if="!hasBasketItem()"
-      @click="addInBasket(prod)"
+      @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
     >
-      <!-- <q-tooltip anchor="bottom middle" self="center middle" class="bg-teal">{{
-        hasBasketItem() ? "Удалить из корзины" : "Добавить в корзину"
-      }}</q-tooltip> -->
     </q-btn>
     <div
       v-if="hasBasketItem()"
@@ -30,17 +27,34 @@
         flat
         color="grey-9"
         icon="remove"
-        @click="decreaseCountInBasket(prod)"
+        @click="actionsWithBasket({ action: 'subtract', category_id: prod.id })"
       />
-      <div class="q-px-xs absolute-center">{{ countInBasket() }}</div>
+      <div class="q-px-xs absolute-center">
+        {{ countInBasket }}
+        <q-popup-edit
+          v-model.number="countInBasket"
+          buttons
+          v-slot="scope"
+          label-set="Изменить"
+          label-cancel="Отмена"
+        >
+          <q-input
+            type="number"
+            v-model="scope.value"
+            dense
+            autofocus
+            counter
+          />
+        </q-popup-edit>
+      </div>
 
       <q-btn
         padding="4px"
         flat
         color="grey-9"
         icon="add"
-        v-show="countInBasket() < prod.setting.max_count"
-        @click="increaseCountInBasket(prod)"
+        v-show="countInBasket < prod.setting.max_count"
+        @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
       />
     </div>
   </div>
@@ -50,28 +64,25 @@ import { ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   props: ["prod"],
-  setup() {},
+  setup() {
+    return {
+      count: ref(0),
+    };
+  },
   computed: {
     ...mapGetters(["viewBasket"]),
+    countInBasket() {
+      return this.viewBasket.find((item) => item.product.id == this.prod.id)
+        .count;
+    },
   },
   methods: {
-    ...mapMutations([
-      "addInBasket",
-      "increaseCountInBasket",
-      "decreaseCountInBasket",
-    ]),
-
+    ...mapActions(["actionsWithBasket"]),
     hasBasketItem() {
-      if (this.viewBasket.find((item) => item.data.id == this.prod.id)) {
+      if (this.viewBasket.find((item) => item.product.id == this.prod.id)) {
         return true;
       } else {
         return false;
-      }
-    },
-    countInBasket() {
-      if (this.viewBasket.find((item) => item.data.id == this.prod.id)) {
-        return this.viewBasket.find((item) => item.data.id == this.prod.id)
-          .count;
       }
     },
   },
