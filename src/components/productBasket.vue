@@ -38,17 +38,19 @@
           class="full-width q-mb-xxl relative-position"
           v-if="viewBasket.length != 0"
         >
-          <q-card-section class="flex flex-grow justify-between">
-            <div class="flex">
-              <div class="q-mr-md">Товары</div>
-              <div class="">
-                <div class="" v-for="(item, index) of viewBasket" :key="index">
-                  {{ item.count }} * {{ item.product.price.amount }}
-                  {{ convertСurrency(item.product.price.currency) }}
-                </div>
+          <q-card-section class="column flex-center">
+            <div class="text-weight-bold">Товары</div>
+            <div class="items">
+              <div class="" v-for="(item, index) of viewBasket" :key="index">
+                {{ item.count }} x
+                <span class="text-weight-bold"
+                  >{{ item.product.price.amount }}
+                  {{ convertСurrency(item.product.price.currency) }}</span
+                >
+                ---
+                {{ item.product.design.title }}
               </div>
             </div>
-            <div class=""></div>
           </q-card-section>
 
           <q-card-section
@@ -164,7 +166,7 @@ export default {
   },
   methods: {
     ...mapMutations(["openBasket"]),
-    ...mapActions(["getUserData", "viewAllProducts"]),
+    ...mapActions(["getUserData", "viewAllProducts", "actionsWithBasket"]),
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":
@@ -193,5 +195,8 @@ export default {
 .basket {
   position: fixed;
   bottom: 10px;
+}
+.items {
+  line-height: 16px;
 }
 </style>

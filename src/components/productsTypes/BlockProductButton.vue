@@ -4,11 +4,21 @@
       label="В корзину"
       color="teal"
       class="fit"
-      padding="5px 32px"
-      v-if="!hasBasketItem()"
+      padding="5px 0"
+      v-if="!hasBasketItem() && prod.setting.count != 0"
       @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
+    />
+
+    <div
+      class="flex flex-center text-white fit bg-grey rounded-borders"
+      v-if="
+        !hasBasketItem() &&
+        (prod.setting.count == 0 || prod.setting.count - countInBasket == 0)
+      "
+      style="padding: 6px; text-transform: uppercase"
     >
-    </q-btn>
+      Нет в наличии
+    </div>
     <div
       v-if="hasBasketItem()"
       class="
@@ -31,20 +41,40 @@
       />
       <div class="q-px-xs absolute-center">
         {{ countInBasket }}
-        <q-popup-edit
-          v-model.number="countInBasket"
-          buttons
-          v-slot="scope"
-          label-set="Изменить"
-          label-cancel="Отмена"
-        >
+        <q-popup-edit v-model.number="countInBasket" v-slot="scope">
           <q-input
             type="number"
-            v-model="scope.value"
-            dense
+            color="teal"
             autofocus
-            counter
-          />
+            dense
+            v-model="scope.value"
+            hint="Количество товара"
+          >
+            <template v-slot:append>
+              <q-btn
+                flat
+                dense
+                color="negative"
+                icon="clear"
+                @click.stop="scope.cancel"
+              />
+
+              <q-btn
+                flat
+                dense
+                color="positive"
+                icon="check"
+                @click="
+                  actionsWithBasket({
+                    action: 'set-count',
+                    category_id: prod.id,
+                    count: +scope.value,
+                  })
+                "
+                @click.stop="scope.cancel"
+              />
+            </template>
+          </q-input>
         </q-popup-edit>
       </div>
 

@@ -14,9 +14,11 @@ export default {
           }
         )
         .then((response) => {
+          console.log(response);
           if (response.status == 200) {
             commit("openUserData", response.data.data);
             dispatch("actionsWithBasket", { action: "get" });
+            dispatch("actionsWithOrders", { action: "profile", offset: 0 });
           }
         });
     },
@@ -64,6 +66,32 @@ export default {
           commit("toBasket", response.data.data.items);
         });
     },
+    actionsWithOrders({ commit, getters }, { action, order_id, offset }) {
+      function isParams(...args) {
+        let arg = ["order_id", "offset"];
+        let params = {
+          bot_id: getters.getInitData.search.bot_id,
+          user_id: getters.viewUserData.id,
+          secret_user_key: getters.viewUserData.secret_user_key,
+        };
+        for (let i = 0; i < args.length; i++) {
+          if (args[i] != null || args[i] != undefined) {
+            params[arg[i]] = args[i];
+          }
+        }
+        console.log(params);
+        return params;
+      }
+      axios
+        .post(
+          `https://api.bot-t.ru/v1/shopcart/order/${action}?secretKey=${getters.getInitData.search.secretKey}`,
+          isParams(order_id, offset)
+        )
+        .then((response) => {
+          console.log(response);
+          commit("getOrders", response.data.data.orders);
+        });
+    },
     viewChosenCategory({ commit, dispatch }, category) {
       dispatch("viewAllProducts", category.id);
     },
@@ -92,8 +120,14 @@ export default {
     toBasket(state, items) {
       state.basket = items;
     },
+    getOrders(state, items) {
+      state.orders = items;
+    },
     openBasket(state) {
       state.dialBasket = !state.dialBasket;
+    },
+    openOrder(state) {
+      state.dialOrder = !state.dialOrder;
     },
     changeValidator(state, value) {
       state.userValidate = value;
@@ -107,33 +141,6 @@ export default {
     viewCategory(state, categoryes) {
       state.products = categoryes;
     },
-    increaseCountInBasket(state, item) {
-      state.basket.find((prod) => prod.data.id == item.id).count++;
-    },
-    decreaseCountInBasket(state, item) {
-      state.basket.find((prod) => prod.data.id == item.id).count--;
-      if (state.basket.find((prod) => prod.data.id == item.id).count < 1) {
-        state.basket = state.basket.filter((prod) => prod.data.id != item.id);
-        Notify.create({
-          message: `Товар ${item.design.title} удален из корзины`,
-          color: "red-3",
-          position: "top",
-          timeout: 1000,
-        });
-      }
-    },
-    addInBasket(state, item) {
-      state.basket.push({
-        count: 1,
-        data: item,
-      });
-      Notify.create({
-        message: `Товар ${item.design.title} добавлен в корзину`,
-        color: "orange-3",
-        position: "top",
-        timeout: 1000,
-      });
-    },
   },
   getters: {
     viewUserData(state) {
@@ -141,6 +148,9 @@ export default {
     },
     open(state) {
       return state.dialBasket;
+    },
+    dialViewOrder(state) {
+      return state.dialOrder;
     },
     userValid(state) {
       return state.userValidate;
@@ -154,12 +164,17 @@ export default {
     viewBasket(state) {
       return state.basket;
     },
+    viewOrders(state) {
+      return state.orders;
+    },
     getInitData(state) {
       return state.initData;
     },
   },
   state: {
     basket: ref([]),
+    orders: ref([]),
+    dialOrder: ref(false),
     userValidate: ref(false),
     dialBasket: ref(false),
     products: ref([]),

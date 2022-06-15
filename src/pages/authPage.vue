@@ -43,9 +43,6 @@
           />
         </q-card-actions>
       </q-card>
-      <div class="max-sm">
-        {{ getInitData }}
-      </div>
     </div>
   </q-page>
 </template>

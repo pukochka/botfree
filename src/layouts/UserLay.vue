@@ -50,42 +50,6 @@
             @click="toggleRightDrawer"
           />
         </q-tabs>
-        <!-- <div class="q-ml-md mobile-header q-gutter-xs">
-          <q-btn
-            flat
-            label="Главная"
-            to="/"
-            class="button text-weight-bold text-subtitle1 full-height"
-          />
-          <q-separator vertical />
-          <q-btn
-            flat
-            label="Каталог"
-            class="button text-weight-bold text-subtitle1"
-          />
-          <q-separator vertical />
-          <q-btn
-            flat
-            label="Корзина"
-            class="button text-weight-bold text-subtitle1"
-            @click="openBasket"
-          >
-            <q-badge
-              rounded
-              color="orange"
-              floating
-              v-if="viewBasket.length > 0"
-              >{{ viewBasket.length }}</q-badge
-            ></q-btn
-          >
-          <q-separator vertical />
-          <q-btn
-            flat
-            label="Профиль"
-            @click="toggleRightDrawer"
-            class="button text-weight-bold text-subtitle1"
-          />
-        </div> -->
       </q-toolbar>
     </q-header>
 
@@ -107,15 +71,31 @@
       </div>
 
       <q-list>
-        <q-item>
-          <q-item-section class="text-h6"
-            >Баланс : {{ viewUserData.balance }} {{ convertСurrency }}
-            <q-btn
-              color="teal"
-              label="Пополнить"
-              class="flex-grow q-my-sm"
-              padding="5px"
-            />
+        <q-item dense>
+          <q-item-section class="text-subtitle1">
+            <q-item-label lines="1" class="flex items-center justify-between">
+              Баланс : {{ viewUserData.balance }} {{ convertСurrency }}
+              <q-btn
+                rounded
+                flat
+                color="teal"
+                icon="add"
+                class="flex-grow q-my-sm"
+            /></q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item dense>
+          <q-item-section class="text-subtitle1">
+            <q-item-label lines="1" class="flex items-center justify-between">
+              Мои заказы : {{ viewOrders.length }}
+              <q-btn
+                rounded
+                flat
+                color="teal"
+                icon="visibility"
+                class="flex-grow q-my-sm"
+                @click="openOrder"
+            /></q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -152,6 +132,7 @@
             label="Каталог"
           />
           <q-tab
+            size="12px"
             class="flex-grow mobile-tab bottom"
             name="movies"
             icon="shopping_cart"
@@ -170,44 +151,6 @@
             @click="toggleRightDrawer"
           />
         </q-tabs>
-        <!-- <q-btn
-          flat
-          class="button route"
-          padding="0"
-          @click="userValid = false"
-          to="/"
-        >
-          <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="home" />
-            <div class="button route mobile text-weight-bold">Главная</div>
-          </div>
-        </q-btn>
-        <q-btn flat class="button route mobile" padding="0">
-          <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="manage_search" />
-            <div class="button route mobile text-weight-bold">Каталог</div>
-          </div>
-        </q-btn>
-        <q-btn flat class="button route mobile" padding="0" @click="openBasket">
-          <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
-            viewBasket.length
-          }}</q-badge>
-          <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="shopping_cart" />
-            <div class="button route mobile text-weight-bold">Корзина</div>
-          </div>
-        </q-btn>
-        <q-btn
-          flat
-          class="button route mobile"
-          padding="0"
-          @click="toggleRightDrawer"
-        >
-          <div class="column items-center">
-            <q-avatar size="30px" font-size="18px" icon="person" />
-            <div class="button route mobile text-weight-bold">Профиль</div>
-          </div>
-        </q-btn> -->
       </q-toolbar>
     </q-footer>
   </q-layout>
@@ -237,7 +180,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["userValid", "viewBasket", "viewUserData"]),
+    ...mapGetters(["userValid", "viewBasket", "viewUserData", "viewOrders"]),
     convertСurrency() {
       switch (this.viewUserData.currency) {
         case "RUB":
@@ -256,7 +199,7 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapMutations(["openBasket"]),
+    ...mapMutations(["openBasket", "openOrder"]),
   },
   watch: {
     scr(value) {
@@ -285,6 +228,7 @@ export default defineComponent({
     text-transform: none;
     font-weight: 600 !important;
     &.bottom {
+      font-weight: 400 !important;
       padding: 0;
     }
   }
