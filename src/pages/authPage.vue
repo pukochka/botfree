@@ -11,7 +11,7 @@
         <div class="column flex-center">
           <q-spinner color="primary" size="3em" :thickness="10" />
           <div class="">Пожалуйста, подождите...</div>
-          <div class="">
+          <div class="max-md">
             {{ getInitData }}
           </div>
         </div>
@@ -46,7 +46,7 @@
           />
         </q-card-actions>
       </q-card>
-      <div class="">
+      <div class="max-md">
         {{ getInitData }}
       </div>
     </div>
@@ -106,7 +106,7 @@ export default defineComponent({
         this.getInitData.data != "" &&
         this.getInitData.search != ""
       ) {
-        // this.$router.push("/auth");
+        this.$router.push("/auth");
         this.changeInitLoading(false);
       } else {
         setTimeout(() => this.changeInitLoading(false), 500);
