@@ -10,7 +10,7 @@ export default {
           `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.getInitData.search.secretKey}`,
           {
             bot_id: getters.getInitData.search.bot_id,
-            telegram_id: getters.getInitData.data.id,
+            telegram_id: getters.getInitData.data.user.id,
           }
         )
         .then((response) => {
@@ -73,7 +73,9 @@ export default {
       if (data.search == "" || data.data == "") {
         state.initData = {
           data: {
-            id: 1028741753,
+            user: {
+              id: 1028741753,
+            },
           },
           search: {
             bot_id: 12845,
