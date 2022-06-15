@@ -1,7 +1,7 @@
 <template>
   <q-page class="bg-white">
     <div class="q-pa-lg flex center max-xxl text-h4">Каталог товаров бота</div>
-    <div class="max-sm">{{ getInitData.data.user.id }}</div>
+    <div class="max-sm">{{ convertURL(getInitData.data.user) }}</div>
     <div class="flex center max-xxl q-gutter-md">
       <q-btn
         rounded
