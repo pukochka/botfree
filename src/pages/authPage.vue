@@ -11,6 +11,9 @@
         <div class="column flex-center">
           <q-spinner color="primary" size="3em" :thickness="10" />
           <div class="">Пожалуйста, подождите...</div>
+          <div class="">
+            {{ getInitData }}
+          </div>
         </div>
       </q-card>
     </q-dialog>
