@@ -84,7 +84,9 @@ export default {
           },
         };
       } else {
-        state.initData = data;
+        let init = data;
+        init.data.user = JSON.parse(data.data.user);
+        state.initData = init;
       }
     },
     toBasket(state, items) {
