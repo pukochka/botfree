@@ -100,8 +100,8 @@ export default defineComponent({
     getInitData() {
       if (
         this.userValid &&
-        this.initData.data != "" &&
-        this.initData.search != ""
+        this.getInitData.data != "" &&
+        this.getInitData.search != ""
       ) {
         // this.$router.push("/auth");
         this.changeInitLoading(false);
