@@ -94,6 +94,9 @@ export default {
     changeValidator(state, value) {
       state.userValidate = value;
     },
+    changeInitLoading(state, value) {
+      state.initLoading = value;
+    },
     openUserData(state, value) {
       state.userData = value;
     },
@@ -141,6 +144,9 @@ export default {
     allProducts(state) {
       return state.products;
     },
+    viewInitLoading(state) {
+      return state.initLoading;
+    },
     viewBasket(state) {
       return state.basket;
     },
@@ -155,6 +161,7 @@ export default {
     products: ref([]),
     colorScheme: ref(true),
     userData: ref({}),
+    initLoading: ref(true),
     initData: ref({
       data: {},
       search: {},
