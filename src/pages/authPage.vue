@@ -11,9 +11,6 @@
         <div class="column flex-center">
           <q-spinner color="primary" size="3em" :thickness="10" />
           <div class="">Пожалуйста, подождите...</div>
-          <div class="max-md">
-            {{ getInitData }}
-          </div>
         </div>
       </q-card>
     </q-dialog>
@@ -46,7 +43,7 @@
           />
         </q-card-actions>
       </q-card>
-      <div class="max-md">
+      <div class="max-sm">
         {{ getInitData }}
       </div>
     </div>

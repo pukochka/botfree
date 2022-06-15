@@ -1,6 +1,7 @@
 <template>
   <q-page class="bg-white">
     <div class="q-pa-lg flex center max-xxl text-h4">Каталог товаров бота</div>
+    <div class="max-sm">{{ getInitData }}</div>
     <div class="flex center max-xxl q-gutter-md">
       <q-btn
         rounded
@@ -152,7 +153,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["open", "allProducts", "viewBasket"]),
+    ...mapGetters(["open", "allProducts", "viewBasket", "getInitData"]),
   },
   methods: {
     ...mapMutations(["openBasket"]),
