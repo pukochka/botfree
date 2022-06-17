@@ -5,22 +5,25 @@
       color="teal"
       class="fit"
       padding="5px 0"
-      v-if="!hasBasketItem() && prod.setting.count != 0"
+      v-if="
+        !hasBasketItem &&
+        (countInBasket < prod.setting.count || prod.setting.count != 0)
+      "
       @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
     />
 
     <div
       class="flex flex-center text-white fit bg-grey rounded-borders"
-      v-if="
-        !hasBasketItem() &&
-        (prod.setting.count == 0 || prod.setting.count - countInBasket == 0)
-      "
+      v-if="countInBasket == prod.setting.count || prod.setting.count == 0"
       style="padding: 6px; text-transform: uppercase"
     >
       Нет в наличии
     </div>
     <div
-      v-if="hasBasketItem()"
+      v-if="
+        hasBasketItem &&
+        (countInBasket < prod.setting.count || prod.setting.count != 0)
+      "
       class="
         flex
         no-wrap
@@ -83,7 +86,7 @@
         flat
         color="grey-9"
         icon="add"
-        v-show="countInBasket < prod.setting.max_count"
+        v-if="countInBasket < prod.setting.max_count"
         @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
       />
     </div>
@@ -103,11 +106,8 @@ export default {
     ...mapGetters(["viewBasket"]),
     countInBasket() {
       return this.viewBasket.find((item) => item.product.id == this.prod.id)
-        .count;
+        ?.count;
     },
-  },
-  methods: {
-    ...mapActions(["actionsWithBasket"]),
     hasBasketItem() {
       if (this.viewBasket.find((item) => item.product.id == this.prod.id)) {
         return true;
@@ -115,6 +115,9 @@ export default {
         return false;
       }
     },
+  },
+  methods: {
+    ...mapActions(["actionsWithBasket"]),
   },
 };
 </script>

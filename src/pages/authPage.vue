@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex justify-center items-start bg-white">
     <q-dialog
+      no-route-dismiss
       v-model="viewInitLoading"
       persistent
       maximized
@@ -63,7 +64,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["userValid", "getInitData", "viewInitLoading"]),
+    ...mapGetters(["viewUserValid", "viewInitData", "viewInitLoading"]),
   },
   methods: {
     ...mapActions(["getUserData"]),
@@ -94,16 +95,16 @@ export default defineComponent({
     });
   },
   watch: {
-    getInitData() {
+    viewInitData() {
       if (
-        this.userValid &&
-        this.getInitData.data != "" &&
-        this.getInitData.search != ""
+        this.viewUserValid &&
+        this.viewInitData.data != "" &&
+        this.viewInitData.search != ""
       ) {
         this.$router.push("/auth");
         this.changeInitLoading(false);
       } else {
-        setTimeout(() => this.changeInitLoading(false), 500);
+        setTimeout(() => this.changeInitLoading(false), 2000);
       }
     },
   },

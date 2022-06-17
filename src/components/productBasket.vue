@@ -1,10 +1,11 @@
 <template>
   <q-dialog
-    v-model="open"
+    v-model="viewDialBasket"
     persistent
     maximized
-    transition-show="jump-up"
-    transition-hide="jump-down"
+    transition-hide="jump-up"
+    transition-duration="150"
+    transition-show="jump-down"
   >
     <q-card class="bg-layout text-grey-9 relative-position">
       <q-card-actions vertical align="right" class=""> </q-card-actions>
@@ -12,7 +13,15 @@
         class="q-pa-md text-h4 text-white max-xl center flex justify-between"
       >
         Корзина
-        <q-btn dense flat color="white" icon="close" @click="openBasket" />
+        <q-btn
+          dense
+          flat
+          color="white"
+          icon="close"
+          no-caps
+          label="Закрыть"
+          @click="openBasket"
+        />
       </div>
       <q-card-actions align="right" class="max-xl center">
         <q-btn
@@ -24,7 +33,7 @@
           @click="actionsWithBasket({ action: 'remove-all' })"
         />
       </q-card-actions>
-      <q-card-section class="max-xl center">
+      <q-card-section class="max-lg center">
         <product-item
           basket
           class=""
@@ -33,7 +42,7 @@
           :product="item.product"
         />
       </q-card-section>
-      <q-card-section class="max-xl center flex flex-center">
+      <q-card-section class="max-lg center flex flex-center">
         <q-card
           class="full-width q-mb-xxl relative-position"
           v-if="viewBasket.length != 0"
@@ -59,7 +68,7 @@
             <div class="">Итого</div>
             <div class="">
               <div
-                class="flex flex-center column"
+                class="flex flex-center"
                 v-for="(item, index) of totalPrice"
                 :key="index"
               >
@@ -75,7 +84,12 @@
           </q-card-section>
 
           <div class="flex-grow q-ma-sm">
-            <q-btn class="fit" color="teal" label="Перейти к оформлению" />
+            <q-btn
+              class="fit"
+              color="teal"
+              label="Перейти к оформлению"
+              @click="openDialForm"
+            />
           </div>
         </q-card>
 
@@ -117,7 +131,13 @@
             </div>
           </div>
         </div>
-        <q-btn class="q-ma-sm" size="13px" color="teal" label="К оформлению" />
+        <q-btn
+          class="q-ma-sm"
+          size="13px"
+          color="teal"
+          label="К оформлению"
+          @click="openDialForm"
+        />
       </q-card>
     </div>
   </q-dialog>
@@ -134,7 +154,7 @@ export default {
     productItem,
   },
   computed: {
-    ...mapGetters(["open", "allProducts", "viewBasket"]),
+    ...mapGetters(["viewDialBasket", "viewAllProducts", "viewBasket"]),
 
     totalPrice() {
       let items = [];
@@ -165,8 +185,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["openBasket"]),
-    ...mapActions(["getUserData", "viewAllProducts", "actionsWithBasket"]),
+    ...mapMutations(["openBasket", "openDialForm"]),
+    ...mapActions(["getUserData", "getAllProducts", "actionsWithBasket"]),
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":

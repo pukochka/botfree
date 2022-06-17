@@ -9,22 +9,24 @@
         color="teal"
         icon="chevron_left"
         title="Обратно"
-        @click="viewAllProducts()"
+        @click="getAllProducts()"
       />
-      <q-btn
-        rounded
-        :outline="selectView == 7"
-        color="teal"
-        label="категории"
-        @click="selectView = 0"
-      />
-      <q-btn
-        rounded
-        :outline="selectView == 0"
-        color="teal"
-        label="товары"
-        @click="selectView = 7"
-      />
+      <q-btn-group spread rounded>
+        <q-btn
+          padding="0 20px"
+          :outline="viewSelectCategory == 0"
+          color="teal"
+          label="категории"
+          @click="changeCategoryView(0)"
+        />
+        <q-btn
+          padding="0 20px"
+          :outline="viewSelectCategory == 7"
+          color="teal"
+          label="товары"
+          @click="changeCategoryView(7)"
+        />
+      </q-btn-group>
     </div>
 
     <div class="flex center max-xxl">
@@ -34,7 +36,9 @@
         rounded
         outlined
         dense
-        :label="changeLabel()"
+        :label="
+          viewSelectCategory != 0 ? 'Поиск товаров' : 'Поиск по категории'
+        "
         color="teal"
         v-model="search"
         type="text"
@@ -53,8 +57,8 @@
           "
           v-if="
             viewItems().length == 0 &&
-            selectView == 7 &&
-            allProducts.length != 0
+            viewSelectCategory == 7 &&
+            viewAllProducts.length != 0
           "
         >
           Товаров нет
@@ -66,7 +70,7 @@
             outline
             color="teal"
             label="Посмотреть Категории"
-            @click="selectView = 0"
+            @click="changeCategoryView(0)"
           />
         </div>
         <div
@@ -80,8 +84,8 @@
           "
           v-if="
             viewItems().length == 0 &&
-            selectView == 0 &&
-            allProducts.length != 0
+            viewSelectCategory == 0 &&
+            viewAllProducts.length != 0
           "
         >
           Категорий нет
@@ -93,7 +97,7 @@
             outline
             color="teal"
             label="Посмотреть товары"
-            @click="selectView = 7"
+            @click="changeCategoryView(7)"
           />
         </div>
         <product-item
@@ -106,7 +110,7 @@
           class="my-card q-ma-sm"
           v-for="(slelton, index) in 8"
           :key="index"
-          v-show="allProducts.length == 0"
+          v-show="viewAllProducts.length == 0"
         >
           <q-skeleton height="160px" square />
         </q-card>
@@ -129,6 +133,7 @@
       </div>
     </div>
     <productBasket />
+    <productOrders />
   </q-page>
 </template>
 
@@ -138,26 +143,32 @@ import { mapActions, mapMutations, mapGetters } from "vuex";
 
 import productItem from "components/productItem.vue";
 import productBasket from "components/productBasket.vue";
+import productOrders from "components/productOrders.vue";
 
 export default defineComponent({
   name: "IndexPage",
   components: {
     productItem,
     productBasket,
+    productOrders,
   },
   setup() {
     return {
-      dialog: ref(false),
       search: ref(""),
-      selectView: ref(0),
     };
   },
   computed: {
-    ...mapGetters(["open", "allProducts", "viewBasket", "getInitData"]),
+    ...mapGetters([
+      "viewDialBasket",
+      "viewAllProducts",
+      "viewBasket",
+      "getInitData",
+      "viewSelectCategory",
+    ]),
   },
   methods: {
-    ...mapMutations(["openBasket"]),
-    ...mapActions(["getUserData", "viewAllProducts"]),
+    ...mapMutations(["viewBasketBasket", "changeCategoryView"]),
+    ...mapActions(["getUserData", "getAllProducts"]),
     convertURL(search) {
       if (search == "") {
         return false;
@@ -169,16 +180,9 @@ export default defineComponent({
         return result;
       }
     },
-    changeLabel() {
-      if (this.selectView == 0) {
-        return "Поиск по категории";
-      } else if (this.selectView == 7) {
-        return "Поиск товаров";
-      }
-    },
     viewItems() {
-      if (this.selectView == 0) {
-        return this.allProducts.filter(
+      if (this.viewSelectCategory == 0) {
+        return this.viewAllProducts.filter(
           (item) =>
             (item.design.title?.toLowerCase().trim().includes(this.search) ||
               item.design.title?.toLowerCase().includes(this.search) ||
@@ -188,8 +192,8 @@ export default defineComponent({
               item.design.rules?.toLowerCase().includes(this.search)) &&
             item.type == 0
         );
-      } else if (this.selectView == 7) {
-        return this.allProducts.filter(
+      } else if (this.viewSelectCategory == 7) {
+        return this.viewAllProducts.filter(
           (item) =>
             (item.design.title?.toLowerCase().trim().includes(this.search) ||
               item.design.title?.toLowerCase().includes(this.search) ||
@@ -204,7 +208,7 @@ export default defineComponent({
   },
   mounted() {
     this.getUserData();
-    this.viewAllProducts();
+    this.getAllProducts();
   },
 });
 </script>

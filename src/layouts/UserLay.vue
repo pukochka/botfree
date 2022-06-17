@@ -22,15 +22,11 @@
           align="justify"
         >
           <q-tab
-            class="mobile-tab top text-weight-bold"
-            name="mails"
-            label="Главная"
-            content-class=""
-            @click="userValid = false"
-            to="/"
+            class="mobile-tab"
+            name="alarms"
+            label="Каталог"
+            @click="getAllProducts()"
           />
-          <q-separator vertical />
-          <q-tab class="mobile-tab" name="alarms" label="Каталог" />
           <q-separator vertical />
           <q-tab
             class="mobile-tab top"
@@ -71,31 +67,83 @@
       </div>
 
       <q-list>
-        <q-item dense>
+        <q-item clickable>
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="22px"
+              color="transparent"
+              text-color="teal"
+              icon="account_balance_wallet"
+          /></q-item-section>
           <q-item-section class="text-subtitle1">
             <q-item-label lines="1" class="flex items-center justify-between">
-              Баланс : {{ viewUserData.balance }} {{ convertСurrency }}
-              <q-btn
-                rounded
-                flat
-                color="teal"
-                icon="add"
-                class="flex-grow q-my-sm"
-            /></q-item-label>
+              <div class="">Баланс</div>
+              <div class="text-weight-bold">
+                {{ viewUserData.balance }} {{ convertСurrency }}
+              </div>
+            </q-item-label>
           </q-item-section>
         </q-item>
-        <q-item dense>
+        <q-item clickable @click="openOrder()">
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="22px"
+              color="transparent"
+              text-color="teal"
+              icon="reorder"
+          /></q-item-section>
           <q-item-section class="text-subtitle1">
             <q-item-label lines="1" class="flex items-center justify-between">
-              Мои заказы : {{ viewOrders.length }}
-              <q-btn
-                rounded
-                flat
-                color="teal"
-                icon="visibility"
-                class="flex-grow q-my-sm"
-                @click="openOrder"
-            /></q-item-label>
+              <div class="">Заказы</div>
+              <div class="text-weight-bold">{{ viewOrders.length }}</div>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="22px"
+              color="transparent"
+              text-color="teal"
+              icon="gavel"
+          /></q-item-section>
+          <q-item-section class="text-subtitle1">
+            <q-item-label lines="1" class="flex items-center justify-between">
+              <div class="">Правила</div>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="22px"
+              color="transparent"
+              text-color="teal"
+              icon="help"
+          /></q-item-section>
+          <q-item-section class="text-subtitle1">
+            <q-item-label lines="1" class="flex items-center justify-between">
+              <div class="">Помощь</div>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable>
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="22px"
+              color="transparent"
+              text-color="teal"
+              icon="info"
+          /></q-item-section>
+          <q-item-section class="text-subtitle1">
+            <q-item-label lines="1" class="flex items-center justify-between">
+              <div class="">О сервисе</div>
+            </q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -119,22 +167,13 @@
         >
           <q-tab
             class="flex-grow mobile-tab bottom"
-            name="mails"
-            icon="home"
-            label="Главная"
-            @click="userValid = false"
-            to="/"
-          />
-          <q-tab
-            class="flex-grow mobile-tab bottom"
-            name="alarms"
             icon="manage_search"
             label="Каталог"
+            @click="getAllProducts()"
           />
           <q-tab
             size="12px"
             class="flex-grow mobile-tab bottom"
-            name="movies"
             icon="shopping_cart"
             label="Корзина"
             @click="openBasket"
@@ -145,7 +184,6 @@
           </q-tab>
           <q-tab
             class="flex-grow mobile-tab bottom"
-            name="movies"
             icon="person"
             label="Профиль"
             @click="toggleRightDrawer"
@@ -180,7 +218,12 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["userValid", "viewBasket", "viewUserData", "viewOrders"]),
+    ...mapGetters([
+      "viewUserValid",
+      "viewBasket",
+      "viewUserData",
+      "viewOrders",
+    ]),
     convertСurrency() {
       switch (this.viewUserData.currency) {
         case "RUB":
@@ -200,6 +243,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["openBasket", "openOrder"]),
+    ...mapActions(["getAllProducts"]),
   },
   watch: {
     scr(value) {

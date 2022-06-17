@@ -70,6 +70,7 @@
           color="teal"
           icon="delete"
           no-caps
+          no-wrap
           label="Удалить"
           @click="
             actionsWithBasket({ action: 'remove', category_id: product.id })
@@ -126,10 +127,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["viewChosenCategory", "actionsWithBasket"]),
+    ...mapActions(["getChosenCategory", "actionsWithBasket"]),
     openCategory() {
       if (this.product.type == 0) {
-        this.viewChosenCategory(this.product);
+        this.getChosenCategory(this.product);
       }
     },
   },

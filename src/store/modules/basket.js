@@ -1,16 +1,21 @@
 import axios from "axios";
 import { ref } from "vue";
-import { Notify } from "quasar";
+
+/*
+  Actions : get | actions
+  Getters : view
+  Mutations : change | open 
+*/
 
 export default {
   actions: {
     getUserData({ commit, dispatch, getters }) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.getInitData.search.secretKey}`,
+          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewInitData.search.secretKey}`,
           {
-            bot_id: getters.getInitData.search.bot_id,
-            telegram_id: getters.getInitData.data.user.id,
+            bot_id: getters.viewInitData.search.bot_id,
+            telegram_id: getters.viewInitData.data.user.id,
           }
         )
         .then((response) => {
@@ -22,12 +27,12 @@ export default {
           }
         });
     },
-    viewAllProducts({ commit, getters }, category = 0) {
+    getAllProducts({ commit, getters }, category = 0) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/shoppublic/category/view?secretKey=${getters.getInitData.search.secretKey}`,
+          `https://api.bot-t.ru/v1/shoppublic/category/view?secretKey=${getters.viewInitData.search.secretKey}`,
           {
-            bot_id: getters.getInitData.search.bot_id,
+            bot_id: getters.viewInitData.search.bot_id,
             category_id: category,
           }
         )
@@ -37,14 +42,17 @@ export default {
           for (let category in response.data.data) {
             categoryes.push(response.data.data[category]);
           }
-          commit("viewCategory", categoryes);
+          commit("changeCategory", categoryes);
         });
+    },
+    getChosenCategory({ commit, dispatch }, category) {
+      dispatch("getAllProducts", category.id);
     },
     actionsWithBasket({ commit, getters }, { action, category_id, count }) {
       function isParams(...args) {
         let arg = ["category_id", "count"];
         let params = {
-          bot_id: getters.getInitData.search.bot_id,
+          bot_id: getters.viewInitData.search.bot_id,
           user_id: getters.viewUserData.id,
           secret_user_key: getters.viewUserData.secret_user_key,
         };
@@ -58,19 +66,19 @@ export default {
       }
       axios
         .post(
-          `https://api.bot-t.ru/v1/shopcart/cart/${action}?secretKey=${getters.getInitData.search.secretKey}`,
+          `https://api.bot-t.ru/v1/shopcart/cart/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
           isParams(category_id, count)
         )
         .then((response) => {
           console.log(response);
-          commit("toBasket", response.data.data.items);
+          commit("changeBasket", response.data.data.items);
         });
     },
     actionsWithOrders({ commit, getters }, { action, order_id, offset }) {
       function isParams(...args) {
         let arg = ["order_id", "offset"];
         let params = {
-          bot_id: getters.getInitData.search.bot_id,
+          bot_id: getters.viewInitData.search.bot_id,
           user_id: getters.viewUserData.id,
           secret_user_key: getters.viewUserData.secret_user_key,
         };
@@ -84,16 +92,13 @@ export default {
       }
       axios
         .post(
-          `https://api.bot-t.ru/v1/shopcart/order/${action}?secretKey=${getters.getInitData.search.secretKey}`,
+          `https://api.bot-t.ru/v1/shopcart/order/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
           isParams(order_id, offset)
         )
         .then((response) => {
           console.log(response);
-          commit("getOrders", response.data.data.orders);
+          commit("changeOrders", response.data.data.orders);
         });
-    },
-    viewChosenCategory({ commit, dispatch }, category) {
-      dispatch("viewAllProducts", category.id);
     },
   },
   mutations: {
@@ -117,17 +122,11 @@ export default {
         state.initData = init;
       }
     },
-    toBasket(state, items) {
+    changeBasket(state, items) {
       state.basket = items;
     },
-    getOrders(state, items) {
+    changeOrders(state, items) {
       state.orders = items;
-    },
-    openBasket(state) {
-      state.dialBasket = !state.dialBasket;
-    },
-    openOrder(state) {
-      state.dialOrder = !state.dialOrder;
     },
     changeValidator(state, value) {
       state.userValidate = value;
@@ -138,28 +137,49 @@ export default {
     openUserData(state, value) {
       state.userData = value;
     },
-    viewCategory(state, categoryes) {
+    changeCategory(state, categoryes) {
       state.products = categoryes;
+    },
+    changeCategoryView(state, view) {
+      state.selectCategoryView = view;
+    },
+    openBasket(state) {
+      state.dialBasket = !state.dialBasket;
+    },
+    openOrder(state) {
+      state.dialOrder = !state.dialOrder;
+    },
+    openDialForm(state) {
+      state.dialForm = !state.dialForm;
     },
   },
   getters: {
     viewUserData(state) {
       return state.userData;
     },
-    open(state) {
+    viewDialBasket(state) {
       return state.dialBasket;
     },
-    dialViewOrder(state) {
+    viewDialOrder(state) {
       return state.dialOrder;
     },
-    userValid(state) {
+    viewDialForm(state) {
+      return state.dialForm;
+    },
+    viewUserValid(state) {
       return state.userValidate;
     },
-    allProducts(state) {
+    viewAllProducts(state) {
       return state.products;
     },
     viewInitLoading(state) {
       return state.initLoading;
+    },
+    viewInitData(state) {
+      return state.initData;
+    },
+    viewSelectCategory(state) {
+      return state.selectCategoryView;
     },
     viewBasket(state) {
       return state.basket;
@@ -167,20 +187,18 @@ export default {
     viewOrders(state) {
       return state.orders;
     },
-    getInitData(state) {
-      return state.initData;
-    },
   },
   state: {
     basket: ref([]),
     orders: ref([]),
-    dialOrder: ref(false),
-    userValidate: ref(false),
-    dialBasket: ref(false),
     products: ref([]),
-    colorScheme: ref(true),
-    userData: ref({}),
+    dialOrder: ref(false),
+    dialForm: ref(false),
+    dialBasket: ref(false),
+    userValidate: ref(false),
     initLoading: ref(true),
+    userData: ref({}),
+    selectCategoryView: ref(0),
     initData: ref({
       data: {},
       search: {},
