@@ -23,7 +23,8 @@ export default {
           if (response.status == 200) {
             commit("openUserData", response.data.data);
             dispatch("actionsWithBasket", { action: "get" });
-            dispatch("actionsWithOrders", { action: "profile", offset: 0 });
+            dispatch("actionsWithOrders", { action: "count" });
+            dispatch("actionsWithOrders", { action: "index", offset: 0 });
           }
         });
     },
@@ -71,6 +72,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
+
           commit("changeBasket", response.data.data.items);
         });
     },
@@ -90,14 +92,25 @@ export default {
         console.log(params);
         return params;
       }
+      if (action == "index") {
+        commit("changeInfoOrdersLoading", true);
+      }
       axios
         .post(
           `https://api.bot-t.ru/v1/shopcart/order/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
           isParams(order_id, offset)
         )
         .then((response) => {
-          console.log(response);
-          commit("changeOrders", response.data.data.orders);
+          if (response.status == 200) {
+            if (action == "count") {
+              console.log(response);
+              commit("changeInfoOrders", response.data.data.count);
+            } else {
+              console.log(response);
+              commit("changeInfoOrdersLoading", false);
+              commit("changeOrders", response.data.data);
+            }
+          }
         });
     },
   },
@@ -128,14 +141,17 @@ export default {
     changeOrders(state, items) {
       state.orders = items;
     },
+    changeInfoOrders(state, count) {
+      state.infoOrders.count = count;
+    },
+    changeInfoOrdersLoading(state, value) {
+      state.infoOrders.loading = value;
+    },
     changeValidator(state, value) {
       state.userValidate = value;
     },
     changeInitLoading(state, value) {
       state.initLoading = value;
-    },
-    openUserData(state, value) {
-      state.userData = value;
     },
     changeCategory(state, categoryes) {
       state.products = categoryes;
@@ -151,6 +167,9 @@ export default {
     },
     openDialForm(state) {
       state.dialForm = !state.dialForm;
+    },
+    openUserData(state, value) {
+      state.userData = value;
     },
   },
   getters: {
@@ -187,11 +206,18 @@ export default {
     viewOrders(state) {
       return state.orders;
     },
+    viewInfoOrders(state) {
+      return state.infoOrders;
+    },
   },
   state: {
     basket: ref([]),
     orders: ref([]),
     products: ref([]),
+    infoOrders: ref({
+      count: 0,
+      loading: true,
+    }),
     dialOrder: ref(false),
     dialForm: ref(false),
     dialBasket: ref(false),

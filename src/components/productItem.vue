@@ -61,21 +61,20 @@
             padding="0px 4px"
             :label="product.price.amount + ' ' + convertСurrency"
           />
+          <q-btn
+            v-if="basket"
+            dense
+            flat
+            color="teal"
+            icon="delete"
+            no-caps
+            no-wrap
+            label="Удалить"
+            @click="
+              actionsWithBasket({ action: 'remove', category_id: product.id })
+            "
+          />
         </q-card-section>
-      </div>
-      <div class="column q-pa-sm" v-if="basket">
-        <q-btn
-          dense
-          flat
-          color="teal"
-          icon="delete"
-          no-caps
-          no-wrap
-          label="Удалить"
-          @click="
-            actionsWithBasket({ action: 'remove', category_id: product.id })
-          "
-        />
       </div>
     </div>
     <q-card-actions
@@ -91,7 +90,7 @@
 import { ref } from "vue";
 import { mapActions, mapMutations } from "vuex";
 
-import BlockProductButton from "src/components/productsTypes/BlockProductButton.vue";
+import BlockProductButton from "src/components/BlockProductButton.vue";
 
 export default {
   components: {

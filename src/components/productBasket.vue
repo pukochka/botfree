@@ -7,16 +7,16 @@
     transition-duration="150"
     transition-show="jump-down"
   >
-    <q-card class="bg-layout text-grey-9 relative-position">
+    <q-card class="bg-grey-3 text-grey-9 relative-position">
       <q-card-actions vertical align="right" class=""> </q-card-actions>
       <div
-        class="q-pa-md text-h4 text-white max-xl center flex justify-between"
+        class="q-pa-md text-h4 max-xl center flex justify-between items-center"
       >
         Корзина
         <q-btn
           dense
           flat
-          color="white"
+          color="teal"
           icon="close"
           no-caps
           label="Закрыть"
@@ -27,7 +27,7 @@
         <q-btn
           flat
           dense
-          color="white"
+          color="teal"
           icon="delete"
           label="Очистить корзину"
           @click="actionsWithBasket({ action: 'remove-all' })"

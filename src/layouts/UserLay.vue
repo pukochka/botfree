@@ -49,7 +49,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="rightDrawerOpen" side="right" behavior="mobile" bordered>
+    <q-drawer v-model="rightDrawerOpen" side="left" behavior="mobile" bordered>
       <div class="user flex items-center q-pa-md">
         <q-avatar
           size="70px"
@@ -97,7 +97,7 @@
           <q-item-section class="text-subtitle1">
             <q-item-label lines="1" class="flex items-center justify-between">
               <div class="">Заказы</div>
-              <div class="text-weight-bold">{{ viewOrders.length }}</div>
+              <div class="text-weight-bold">{{ viewInfoOrders.count }}</div>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -131,7 +131,7 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable>
+        <q-item clickable @click="info = !info">
           <q-item-section avatar
             ><q-avatar
               size="30px"
@@ -145,7 +145,27 @@
               <div class="">О сервисе</div>
             </q-item-label>
           </q-item-section>
+          <q-item-section avatar
+            ><q-avatar
+              size="30px"
+              font-size="30px"
+              color="transparent"
+              text-color="teal"
+              :icon="info ? 'arrow_drop_up' : 'arrow_drop_down'"
+          /></q-item-section>
         </q-item>
+        <q-slide-transition>
+          <div v-show="info">
+            <div class="q-pa-md">
+              <a href="https://bot-t.ru" class="text-grey">
+                Сервис создания бесплатных магазинов в телеграм для продажи
+                товаров через бота! Бесплатный сервис для создания ботов по
+                автоматической продаже товаров в телеграм. Автоматизируйте
+                свой...</a
+              >
+            </div>
+          </div>
+        </q-slide-transition>
       </q-list>
     </q-drawer>
 
@@ -211,6 +231,7 @@ export default defineComponent({
       rightDrawerOpen,
       mobileSize,
       scr,
+      info: ref(false),
       tab: ref("mails"),
       toggleRightDrawer() {
         rightDrawerOpen.value = !rightDrawerOpen.value;
@@ -223,6 +244,7 @@ export default defineComponent({
       "viewBasket",
       "viewUserData",
       "viewOrders",
+      "viewInfoOrders",
     ]),
     convertСurrency() {
       switch (this.viewUserData.currency) {

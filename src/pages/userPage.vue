@@ -33,7 +33,6 @@
       <q-input
         class="q-ma-lg max-lg"
         style="width: 100%"
-        rounded
         outlined
         dense
         :label="
@@ -134,6 +133,7 @@
     </div>
     <productBasket />
     <productOrders />
+    <productFormOrder />
   </q-page>
 </template>
 
@@ -144,6 +144,7 @@ import { mapActions, mapMutations, mapGetters } from "vuex";
 import productItem from "components/productItem.vue";
 import productBasket from "components/productBasket.vue";
 import productOrders from "components/productOrders.vue";
+import productFormOrder from "components/productFormOrder.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -151,6 +152,7 @@ export default defineComponent({
     productItem,
     productBasket,
     productOrders,
+    productFormOrder,
   },
   setup() {
     return {
@@ -168,7 +170,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["viewBasketBasket", "changeCategoryView"]),
-    ...mapActions(["getUserData", "getAllProducts"]),
+    ...mapActions(["getUserData", "getAllProducts", "actionsWithOrders"]),
     convertURL(search) {
       if (search == "") {
         return false;
