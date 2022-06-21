@@ -10,16 +10,25 @@
     <q-card class="bg-grey-3 text-grey-9 relative-position">
       <q-card-actions vertical align="right" class=""> </q-card-actions>
       <div
-        class="q-pa-md text-h4 max-xl center flex justify-between items-center"
+        class="
+          q-pa-md
+          my-header
+          max-xl
+          center
+          flex
+          justify-between
+          items-center
+        "
       >
         Корзина
         <q-btn
-          dense
+          class="self-start"
+          no-wrap
           flat
+          dense
           color="teal"
           icon="close"
-          no-caps
-          label="Закрыть"
+          size="23px"
           @click="openBasket"
         />
       </div>

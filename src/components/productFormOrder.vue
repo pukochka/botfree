@@ -8,17 +8,16 @@
     transition-show="jump-down"
   >
     <q-card class="bg-grey-3">
-      <div
-        class="max-xl center flex justify-between items-center q-py-lg q-px-md"
-      >
+      <div class="max-xl center flex justify-between no-wrap q-py-lg q-px-md">
         <div class="text-h4">Формирование заказа</div>
         <q-btn
+          class="self-start"
           no-wrap
           flat
           dense
           color="teal"
           icon="close"
-          label="Закрыть"
+          size="23px"
           @click="openDialForm"
         />
       </div>

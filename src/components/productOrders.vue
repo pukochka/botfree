@@ -11,121 +11,119 @@
       <div class="q-py-lg max-xxl center flex justify-between items-center">
         <div class="text-h4 q-pa-sm">Мои заказы</div>
         <q-btn
-          color="teal"
+          class="self-start"
+          no-wrap
           flat
+          dense
+          color="teal"
           icon="close"
-          label="Закрыть"
-          no-caps
+          size="23px"
           @click="openOrder"
         />
       </div>
       <div class="max-lg center q-pa-sm">
-        <q-scroll-area style="width: 100%; height: calc(100vh - 170px)">
-          <div
-            class="text-h4 text-center q-pa-lg"
-            v-if="viewOrders.length == 0"
-          >
-            Заказов пока нет
-          </div>
+        <div class="text-h4 text-center q-pa-lg" v-if="viewOrders.length == 0">
+          Заказов пока нет
+        </div>
 
-          <q-card
-            class="order-card q-ma-sm"
-            v-for="(order, index) of viewOrders"
-            :key="index"
+        <q-card
+          class="order-card q-ma-sm"
+          v-for="(order, index) of viewOrders"
+          :key="index"
+        >
+          <div
+            class="
+              flex
+              justify-between
+              bg-teal
+              text-white
+              q-pa-sm
+              text-weight-bold
+            "
           >
-            <div
-              class="
-                flex
-                justify-between
-                bg-teal
-                text-white
-                q-pa-sm
-                text-weight-bold
-              "
-            >
-              <div class="">Номер заказа</div>
+            <div class="">Номер заказа</div>
+            <div class="">
+              <code>#{{ order.id }}</code>
+            </div>
+          </div>
+          <div class="q-pa-md q-gutter-xs text-subtitle1">
+            <div class="flex justify-between">
+              <div class="">Время</div>
               <div class="">
-                <code>#{{ order.id }}</code>
+                <code>{{ order.created_at }}</code>
               </div>
             </div>
-            <div class="q-pa-md q-gutter-xs text-subtitle1">
-              <div class="flex justify-between">
-                <div class="">Время</div>
-                <div class="">
-                  <code>{{ order.created_at }}</code>
-                </div>
+            <div class="flex justify-between">
+              <div class="">Способ</div>
+              <div class="">
+                <code>{{ order.shop_id }}</code>
               </div>
-              <div class="flex justify-between">
-                <div class="">Способ</div>
-                <div class="">
-                  <code>{{ order.shop_id }}</code>
-                </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="">Статус</div>
+              <div class="">
+                <code>{{ order.status }}</code>
               </div>
-              <div class="flex justify-between">
-                <div class="">Статус</div>
-                <div class="">
-                  <code>{{ order.status }}</code>
-                </div>
-              </div>
-              <div class="flex justify-between">
-                <div class="">Товары</div>
-                <q-btn
-                  color="teal"
-                  padding="0 10px"
-                  flat
-                  :icon="toggle[index] ? 'arrow_drop_up' : 'arrow_drop_down'"
-                  @click="toggle[index] = !toggle[index]"
-                />
-              </div>
-              <q-slide-transition>
-                <div v-show="toggle[index]" class="">
-                  <div class="flex wrap">
-                    <div
-                      class="
-                        text-subtitle2
-                        rounded-borders
-                        bg-teal
-                        text-white
-                        q-pa-sm q-ma-xs
-                        items-inner
-                        relative-position
-                      "
-                      v-for="(item, indexitem) in order.items"
-                      :key="indexitem"
-                    >
-                      <div class="info bg-white text-grey-8">
-                        {{ indexitem + 1 }}
-                      </div>
-                      <div class="flex flex-center">
-                        {{ item.product.design.title }}
-                      </div>
-                      <div class="flex flex-center">
-                        {{
-                          item.count +
-                          " шт. x " +
-                          item.product.price.amount +
-                          " " +
-                          convertСurrency(item.product.price.currency)
-                        }}
-                      </div>
+            </div>
+            <div class="flex justify-between">
+              <div class="">Товары</div>
+              <q-btn
+                color="teal"
+                padding="0 10px"
+                flat
+                :icon="toggle[index] ? 'arrow_drop_up' : 'arrow_drop_down'"
+                @click="toggle[index] = !toggle[index]"
+              />
+            </div>
+            <q-slide-transition>
+              <div v-show="toggle[index]" class="">
+                <div class="flex wrap">
+                  <div
+                    class="
+                      text-subtitle2
+                      rounded-borders
+                      bg-teal
+                      text-white
+                      q-pa-sm q-ma-xs
+                      items-inner
+                      relative-position
+                    "
+                    v-for="(item, indexitem) in order.items"
+                    :key="indexitem"
+                  >
+                    <div class="info bg-white text-grey-8">
+                      {{ indexitem + 1 }}
+                    </div>
+                    <div class="flex flex-center">
+                      {{ item.product.design.title }}
+                    </div>
+                    <div class="flex flex-center">
+                      {{
+                        item.count +
+                        " шт. x " +
+                        item.product.price.amount +
+                        " " +
+                        convertСurrency(item.product.price.currency)
+                      }}
                     </div>
                   </div>
                 </div>
-              </q-slide-transition>
-              <div class="flex justify-between text-weight-bold">
-                <div class="">Итоговая цена</div>
-                <div class="">{{ order.price }}</div>
               </div>
-              <q-separator />
+            </q-slide-transition>
+            <div class="flex justify-between text-weight-bold">
+              <div class="">Итоговая цена</div>
+              <div class="">{{ order.price }}</div>
             </div>
-          </q-card>
-          <div
-            class="absolute-center flex justify-center fit bg-layout"
-            v-if="viewInfoOrders.loading"
-          >
-            <q-spinner color="primary" class="q-ma-xl" size="3em" />
+            <q-separator />
           </div>
-        </q-scroll-area>
+        </q-card>
+        <div
+          class="absolute-center flex justify-center fit bg-layout"
+          v-if="viewInfoOrders.loading"
+        >
+          <q-spinner color="primary" class="q-ma-xl" size="3em" />
+        </div>
+
         <div class="max-xl center flex justify-end q-pa-sm">
           <div class="flex no-wrap items-center q-gutter-sm">
             <q-btn
@@ -164,6 +162,7 @@ export default defineComponent({
     return {
       toggle: ref([]),
       page: ref(1),
+      offset: ref(0),
     };
   },
   computed: {
@@ -177,7 +176,6 @@ export default defineComponent({
         } else {
           return Math.round(this.viewInfoOrders.count / 3);
         }
-        console.log(Math.round(11 % 3));
       }
     },
   },
@@ -203,12 +201,12 @@ export default defineComponent({
     nextPage() {
       this.actionsWithOrders({
         action: "index",
-        offset: this.page == 1 ? this.page + 2 : this.page + 3,
+        offset: (this.offset += 3),
       });
       this.page++;
     },
     prevPage() {
-      this.actionsWithOrders({ action: "index", offset: this.page - 3 });
+      this.actionsWithOrders({ action: "index", offset: (this.offset -= 3) });
       this.page--;
     },
   },
