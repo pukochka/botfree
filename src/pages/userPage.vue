@@ -1,139 +1,29 @@
 <template>
   <q-page class="bg-white">
-    <div class="q-pa-lg flex center max-xxl text-h4">Каталог товаров бота</div>
-    <div class="max-xs center"></div>
-    <div class="flex center max-xxl q-gutter-md">
-      <q-btn
-        rounded
-        outline
-        color="teal"
-        icon="chevron_left"
-        title="Обратно"
-        @click="getAllProducts()"
-      />
-      <q-btn-group spread rounded>
-        <q-btn
-          padding="0 20px"
-          :outline="viewSelectCategory == 0"
-          color="teal"
-          label="категории"
-          @click="changeCategoryView(0)"
-        />
-        <q-btn
-          padding="0 20px"
-          :outline="viewSelectCategory == 7"
-          color="teal"
-          label="товары"
-          @click="changeCategoryView(7)"
-        />
-      </q-btn-group>
-    </div>
+    <q-tab-panels
+      v-model="viewTab"
+      animated
+      transition-prev="jump-up"
+      transition-next="jump-up"
+    >
+      <q-tab-panel name="catalog" class="q-pa-none">
+        <Catalog />
+      </q-tab-panel>
 
-    <div class="flex center max-xxl">
-      <q-input
-        class="q-ma-lg max-lg"
-        style="width: 100%"
-        outlined
-        dense
-        :label="
-          viewSelectCategory != 0 ? 'Поиск товаров' : 'Поиск по категории'
-        "
-        color="teal"
-        v-model="search"
-        type="text"
-      />
-    </div>
-    <div class="center max-xxl min-size-xl">
-      <div class="flex wrap">
-        <div
-          class="
-            full-width
-            text-h4
-            rounded-borders
-            text-grey
-            flex flex-center
-            column
-          "
-          v-if="
-            viewItems().length == 0 &&
-            viewSelectCategory == 7 &&
-            viewAllProducts.length != 0
-          "
-        >
-          Товаров нет
-          <q-btn
-            class="q-ma-md"
-            padding="4px 16px"
-            rounded
-            dense
-            outline
-            color="teal"
-            label="Посмотреть Категории"
-            @click="changeCategoryView(0)"
-          />
-        </div>
-        <div
-          class="
-            text-h4
-            rounded-borders
-            text-grey
-            flex flex-center
-            full-width
-            column
-          "
-          v-if="
-            viewItems().length == 0 &&
-            viewSelectCategory == 0 &&
-            viewAllProducts.length != 0
-          "
-        >
-          Категорий нет
-          <q-btn
-            class="q-ma-md"
-            padding="4px 16px"
-            rounded
-            dense
-            outline
-            color="teal"
-            label="Посмотреть товары"
-            @click="changeCategoryView(7)"
-          />
-        </div>
-        <product-item
-          class=""
-          v-for="(prod, index) of viewItems()"
-          :key="index"
-          :product="prod"
-        />
-        <q-card
-          class="my-card q-ma-sm"
-          v-for="(slelton, index) in 8"
-          :key="index"
-          v-show="viewAllProducts.length == 0"
-        >
-          <q-skeleton height="160px" square />
-        </q-card>
-      </div>
-    </div>
+      <q-tab-panel name="profile" class="q-pa-none">
+        <Profile />
+      </q-tab-panel>
 
-    <q-separator />
-    <div class="footer q-pa-lg row justify-between items-center">
-      <q-btn
-        flat
-        dense
-        color="teal"
-        padding="4px 8px"
-        label="Другая информация"
-      />
-      <div class="social q-gutter-md">
-        <q-avatar size="30px" color="teal" text-color="white" />
-        <q-avatar size="30px" color="blue-4" text-color="white" />
-        <q-avatar size="30px" color="purple-4" text-color="white" />
-      </div>
-    </div>
-    <productBasket />
-    <productOrders />
-    <productFormOrder />
+      <q-tab-panel name="orders" class="q-pa-none">
+        <Orders />
+      </q-tab-panel>
+      <q-tab-panel name="basket" class="q-pa-none">
+        <Basket />
+      </q-tab-panel>
+      <q-tab-panel name="formsOrders" class="q-pa-none">
+        <FormOrder />
+      </q-tab-panel>
+    </q-tab-panels>
   </q-page>
 </template>
 
@@ -141,72 +31,29 @@
 import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
-import productItem from "components/productItem.vue";
-import productBasket from "components/productBasket.vue";
-import productOrders from "components/productOrders.vue";
-import productFormOrder from "components/productFormOrder.vue";
+import Basket from "src/components/basket/ViewBasket.vue";
+import Catalog from "src/components/catalog/ViewCatalog.vue";
+import Orders from "src/components/order/ViewOrders.vue";
+import Profile from "src/components/profile/ViewProfile.vue";
+import FormOrder from "src/components/order/FormsOrder.vue";
 
 export default defineComponent({
   name: "IndexPage",
   components: {
-    productItem,
-    productBasket,
-    productOrders,
-    productFormOrder,
+    Catalog,
+    Basket,
+    Orders,
+    FormOrder,
+    Profile,
   },
   setup() {
-    return {
-      search: ref(""),
-    };
+    return {};
   },
   computed: {
-    ...mapGetters([
-      "viewDialBasket",
-      "viewAllProducts",
-      "viewBasket",
-      "getInitData",
-      "viewSelectCategory",
-    ]),
+    ...mapGetters(["viewTab"]),
   },
   methods: {
-    ...mapMutations(["viewBasketBasket", "changeCategoryView"]),
-    ...mapActions(["getUserData", "getAllProducts", "actionsWithOrders"]),
-    convertURL(search) {
-      if (search == "") {
-        return false;
-      } else {
-        let result = {};
-        for (const [key, value] of new URLSearchParams(search)) {
-          result[key] = value;
-        }
-        return result;
-      }
-    },
-    viewItems() {
-      if (this.viewSelectCategory == 0) {
-        return this.viewAllProducts.filter(
-          (item) =>
-            (item.design.title?.toLowerCase().trim().includes(this.search) ||
-              item.design.title?.toLowerCase().includes(this.search) ||
-              item.design.title?.includes(this.search) ||
-              item.design.rules?.includes(this.search) ||
-              item.design.rules?.toLowerCase().trim().includes(this.search) ||
-              item.design.rules?.toLowerCase().includes(this.search)) &&
-            item.type == 0
-        );
-      } else if (this.viewSelectCategory == 7) {
-        return this.viewAllProducts.filter(
-          (item) =>
-            (item.design.title?.toLowerCase().trim().includes(this.search) ||
-              item.design.title?.toLowerCase().includes(this.search) ||
-              item.design.title?.includes(this.search) ||
-              item.design.rules?.includes(this.search) ||
-              item.design.rules?.toLowerCase().trim().includes(this.search) ||
-              item.design.rules?.toLowerCase().includes(this.search)) &&
-            item.type == 7
-        );
-      }
-    },
+    ...mapActions(["getUserData", "getAllProducts"]),
   },
   mounted() {
     this.getUserData();

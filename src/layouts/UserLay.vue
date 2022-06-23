@@ -1,11 +1,6 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header
-      bordered
-      class="text-teal-7 row items-center bg-layout"
-      height-hint="78"
-      style="height: 60px"
-    >
+    <q-header bordered class="text-teal-7 row items-center bg-layout">
       <q-toolbar>
         <div class="flex no-wrap q-gutter-sm">
           <q-avatar size="40px" rounded color="teal"></q-avatar>
@@ -14,7 +9,6 @@
         </div>
 
         <q-tabs
-          v-model="tab"
           class="text-weight-bold mobile-header"
           active-bg-color="transparent"
           active-color="teal"
@@ -23,16 +17,17 @@
         >
           <q-tab
             class="mobile-tab"
-            name="alarms"
             label="Каталог"
-            @click="getAllProducts()"
+            @click="
+              getAllProducts();
+              changeTabs('catalog');
+            "
           />
           <q-separator vertical />
           <q-tab
             class="mobile-tab top"
-            name="movies"
             label="Корзина"
-            @click="openBasket"
+            @click="changeTabs('basket')"
           >
             <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
               viewBasket.length
@@ -41,138 +36,33 @@
           <q-separator vertical />
           <q-tab
             class="mobile-tab top"
-            name="movies"
             label="Профиль"
-            @click="toggleRightDrawer"
+            @click="changeTabs('profile')"
           />
         </q-tabs>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="rightDrawerOpen" side="left" behavior="mobile" bordered>
-      <div class="user flex items-center q-pa-md">
-        <q-avatar
-          size="70px"
-          font-size="52px"
-          color="teal"
-          text-color="white"
-          icon="person"
-        />
-        <div class="text-h6 q-pl-md">
-          <div class="">
-            {{ viewUserData.first_name }} {{ viewUserData.last_name }}
-          </div>
-          <div class="text-caption">@{{ viewUserData.username }}</div>
-        </div>
-      </div>
-
-      <q-list>
-        <q-item clickable>
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="22px"
-              color="transparent"
-              text-color="teal"
-              icon="account_balance_wallet"
-          /></q-item-section>
-          <q-item-section class="text-subtitle1">
-            <q-item-label lines="1" class="flex items-center justify-between">
-              <div class="">Баланс</div>
-              <div class="text-weight-bold">
-                {{ viewUserData.balance }} {{ convertСurrency }}
-              </div>
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="openOrder()">
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="22px"
-              color="transparent"
-              text-color="teal"
-              icon="reorder"
-          /></q-item-section>
-          <q-item-section class="text-subtitle1">
-            <q-item-label lines="1" class="flex items-center justify-between">
-              <div class="">Заказы</div>
-              <div class="text-weight-bold">{{ viewInfoOrders.count }}</div>
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="22px"
-              color="transparent"
-              text-color="teal"
-              icon="gavel"
-          /></q-item-section>
-          <q-item-section class="text-subtitle1">
-            <q-item-label lines="1" class="flex items-center justify-between">
-              <div class="">Правила</div>
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="22px"
-              color="transparent"
-              text-color="teal"
-              icon="help"
-          /></q-item-section>
-          <q-item-section class="text-subtitle1">
-            <q-item-label lines="1" class="flex items-center justify-between">
-              <div class="">Помощь</div>
-            </q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click="info = !info">
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="22px"
-              color="transparent"
-              text-color="teal"
-              icon="info"
-          /></q-item-section>
-          <q-item-section class="text-subtitle1">
-            <q-item-label lines="1" class="flex items-center justify-between">
-              <div class="">О сервисе</div>
-            </q-item-label>
-          </q-item-section>
-          <q-item-section avatar
-            ><q-avatar
-              size="30px"
-              font-size="30px"
-              color="transparent"
-              text-color="teal"
-              :icon="info ? 'arrow_drop_up' : 'arrow_drop_down'"
-          /></q-item-section>
-        </q-item>
-        <q-slide-transition>
-          <div v-show="info">
-            <div class="q-pa-md">
-              <a href="https://bot-t.ru" class="text-grey">
-                Сервис создания бесплатных магазинов в телеграм для продажи
-                товаров через бота! Бесплатный сервис для создания ботов по
-                автоматической продаже товаров в телеграм. Автоматизируйте
-                свой...</a
-              >
-            </div>
-          </div>
-        </q-slide-transition>
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
-
+    <!-- <div class="absolute-bottom">
+      <q-separator />
+      <div class="q-pa-sm q-px-lg row justify-between items-center">
+        <q-btn
+          flat
+          dense
+          color="teal"
+          padding="4px 8px"
+          label="Другая информация"
+        />
+        <div class="social q-gutter-md">
+          <q-avatar size="30px" color="teal" text-color="white" />
+          <q-avatar size="30px" color="blue-4" text-color="white" />
+          <q-avatar size="30px" color="purple-4" text-color="white" />
+        </div>
+      </div>
+    </div> -->
     <q-footer bordered class="bg-grey-2 text-teal mobile-footer">
       <q-toolbar class="flex justify-between" style="padding: 0">
         <q-tabs
@@ -189,14 +79,17 @@
             class="flex-grow mobile-tab bottom"
             icon="manage_search"
             label="Каталог"
-            @click="getAllProducts()"
+            @click="
+              getAllProducts();
+              changeTabs('catalog');
+            "
           />
           <q-tab
             size="12px"
             class="flex-grow mobile-tab bottom"
             icon="shopping_cart"
             label="Корзина"
-            @click="openBasket"
+            @click="changeTabs('basket')"
           >
             <q-badge color="orange" floating v-if="viewBasket.length > 0">{{
               viewBasket.length
@@ -206,7 +99,7 @@
             class="flex-grow mobile-tab bottom"
             icon="person"
             label="Профиль"
-            @click="toggleRightDrawer"
+            @click="changeTabs('profile')"
           />
         </q-tabs>
       </q-toolbar>
@@ -218,59 +111,18 @@
 import { defineComponent, ref } from "vue";
 import { mapMutations, mapGetters, mapActions } from "vuex";
 export default defineComponent({
-  name: "MainLayout",
-
-  components: {},
-
   setup() {
-    const rightDrawerOpen = ref(false);
-    const mobileSize = ref(false);
-    const scr = window.innerWidth;
-
     return {
-      rightDrawerOpen,
-      mobileSize,
-      scr,
       info: ref(false),
       tab: ref("mails"),
-      toggleRightDrawer() {
-        rightDrawerOpen.value = !rightDrawerOpen.value;
-      },
     };
   },
   computed: {
-    ...mapGetters([
-      "viewUserValid",
-      "viewBasket",
-      "viewUserData",
-      "viewOrders",
-      "viewInfoOrders",
-    ]),
-    convertСurrency() {
-      switch (this.viewUserData.currency) {
-        case "RUB":
-          return "₽";
-        case "USD":
-          return "$";
-        case "EUR":
-          return "€";
-        case "UAH":
-          return "₴";
-        case "KZT":
-          return "₸";
-        default:
-          return this.viewUserData.currency;
-      }
-    },
+    ...mapGetters(["viewBasket", "viewTab"]),
   },
   methods: {
-    ...mapMutations(["openBasket", "openOrder"]),
+    ...mapMutations(["changeTabs"]),
     ...mapActions(["getAllProducts"]),
-  },
-  watch: {
-    scr(value) {
-      console.log(value);
-    },
   },
   mounted() {},
 });

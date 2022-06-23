@@ -1,5 +1,5 @@
 <template>
-  <div class="button-add fit">
+  <div class="absolute-bottom q-mx-md q-my-sm">
     <q-btn
       label="В корзину"
       color="teal"
@@ -15,7 +15,7 @@
     <div
       class="flex flex-center text-white fit bg-grey rounded-borders"
       v-if="countInBasket == prod.setting.count || prod.setting.count == 0"
-      style="padding: 6px; text-transform: uppercase"
+      style="padding: 8px; text-transform: uppercase"
     >
       Нет в наличии
     </div>
@@ -96,7 +96,11 @@
 import { ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
-  props: ["prod"],
+  props: {
+    prod: {
+      type: Object,
+    },
+  },
   setup() {
     return {
       count: ref(0),
@@ -119,11 +123,15 @@ export default {
   methods: {
     ...mapActions(["actionsWithBasket"]),
   },
+  watch: {},
 };
 </script>
 <style lang="scss" scoped>
 .count {
   border: 2px solid #009688;
   min-width: 120px;
+}
+.max {
+  max-width: 200px;
 }
 </style>

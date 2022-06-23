@@ -46,9 +46,6 @@ export default {
           commit("changeCategory", categoryes);
         });
     },
-    getChosenCategory({ commit, dispatch }, category) {
-      dispatch("getAllProducts", category.id);
-    },
     actionsWithBasket({ commit, getters }, { action, category_id, count }) {
       function isParams(...args) {
         let arg = ["category_id", "count"];
@@ -159,31 +156,19 @@ export default {
     changeCategoryView(state, view) {
       state.selectCategoryView = view;
     },
-    openBasket(state) {
-      state.dialBasket = !state.dialBasket;
-    },
-    openOrder(state) {
-      state.dialOrder = !state.dialOrder;
-    },
-    openDialForm(state) {
-      state.dialForm = !state.dialForm;
+    changeTabs(state, view) {
+      state.tabs = view;
     },
     openUserData(state, value) {
       state.userData = value;
     },
   },
   getters: {
+    viewTab(state) {
+      return state.tabs;
+    },
     viewUserData(state) {
       return state.userData;
-    },
-    viewDialBasket(state) {
-      return state.dialBasket;
-    },
-    viewDialOrder(state) {
-      return state.dialOrder;
-    },
-    viewDialForm(state) {
-      return state.dialForm;
     },
     viewUserValid(state) {
       return state.userValidate;
@@ -211,6 +196,7 @@ export default {
     },
   },
   state: {
+    tabs: ref("catalog"),
     basket: ref([]),
     orders: ref([]),
     products: ref([]),
@@ -218,9 +204,6 @@ export default {
       count: 0,
       loading: true,
     }),
-    dialOrder: ref(false),
-    dialForm: ref(false),
-    dialBasket: ref(false),
     userValidate: ref(false),
     initLoading: ref(true),
     userData: ref({}),
