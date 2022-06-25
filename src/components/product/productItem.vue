@@ -1,6 +1,6 @@
 <template>
   <q-card class="q-ma-sm">
-    <div class="bg-teal flex flex-center img">
+    <div class="bg-primary flex flex-center img">
       <q-avatar
         size="56px"
         font-size="40px"
@@ -19,7 +19,7 @@
         flat
         size="20px"
         padding="0"
-        color="teal"
+        color="primary"
         no-wrap
         :label="product.price.amount + ' ' + convertСurrency"
       />

@@ -1,10 +1,13 @@
 <template>
-  <div class="q-pa-lg flex center max-xxl text-h4">Каталог товаров бота</div>
-  <div class="flex center max-xxl q-gutter-md">
+  <div class="q-pa-sm max-xxl center">
+    <div class="my-header flex items-end">Каталог товаров бота</div>
+    <q-separator class="q-my-sm" />
+  </div>
+  <div class="flex center max-xxl q-gutter-sm">
     <q-btn
       rounded
       outline
-      color="teal"
+      color="primary"
       icon="chevron_left"
       title="Обратно"
       @click="getAllProducts()"
@@ -13,14 +16,14 @@
       <q-btn
         padding="0 20px"
         :outline="viewSelectCategory == 0"
-        color="teal"
+        color="primary"
         label="категории"
         @click="changeCategoryView(0)"
       />
       <q-btn
         padding="0 20px"
         :outline="viewSelectCategory == 7"
-        color="teal"
+        color="primary"
         label="товары"
         @click="changeCategoryView(7)"
       />
@@ -29,12 +32,12 @@
 
   <div class="flex center max-xxl">
     <q-input
-      class="q-ma-lg max-lg"
+      class="q-my-lg q-mx-sm max-lg"
       style="width: 100%"
       outlined
       dense
       :label="viewSelectCategory != 0 ? 'Поиск товаров' : 'Поиск по категории'"
-      color="teal"
+      color="primary"
       v-model="search"
       type="text"
     />
@@ -80,7 +83,7 @@
           rounded
           dense
           outline
-          color="teal"
+          color="primary"
           label="Посмотреть Категории"
           @click="changeCategoryView(0)"
         />
@@ -107,7 +110,7 @@
           rounded
           dense
           outline
-          color="teal"
+          color="primary"
           label="Посмотреть товары"
           @click="changeCategoryView(7)"
         />

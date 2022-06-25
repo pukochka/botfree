@@ -19,13 +19,13 @@
         rounded-borders
         justify-between
         count
-        text-h6
+        text-primary text-h6
       "
     >
       <q-btn
         padding="4px"
         flat
-        color="grey-9"
+        color="primary"
         icon="remove"
         @click="actionsWithBasket({ action: 'subtract', category_id: prod.id })"
       />
@@ -34,9 +34,10 @@
         <q-popup-edit v-model.number="countInBasket" v-slot="scope">
           <q-input
             type="number"
-            color="teal"
+            color="primary"
             autofocus
             dense
+            input-class="text-grey-9"
             v-model="scope.value"
             hint="Количество товара"
           >
@@ -71,7 +72,7 @@
       <q-btn
         padding="4px"
         flat
-        color="grey-9"
+        color="primary"
         icon="add"
         v-if="countInBasket < prod.setting.max_count"
         @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
@@ -115,6 +116,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .count {
-  border: 2px solid #009688;
+  border: 2px solid;
 }
 </style>

@@ -2,9 +2,9 @@
   <div class="max-lg center">
     <div class="user flex items-center q-pa-md flex flex-center">
       <q-avatar
-        size="70px"
+        size="100px"
         font-size="52px"
-        color="teal"
+        color="primary"
         text-color="white"
         icon="person"
       />
@@ -23,7 +23,7 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             icon="account_balance_wallet"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
@@ -41,7 +41,7 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             icon="reorder"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
@@ -57,7 +57,7 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             icon="gavel"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
@@ -72,12 +72,27 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             icon="help"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Помощь</div>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-item clickable @click="changeTabs('appStyle')">
+        <q-item-section avatar
+          ><q-avatar
+            size="30px"
+            font-size="22px"
+            color="transparent"
+            text-color="primary"
+            icon="style"
+        /></q-item-section>
+        <q-item-section class="text-subtitle1">
+          <q-item-label lines="1" class="flex items-center justify-between">
+            <div class="">Стиль приложения</div>
           </q-item-label>
         </q-item-section>
       </q-item>
@@ -87,7 +102,7 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             icon="info"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
@@ -100,7 +115,7 @@
             size="30px"
             font-size="30px"
             color="transparent"
-            text-color="teal"
+            text-color="primary"
             :icon="info ? 'arrow_drop_up' : 'arrow_drop_down'"
         /></q-item-section>
       </q-item>

@@ -13,7 +13,14 @@
       :key="index"
     >
       <div
-        class="flex justify-between bg-teal text-white q-pa-sm text-weight-bold"
+        class="
+          flex
+          justify-between
+          bg-primary
+          text-white
+          q-pa-sm
+          text-weight-bold
+        "
       >
         <div class="">Номер заказа</div>
         <div class="">
@@ -42,7 +49,7 @@
         <div class="flex justify-between">
           <div class="">Товары</div>
           <q-btn
-            color="teal"
+            color="primary"
             padding="0 10px"
             flat
             :icon="toggle[index] ? 'arrow_drop_up' : 'arrow_drop_down'"
@@ -56,7 +63,7 @@
                 class="
                   text-subtitle2
                   rounded-borders
-                  bg-teal
+                  bg-primary
                   text-white
                   q-pa-sm q-ma-xs
                   items-inner
@@ -105,7 +112,7 @@
           dense
           flat
           round
-          color="teal"
+          color="primary"
           icon="chevron_left"
           @click="prevPage"
         />
@@ -117,7 +124,7 @@
           title=""
           flat
           round
-          color="teal"
+          color="primary"
           icon="chevron_right"
           @click="nextPage"
         />

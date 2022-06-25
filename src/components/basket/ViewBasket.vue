@@ -2,7 +2,10 @@
   <div class="q-pa-md max-xl center">
     <div class="my-header flex items-end">
       Корзина
-      <div class="q-ml-sm text-caption text-grey-7">
+      <div
+        class="q-ml-sm text-caption text-grey-7"
+        v-if="viewBasket.length != 0"
+      >
         Товаров {{ viewBasket.length }}
       </div>
     </div>
@@ -13,7 +16,7 @@
       v-if="viewBasket.length != 0"
       flat
       dense
-      color="teal"
+      color="primary"
       icon="delete"
       label="Очистить корзину"
       @click="actionsWithBasket({ action: 'remove-all' })"
@@ -23,7 +26,7 @@
     <div class="text-h5 column" v-if="viewBasket.length == 0">
       В корзине пока пусто
       <q-btn
-        class="text-teal q-ma-md"
+        class="text-primary q-ma-md"
         rounded
         outline
         label="К товарам"
@@ -85,7 +88,7 @@
               dense
               borderless
               outlined
-              color="teal"
+              color="primary"
               type="text"
               label="Промокод"
               mask="**-**-**-**-**"
@@ -94,51 +97,15 @@
           <div class="flex-grow q-mt-sm">
             <q-btn
               class="fit"
-              color="teal"
+              color="primary"
               label="Перейти к оформлению"
-              @click="changeTabs('formsOrder')"
+              @click="changeTabs('formsOrders')"
             />
           </div>
         </q-card-section>
       </q-card>
     </div>
   </q-card-section>
-
-  <div class="full-screen">
-    <q-card
-      v-if="viewBasket.length != 0"
-      class="
-        max-xl
-        fixed-bottom
-        center
-        flex
-        justify-between
-        items-center
-        basket
-        bg-white
-      "
-      style="height: 60px"
-    >
-      <div class="flex q-pl-md">
-        <div class="flex" v-for="(item, index) of totalPrice" :key="index">
-          <div class="q-px-xs text-h6">{{ item }}</div>
-          <div
-            class="flex items-center text-h6"
-            v-if="totalPrice.length > 1 && index != totalPrice.length - 1"
-          >
-            +
-          </div>
-        </div>
-      </div>
-      <q-btn
-        class="q-ma-sm"
-        size="13px"
-        color="teal"
-        label="К оформлению"
-        @click="changeTabs('formsOrders')"
-      />
-    </q-card>
-  </div>
 </template>
 <script>
 import { ref } from "vue";

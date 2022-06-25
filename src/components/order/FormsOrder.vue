@@ -17,7 +17,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="local_shipping"
             />
           </div>
@@ -35,7 +35,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="home"
             />
           </div>
@@ -49,7 +49,7 @@
     <div class="flex q-gutter-sm q-pa-md">
       <q-input
         style="transition: 0.1s all"
-        color="teal"
+        color="primary"
         borderless
         outlined
         v-model="text"
@@ -58,7 +58,7 @@
         class="input"
       />
       <q-input
-        color="teal"
+        color="primary"
         borderless
         outlined
         v-model="text"
@@ -67,7 +67,7 @@
         label="Улица"
       />
       <q-input
-        color="teal"
+        color="primary"
         borderless
         outlined
         class="input"
@@ -77,7 +77,7 @@
       />
       <q-input
         borderless
-        color="teal"
+        color="primary"
         outlined
         class="input"
         v-model="text"
@@ -100,7 +100,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="currency_bitcoin"
             />
           </div>
@@ -118,7 +118,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="credit_card"
             />
           </div>
@@ -136,7 +136,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="monetization_on"
             />
           </div>
@@ -154,7 +154,7 @@
               size="30px"
               font-size="22px"
               color="transparent"
-              text-color="teal"
+              text-color="primary"
               icon="pin_drop"
             />
           </div>
@@ -167,7 +167,7 @@
     <div class="text-h6">Коментарии к заказу</div>
     <q-input
       class="q-pa-md"
-      color="teal"
+      color="primary"
       borderless
       outlined
       dense
@@ -180,7 +180,7 @@
       @click="initsOrder"
       :loading="initOrder"
       padding="8px 64px"
-      color="teal"
+      color="primary"
       label="Перейти к оплате"
     />
   </div>
@@ -212,7 +212,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .select {
   transition: 0.3s all;
-  outline: 3px solid $teal;
+  outline: 3px solid $primary;
 }
 .card {
   transition: 0.3s all;

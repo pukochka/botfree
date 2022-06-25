@@ -1,6 +1,6 @@
 <template>
   <q-card class="flex no-wrap col q-my-xs">
-    <div class="bg-teal width flex flex-center q-ma-xs">
+    <div class="bg-primary width flex flex-center q-ma-xs">
       <q-avatar
         size="36px"
         font-size="30px"
@@ -21,8 +21,7 @@
         <div class="row col-sm-6 col-12">
           <div class="col-6">
             <q-btn
-              v-if="product.type == 7"
-              color="teal-9"
+              color="primary"
               dense
               flat
               no-wrap
@@ -35,7 +34,7 @@
             <q-btn
               dense
               flat
-              color="teal"
+              color="primary"
               icon="clear"
               no-caps
               no-wrap

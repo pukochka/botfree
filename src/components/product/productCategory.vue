@@ -1,6 +1,6 @@
 <template>
   <q-card class="q-ma-sm">
-    <div class="bg-teal flex flex-center q-pa-sm">
+    <div class="bg-primary flex flex-center q-pa-sm">
       <div class="column flex-center">
         <q-avatar
           size="56px"

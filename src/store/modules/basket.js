@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ref } from "vue";
-
+import { useQuasar, setCssVar, getCssVar } from "quasar";
 /*
   Actions : get | actions
   Getters : view
@@ -159,11 +159,19 @@ export default {
     changeTabs(state, view) {
       state.tabs = view;
     },
+    changeColor(state, color) {
+      state.colors.forEach((item) => (item.selected = false));
+      state.colors.find((item) => item.value == color.value)[0].selected = true;
+      setCssVar("primary", color.value);
+    },
     openUserData(state, value) {
       state.userData = value;
     },
   },
   getters: {
+    viewColor(state) {
+      return state.colors;
+    },
     viewTab(state) {
       return state.tabs;
     },
@@ -212,5 +220,31 @@ export default {
       data: {},
       search: {},
     }),
+    colors: ref([
+      {
+        selected: false,
+        value: "teal",
+      },
+      {
+        selected: false,
+        value: "red",
+      },
+      {
+        selected: false,
+        value: "pink",
+      },
+      {
+        selected: false,
+        value: "purple",
+      },
+      {
+        selected: false,
+        value: "indigo",
+      },
+      {
+        selected: false,
+        value: "orange",
+      },
+    ]),
   },
 };

@@ -23,6 +23,9 @@
       <q-tab-panel name="formsOrders" class="q-pa-none">
         <FormOrder />
       </q-tab-panel>
+      <q-tab-panel name="appStyle" class="q-pa-none">
+        <appStyle />
+      </q-tab-panel>
     </q-tab-panels>
   </q-page>
 </template>
@@ -36,6 +39,7 @@ import Catalog from "src/components/catalog/ViewCatalog.vue";
 import Orders from "src/components/order/ViewOrders.vue";
 import Profile from "src/components/profile/ViewProfile.vue";
 import FormOrder from "src/components/order/FormsOrder.vue";
+import appStyle from "src/components/profile/appStyle.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -45,6 +49,7 @@ export default defineComponent({
     Orders,
     FormOrder,
     Profile,
+    appStyle,
   },
   setup() {
     return {};
