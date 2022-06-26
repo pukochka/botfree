@@ -1,103 +1,83 @@
 <template>
-  <div class="q-py-lg max-xxl center flex justify-between items-center">
-    <div class="text-h4 q-pa-sm">Мои заказы</div>
+  <div class="max-xxl center q-px-md q-pt-lg">
+    <div class="flex">
+      <div class="text-h4">Мои заказы</div>
+      <div class="text-grey-8 text-caption self-end q-ml-sm">
+        Заказы {{ viewInfoOrders.count }}
+      </div>
+    </div>
+    <q-separator />
   </div>
-  <div class="max-lg center q-pa-sm">
-    <div class="text-h4 text-center q-pa-lg" v-if="viewOrders.length == 0">
+  <div class="max-xxl center q-pa-md">
+    <div class="text-h4 text-center q-pa-lg" v-if="viewInfoOrders.length == 0">
       Заказов пока нет
     </div>
-
-    <q-card
-      class="order-card q-ma-sm"
-      v-for="(order, index) of viewOrders"
-      :key="index"
-    >
-      <div
-        class="
-          flex
-          justify-between
-          bg-primary
-          text-white
-          q-pa-sm
-          text-weight-bold
-        "
-      >
-        <div class="">Номер заказа</div>
-        <div class="">
-          <code>#{{ order.id }}</code>
-        </div>
-      </div>
-      <div class="q-pa-md q-gutter-xs text-subtitle1">
-        <div class="flex justify-between">
-          <div class="">Время</div>
-          <div class="">
-            <code>{{ order.created_at }}</code>
+    <div class="" v-for="(order, index) of viewOrders" :key="index">
+      <div class="q-pt-lg" :class="{ row: !widthmd, column: widthmd }">
+        <div
+          class="col-2 row"
+          :class="{ 'q-ma-sm': widthmd, 'q-my-sm': !widthmd }"
+          style="max-height: 160px"
+        >
+          <div class="col-12 col-sm-2 col-md-12">
+            <q-btn
+              color="primary"
+              :label="order.price"
+              flat
+              size="26px"
+              padding="0"
+              no-wrap
+              :ripple="false"
+              class="fit text-wight-bold"
+            />
           </div>
-        </div>
-        <div class="flex justify-between">
-          <div class="">Способ</div>
-          <div class="">
-            <code>{{ order.shop_id }}</code>
-          </div>
-        </div>
-        <div class="flex justify-between">
-          <div class="">Статус</div>
-          <div class="">
-            <code>{{ order.status }}</code>
-          </div>
-        </div>
-        <div class="flex justify-between">
-          <div class="">Товары</div>
-          <q-btn
-            color="primary"
-            padding="0 10px"
-            flat
-            :icon="toggle[index] ? 'arrow_drop_up' : 'arrow_drop_down'"
-            @click="toggle[index] = !toggle[index]"
-          />
-        </div>
-        <q-slide-transition>
-          <div v-show="toggle[index]" class="">
-            <div class="flex wrap">
-              <div
-                class="
-                  text-subtitle2
-                  rounded-borders
-                  bg-primary
-                  text-white
-                  q-pa-sm q-ma-xs
-                  items-inner
-                  relative-position
-                "
-                v-for="(item, indexitem) in order.items"
-                :key="indexitem"
-              >
-                <div class="info bg-white text-grey-8">
-                  {{ indexitem + 1 }}
+          <div
+            class="
+              col-12 col-sm-10 col-md-12
+              bg-primary
+              rounded-borders
+              relative-position
+              q-pa-sm
+            "
+          >
+            <div class="column">
+              <div class="">
+                <div class="text-white text-h6 text-center">
+                  Заказ #{{ order.id }}
                 </div>
-                <div class="flex flex-center">
-                  {{ item.product.design.title }}
-                </div>
-                <div class="flex flex-center">
-                  {{
-                    item.count +
-                    " шт. x " +
-                    item.product.price.amount +
-                    " " +
-                    convertСurrency(item.product.price.currency)
-                  }}
-                </div>
+                <q-btn
+                  :class="{
+                    'absolute-bottom': !widthmd,
+                    'absolute-right': widthmd,
+                  }"
+                  color="white"
+                  icon="arrow_drop_down"
+                  flat
+                />
               </div>
             </div>
+            <q-menu
+              fit
+              transition-show="fade"
+              transition-hide="fade"
+              :anchor="!widthmd ? 'top right' : 'bottom left'"
+            >
+              <order-info :order="order" />
+            </q-menu>
           </div>
-        </q-slide-transition>
-        <div class="flex justify-between text-weight-bold">
-          <div class="">Итоговая цена</div>
-          <div class="">{{ order.price }}</div>
         </div>
-        <q-separator />
+
+        <div class="col-10">
+          <order-item :order="order" />
+        </div>
       </div>
-    </q-card>
+      <div class="q-mx-sm flex justify-between">
+        <div class="text-h6 text-weight-bold">Итоговая цена</div>
+        <div class="text-h6 text-weight-bold">{{ order.price }}</div>
+      </div>
+      <q-separator class="q-mt-lg" v-if="index != 2" />
+    </div>
+
     <div
       class="absolute-center flex justify-center fit bg-layout"
       v-if="viewInfoOrders.loading"
@@ -105,7 +85,7 @@
       <q-spinner color="primary" class="q-ma-xl" size="3em" />
     </div>
 
-    <div class="max-xl center flex justify-end q-pa-sm q-pb-xl">
+    <div class="max-xxl center flex justify-end q-pa-sm q-pb-md">
       <div class="flex no-wrap items-center q-gutter-sm">
         <q-btn
           :disable="page == 1"
@@ -135,11 +115,29 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
+import { useQuasar } from "quasar";
+import { computed } from "vue";
+
+import orderItem from "src/components/order/productOrder.vue";
+import orderInfo from "src/components/order/orderInfo.vue";
 
 export default defineComponent({
+  components: {
+    orderItem,
+    orderInfo,
+  },
   setup() {
+    const $q = useQuasar();
+    const widthmd = computed(() => {
+      return $q.screen.lt.md;
+    });
+    const widthsm = computed(() => {
+      return $q.screen.lt.sm;
+    });
     return {
-      toggle: ref([]),
+      widthmd,
+      widthsm,
+      toggle: ref([false, false, false]),
       page: ref(1),
       offset: ref(0),
     };
@@ -147,11 +145,7 @@ export default defineComponent({
   computed: {
     ...mapGetters(["viewOrders", "viewInfoOrders"]),
     countOfPages() {
-      if (Math.round(this.viewInfoOrders.count / 3) == 0) {
-        return 1;
-      } else {
-        return Math.round(this.viewInfoOrders.count / 3);
-      }
+      return Math.ceil(this.viewInfoOrders.count / 3);
     },
   },
   methods: {
@@ -178,20 +172,16 @@ export default defineComponent({
         offset: (this.offset += 3),
       });
       this.page++;
+      window.scrollTo({ top: 0 });
     },
     prevPage() {
       this.actionsWithOrders({ action: "index", offset: (this.offset -= 3) });
       this.page--;
+      window.scrollTo({ top: 0 });
     },
   },
   mounted() {},
-  watch: {
-    viewOrders() {
-      for (let i = 0; i < this.viewOrders.length; i++) {
-        this.toggle.push(false);
-      }
-    },
-  },
+  watch: {},
 });
 </script>
 <style lang="scss" scoped>

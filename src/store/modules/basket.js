@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ref } from "vue";
-import { useQuasar, setCssVar, getCssVar } from "quasar";
+import { setCssVar } from "quasar";
 /*
   Actions : get | actions
   Getters : view
@@ -161,7 +161,7 @@ export default {
     },
     changeColor(state, color) {
       state.colors.forEach((item) => (item.selected = false));
-      state.colors.find((item) => item.value == color.value)[0].selected = true;
+      state.colors.find((item) => item.value == color.value).selected = true;
       setCssVar("primary", color.value);
     },
     openUserData(state, value) {
