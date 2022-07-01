@@ -18,7 +18,7 @@ module.exports = configure(function (ctx) {
     supportTS: false,
 
     htmlVariables: {
-      title: "Сайт",
+      title: "Веб-приложение bot-t.ru",
       some: {
         prop: "my-prop",
       },

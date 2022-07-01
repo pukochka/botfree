@@ -3,8 +3,8 @@
     <q-tab-panels
       v-model="viewTab"
       animated
-      transition-prev="jump-up"
-      transition-next="jump-up"
+      transition-prev="fade"
+      transition-next="fade"
     >
       <q-tab-panel name="catalog" class="q-pa-none">
         <Catalog />
@@ -20,11 +20,21 @@
       <q-tab-panel name="basket" class="q-pa-none">
         <Basket />
       </q-tab-panel>
+
       <q-tab-panel name="formsOrders" class="q-pa-none">
         <FormOrder />
       </q-tab-panel>
+
       <q-tab-panel name="appStyle" class="q-pa-none">
-        <appStyle />
+        <AppStyle />
+      </q-tab-panel>
+
+      <q-tab-panel name="rules" class="q-pa-none">
+        <BotRules />
+      </q-tab-panel>
+
+      <q-tab-panel name="sales" class="q-pa-none">
+        <SalesBot />
       </q-tab-panel>
     </q-tab-panels>
   </q-page>
@@ -35,11 +45,16 @@ import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
 import Basket from "src/components/basket/ViewBasket.vue";
+
 import Catalog from "src/components/catalog/ViewCatalog.vue";
+
 import Orders from "src/components/order/ViewOrders.vue";
-import Profile from "src/components/profile/ViewProfile.vue";
 import FormOrder from "src/components/order/FormsOrder.vue";
-import appStyle from "src/components/profile/appStyle.vue";
+
+import Profile from "src/components/profile/ViewProfile.vue";
+import AppStyle from "src/components/profile/appStyle.vue";
+import BotRules from "src/components/profile/botRules.vue";
+import SalesBot from "src/components/profile/salesBot.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -49,7 +64,9 @@ export default defineComponent({
     Orders,
     FormOrder,
     Profile,
-    appStyle,
+    AppStyle,
+    BotRules,
+    SalesBot,
   },
   setup() {
     return {};
@@ -58,7 +75,7 @@ export default defineComponent({
     ...mapGetters(["viewTab"]),
   },
   methods: {
-    ...mapActions(["getUserData", "getAllProducts"]),
+    ...mapActions(["getUserData", "getAllProducts", "actionsWithСoupon"]),
   },
   mounted() {
     this.getUserData();

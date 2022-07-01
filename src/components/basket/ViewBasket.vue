@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md max-xl center">
+  <div class="q-pa-md max-xxl center">
     <div class="my-header flex items-end">
       Корзина
       <div
@@ -11,7 +11,7 @@
     </div>
     <q-separator class="q-my-sm" />
   </div>
-  <q-card-actions align="right" class="max-xl center">
+  <q-card-actions align="right" class="max-xxl center">
     <q-btn
       v-if="viewBasket.length != 0"
       flat
@@ -19,10 +19,10 @@
       color="primary"
       icon="delete"
       label="Очистить корзину"
-      @click="actionsWithBasket({ action: 'remove-all' })"
+      @click="sure = !sure"
     />
   </q-card-actions>
-  <q-card-section class="max-xl center column">
+  <q-card-section class="max-xxl center column">
     <div class="text-h5 column" v-if="viewBasket.length == 0">
       В корзине пока пусто
       <q-btn
@@ -39,7 +39,7 @@
       :product="item.product"
     />
   </q-card-section>
-  <q-card-section class="max-xl center flex">
+  <q-card-section class="max-xxl center flex">
     <div class="max-md full-width">
       <q-card
         class="full-width q-mb-xxl relative-position bg-grey-2"
@@ -106,25 +106,29 @@
       </q-card>
     </div>
   </q-card-section>
+  <BasketDialogClear v-model="sure" />
 </template>
 <script>
 import { ref } from "vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
+import BasketDialogClear from "src/components/basket/BasketDialogClear.vue";
 import productItemBasket from "components/basket/productItemBasket.vue";
 
 export default {
   props: {},
   components: {
     productItemBasket,
+    BasketDialogClear,
   },
   setup() {
     return {
       promo: ref(""),
+      sure: ref(false),
     };
   },
   computed: {
-    ...mapGetters(["viewBasket"]),
+    ...mapGetters(["viewBasket", "viewInitData"]),
     totalPrice() {
       let items = [];
       let equal = [];
@@ -173,6 +177,7 @@ export default {
       }
     },
   },
+  mounted() {},
 };
 </script>
 <style lang="scss" scoped>

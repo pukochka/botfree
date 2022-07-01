@@ -1,5 +1,6 @@
 <template>
-  <q-card class="q-ma-sm">
+  <q-card class="q-ma-sm active">
+    <div class="active-drop fit absolute-center"></div>
     <div class="bg-primary flex flex-center q-pa-sm">
       <div class="column flex-center">
         <q-avatar
@@ -24,4 +25,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.active {
+  border-radius: 4px !important;
+}
+.active-drop {
+  cursor: pointer;
+  transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+.active:hover .active-drop {
+  background: rgba(255, 255, 255, 0.3);
+}
 </style>

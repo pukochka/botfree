@@ -1,5 +1,5 @@
 <template>
-  <div class="max-xl center q-pa-md">
+  <div class="max-xxl center q-pa-md">
     <div class="text-h4">Стиль приложения</div>
     <q-separator class="q-mt-sm" />
     <div class="row q-mt-md">

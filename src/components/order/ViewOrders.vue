@@ -6,76 +6,27 @@
         Заказы {{ viewInfoOrders.count }}
       </div>
     </div>
-    <q-separator />
+    <q-separator class="q-mt-sm" />
   </div>
   <div class="max-xxl center q-pa-md">
     <div class="text-h4 text-center q-pa-lg" v-if="viewInfoOrders.length == 0">
       Заказов пока нет
     </div>
-    <div class="" v-for="(order, index) of viewOrders" :key="index">
-      <div class="q-pt-lg" :class="{ row: !widthmd, column: widthmd }">
-        <div
-          class="col-2 row"
-          :class="{ 'q-ma-sm': widthmd, 'q-my-sm': !widthmd }"
-          style="max-height: 160px"
-        >
-          <div class="col-12 col-sm-2 col-md-12">
-            <q-btn
-              color="primary"
-              :label="order.price"
-              flat
-              size="26px"
-              padding="0"
-              no-wrap
-              :ripple="false"
-              class="fit text-wight-bold"
-            />
-          </div>
-          <div
-            class="
-              col-12 col-sm-10 col-md-12
-              bg-primary
-              rounded-borders
-              relative-position
-              q-pa-sm
-            "
-          >
-            <div class="column">
-              <div class="">
-                <div class="text-white text-h6 text-center">
-                  Заказ #{{ order.id }}
-                </div>
-                <q-btn
-                  :class="{
-                    'absolute-bottom': !widthmd,
-                    'absolute-right': widthmd,
-                  }"
-                  color="white"
-                  icon="arrow_drop_down"
-                  flat
-                />
-              </div>
-            </div>
-            <q-menu
-              fit
-              transition-show="fade"
-              transition-hide="fade"
-              :anchor="!widthmd ? 'top right' : 'bottom left'"
-            >
-              <order-info :order="order" />
-            </q-menu>
-          </div>
-        </div>
-
-        <div class="col-10">
-          <order-item :order="order" />
-        </div>
+    <div
+      class="bg-grey-1 rounded-borders column q-my-md"
+      v-for="(order, index) of viewOrders"
+      :key="index"
+    >
+      <div class="q-pa-md">
+        <div class="text-weight-bold">Заказ от {{ order.created_at }}</div>
+        <div class="text-weight-bold text-primary">#{{ order.id }}</div>
+        <div class="text-weight-bold">{{ order.status }}</div>
+        <div class="text-weight-bold">Итого {{ order.price }}</div>
       </div>
-      <div class="q-mx-sm flex justify-between">
-        <div class="text-h6 text-weight-bold">Итоговая цена</div>
-        <div class="text-h6 text-weight-bold">{{ order.price }}</div>
+      <q-separator />
+      <div class="q-pa-md">
+        <order-item :order="order" />
       </div>
-      <q-separator class="q-mt-lg" v-if="index != 2" />
     </div>
 
     <div
@@ -119,12 +70,12 @@ import { useQuasar } from "quasar";
 import { computed } from "vue";
 
 import orderItem from "src/components/order/productOrder.vue";
-import orderInfo from "src/components/order/orderInfo.vue";
+// import orderInfo from "src/components/order/orderInfo.vue";
 
 export default defineComponent({
   components: {
     orderItem,
-    orderInfo,
+    // orderInfo,
   },
   setup() {
     const $q = useQuasar();

@@ -51,7 +51,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable>
+      <q-item clickable @click="changeTabs('rules')">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -62,22 +62,22 @@
         /></q-item-section>
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
-            <div class="">Правила</div>
+            <div class="">Правила магазина</div>
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable>
+      <q-item clickable @click="changeTabs('sales')">
         <q-item-section avatar
           ><q-avatar
             size="30px"
             font-size="22px"
             color="transparent"
             text-color="primary"
-            icon="help"
+            icon="receipt"
         /></q-item-section>
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
-            <div class="">Помощь</div>
+            <div class="">Акции в магазине</div>
           </q-item-label>
         </q-item-section>
       </q-item>

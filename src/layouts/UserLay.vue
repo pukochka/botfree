@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header bordered class="text-primary-7 row items-center bg-layout">
+    <q-header bordered class="text-primary-7 row items-center bg-grey-2">
       <q-toolbar>
         <div class="flex no-wrap q-gutter-sm">
           <q-avatar size="40px" rounded color="primary"></q-avatar>
@@ -8,7 +8,7 @@
           <q-avatar size="40px" rounded color="orange-4"></q-avatar>
         </div>
 
-        <div class="row full-height" v-if="!width">
+        <div class="row full-height q-ml-md" v-if="!width">
           <div class="col-4">
             <q-btn
               flat
@@ -19,10 +19,7 @@
               label="Каталог"
               no-caps
               no-wrap
-              @click="
-                getAllProducts();
-                changeTabs('catalog');
-              "
+              @click="changeTabs('catalog')"
             />
           </div>
           <div class="col-4">
@@ -65,25 +62,24 @@
 
     <q-page-container>
       <router-view />
-      <div class="">
-        <q-separator />
-        <div class="q-pa-sm q-px-lg row justify-between items-center">
-          <q-btn
-            flat
-            dense
-            color="primary"
-            padding="4px 8px"
-            label="Другая информация"
-          />
-          <div class="social q-gutter-md">
-            <q-avatar size="30px" color="primary" text-color="white" />
-            <q-avatar size="30px" color="blue-4" text-color="white" />
-            <q-avatar size="30px" color="purple-4" text-color="white" />
-          </div>
+    </q-page-container>
+    <div class="bg-grey-2">
+      <q-separator />
+      <div class="q-pa-sm q-px-lg row justify-between items-center">
+        <q-btn
+          flat
+          dense
+          color="primary"
+          padding="4px 8px"
+          label="Другая информация"
+        />
+        <div class="social q-gutter-md">
+          <q-avatar size="30px" color="primary" text-color="white" />
+          <q-avatar size="30px" color="blue-4" text-color="white" />
+          <q-avatar size="30px" color="purple-4" text-color="white" />
         </div>
       </div>
-    </q-page-container>
-
+    </div>
     <q-footer
       bordered
       class="bg-grey-2 text-primary mobile-footer"
@@ -102,10 +98,7 @@
               label="Каталог"
               no-caps
               size="13px"
-              @click="
-                getAllProducts();
-                changeTabs('catalog');
-              "
+              @click="changeTabs('catalog')"
             />
           </div>
           <div class="col-4">
@@ -152,7 +145,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { mapMutations, mapGetters, mapActions } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
 
@@ -173,7 +166,6 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations(["changeTabs"]),
-    ...mapActions(["getAllProducts"]),
   },
   mounted() {},
 });

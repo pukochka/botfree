@@ -1,12 +1,12 @@
 import { store } from "quasar/wrappers";
 import { createStore } from "vuex";
 
-import basket from "./modules/basket";
+import app from "./modules/app.js";
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      basket,
+      app,
     },
 
     // enable strict mode (adds overhead!)
