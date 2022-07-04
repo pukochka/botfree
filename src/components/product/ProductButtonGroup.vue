@@ -13,7 +13,14 @@
     />
 
     <div
-      class="flex flex-center text-white fit bg-grey rounded-borders"
+      class="
+        flex flex-center
+        text-white
+        fit
+        bg-grey
+        rounded-borders
+        text-center
+      "
       v-if="countInBasket == prod.setting.count || prod.setting.count == 0"
       style="padding: 8px; text-transform: uppercase"
     >

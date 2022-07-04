@@ -2,8 +2,11 @@
   <div class="max-xl center flex justify-between no-wrap q-py-lg q-px-md">
     <div class="text-h4">Формирование заказа</div>
   </div>
-  <div class="max-xl center q-px-md">
-    <!-- <q-spinner color="primary" size="3em" /> -->
+  <div class="max-xxl center q-px-sm">
+    <FormCoupon />
+  </div>
+  <!-- <div class="max-xl center q-px-md">
+    <q-spinner color="primary" size="3em" />
     <div class="text-h6">Выберите способ доставки</div>
     <div class="flex q-gutter-md q-pa-md">
       <q-card
@@ -162,7 +165,7 @@
         </q-card-section>
       </q-card>
     </div>
-  </div>
+  </div> -->
   <div class="max-xl center q-px-md">
     <div class="text-h6">Коментарии к заказу</div>
     <q-input
@@ -188,6 +191,9 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import FormPay from "src/components/form/FormPay.vue";
+import FormDelivery from "src/components/form/FormDelivery.vue";
+import FormCoupon from "src/components/form/FormCoupon.vue";
 
 export default defineComponent({
   setup() {
@@ -197,6 +203,9 @@ export default defineComponent({
       initOrder: ref(false),
       text: ref(""),
     };
+  },
+  components: {
+    FormCoupon,
   },
   computed: {},
   methods: {

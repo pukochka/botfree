@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-ma-sm">
+  <q-card class="fit">
     <div class="bg-primary flex flex-center img">
       <q-avatar
         size="56px"

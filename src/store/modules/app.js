@@ -234,6 +234,9 @@ export default {
     changeTabs(state, view) {
       state.tabs = view;
     },
+    changeCoupon(state, data) {
+      state.coupon = data;
+    },
     changeColor(state, color) {
       state.colors.forEach((item) => (item.selected = false));
       state.colors.find((item) => item.value == color.value).selected = true;
@@ -244,6 +247,9 @@ export default {
     },
   },
   getters: {
+    viewCoupon(state) {
+      return state.coupon;
+    },
     viewInfoSales(state) {
       return state.infoSales;
     },
@@ -289,6 +295,10 @@ export default {
     basket: ref([]),
     orders: ref([]),
     products: ref([]),
+    coupons: ref({
+      loading: true,
+      data: [],
+    }),
     infoSales: ref({
       value: null,
       loading: true,

@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-ma-sm active">
+  <q-card class="fit active">
     <div class="active-drop fit absolute-center"></div>
     <div class="bg-primary flex flex-center q-pa-sm">
       <div class="column flex-center">

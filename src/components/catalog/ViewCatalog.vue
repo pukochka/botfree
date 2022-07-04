@@ -27,6 +27,13 @@
         label="товары"
         @click="changeCategoryView(7)"
       />
+      <q-btn
+        padding="0 20px"
+        :outline="viewSelectCategory == 7"
+        color="primary"
+        label="ААА"
+        @click="changeTabs('formsOrders')"
+      />
     </q-btn-group>
   </div>
 
@@ -42,10 +49,10 @@
       type="text"
     />
   </div>
-  <div class="center max-xxl min-size-xl">
-    <div class="row">
+  <div class="center max-xxl min-size-xl q-px-sm">
+    <div class="row q-col-gutter-sm">
       <div
-        class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-3"
+        class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-3"
         v-for="(product, index) of viewItems()"
         :key="index"
         v-show="product.type != 0"
@@ -53,7 +60,7 @@
         <product-item class="" v-if="product.type != 0" :product="product" />
       </div>
       <div
-        class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-3"
+        class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-3"
         v-for="(product, index) of viewItems()"
         :key="index"
         v-show="product.type == 0"
@@ -149,7 +156,7 @@ export default defineComponent({
     ...mapGetters(["viewAllProducts", "viewSelectCategory", "viewTab"]),
   },
   methods: {
-    ...mapMutations(["changeCategoryView"]),
+    ...mapMutations(["changeCategoryView", "changeTabs"]),
     ...mapActions(["getAllProducts"]),
     convertURL(search) {
       if (search == "") {
@@ -192,7 +199,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .min-size-xl {
-  min-height: 350px;
+  min-height: 400px;
 }
 
 @media (max-width: 450px) {
