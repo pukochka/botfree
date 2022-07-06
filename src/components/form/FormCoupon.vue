@@ -1,17 +1,29 @@
 <template>
-  <div class="">
-    <div class="text-h5">Ввести купон</div>
-    <q-spinner color="primary" size="3em" />
-    <q-btn
-      flat
-      color="green-8"
-      icon="check"
-      label="У вас уже есть купон"
-      no-wrap
-    />
-    <q-btn flat color="red-8" icon="clear" label="Убрать купон" no-wrap />
-    <!-- @click="actionsWithCoupon({action:'deactivated'})" -->
-    <div class="">
+  <div class="max-md">
+    <div class="text-h5 q-pb-md" v-if="!viewCoupon.loading">Ввести купон</div>
+    <div class="flex flex-center q-pa-md" v-if="viewCoupon.loading">
+      <q-spinner color="primary" size="3em" />
+    </div>
+    <div class="q-pa-sm row">
+      <q-btn
+        flat
+        color="green-8"
+        icon="check"
+        label="У вас уже есть купон"
+        no-wrap
+        v-if="!viewCoupon.loading && viewCoupon.has"
+      />
+      <q-btn
+        color="red-8"
+        icon="clear"
+        label="Убрать купон"
+        no-wrap
+        v-if="!viewCoupon.loading && viewCoupon.has"
+      />
+      <!-- @click="actionsWithCoupon({action:'deactivated'})" -->
+    </div>
+
+    <div class="" v-if="!viewCoupon.loading && !viewCoupon.has">
       <q-input
         v-model="coupon"
         type="text"
@@ -20,8 +32,14 @@
         borderless
         outlined
       />
-      <q-btn color="primary" label="Отправить" />
-      <!-- @click="actionsWithCoupon({action:'activate',code:coupon})" -->
+      <div class="flex flex-center q-pa-md">
+        <q-btn
+          color="primary"
+          label="Активировать"
+          :loading="viewCoupon.loading"
+        />
+        <!-- @click="actionsWithCoupon({action:'activate',code:coupon})" -->
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +53,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["ViewCoupon"]),
+    ...mapGetters(["viewCoupon"]),
   },
   methods: {
     ...mapActions(["actionsWithCoupon"]),

@@ -1,7 +1,11 @@
 <template>
   <div class="q-pa-sm max-xxl center">
     <div class="my-header flex items-end">Каталог товаров бота</div>
+
     <q-separator class="q-my-sm" />
+    <div class="max-sm q-pa-md">
+      {{ data }}
+    </div>
   </div>
   <div class="flex center max-xxl q-gutter-sm">
     <q-btn
@@ -52,7 +56,7 @@
   <div class="center max-xxl min-size-xl q-px-sm">
     <div class="row q-col-gutter-sm">
       <div
-        class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-3"
+        class="col-md-3 col-lg-3 col-6"
         v-for="(product, index) of viewItems()"
         :key="index"
         v-show="product.type != 0"
@@ -60,13 +64,21 @@
         <product-item class="" v-if="product.type != 0" :product="product" />
       </div>
       <div
-        class="col-xs-6 col-sm-6 col-md-3 col-lg-3 col-3"
+        class="col-md-3 col-lg-3 col-6"
         v-for="(product, index) of viewItems()"
         :key="index"
         v-show="product.type == 0"
         @click="getAllProducts(product.id)"
       >
         <productCategory v-if="product.type == 0" :product="product" />
+      </div>
+      <div
+        class="col-md-3 col-lg-3 col-6"
+        v-for="(slelton, index) in 8"
+        :key="index"
+        v-show="viewAllProducts.length == 0"
+      >
+        <q-skeleton height="160px" rect />
       </div>
       <div
         class="
@@ -122,15 +134,6 @@
           @click="changeCategoryView(7)"
         />
       </div>
-
-      <q-card
-        class="my-card q-ma-sm"
-        v-for="(slelton, index) in 8"
-        :key="index"
-        v-show="viewAllProducts.length == 0"
-      >
-        <q-skeleton height="160px" square />
-      </q-card>
     </div>
   </div>
 </template>
@@ -154,6 +157,10 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters(["viewAllProducts", "viewSelectCategory", "viewTab"]),
+    data() {
+      console.log(window.Telegram.WebApp.initData);
+      return window.Telegram.WebApp.initData;
+    },
   },
   methods: {
     ...mapMutations(["changeCategoryView", "changeTabs"]),

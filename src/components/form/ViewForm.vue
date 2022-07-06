@@ -1,9 +1,18 @@
 <template>
-  <div class="max-xl center flex justify-between no-wrap q-py-lg q-px-md">
-    <div class="text-h4">Формирование заказа</div>
+  <div class="max-xxl center q-py-lg q-px-md">
+    <div class="my-header">Формирование заказа</div>
+    <q-separator class="q-my-sm" />
   </div>
-  <div class="max-xxl center q-px-sm">
-    <FormCoupon />
+  <div class="max-xxl center q-px-md column">
+    <div class="col q-py-md">
+      <FormCoupon />
+    </div>
+    <div class="col q-py-md">
+      <FormDelivery />
+    </div>
+    <div class="col q-py-md">
+      <FormPay />
+    </div>
   </div>
   <!-- <div class="max-xl center q-px-md">
     <q-spinner color="primary" size="3em" />
@@ -166,27 +175,6 @@
       </q-card>
     </div>
   </div> -->
-  <div class="max-xl center q-px-md">
-    <div class="text-h6">Коментарии к заказу</div>
-    <q-input
-      class="q-pa-md"
-      color="primary"
-      borderless
-      outlined
-      dense
-      v-model="text"
-      autogrow
-    />
-  </div>
-  <div class="flex flex-center q-pa-xl">
-    <q-btn
-      @click="initsOrder"
-      :loading="initOrder"
-      padding="8px 64px"
-      color="primary"
-      label="Перейти к оплате"
-    />
-  </div>
 </template>
 <script>
 import { ref, defineComponent } from "vue";
@@ -206,6 +194,8 @@ export default defineComponent({
   },
   components: {
     FormCoupon,
+    FormDelivery,
+    FormPay,
   },
   computed: {},
   methods: {

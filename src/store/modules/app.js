@@ -21,36 +21,34 @@ const createParams = (items, params, ...args) => {
 export default {
   actions: {
     getUserData({ commit, dispatch, getters }) {
-      try {
-        axios
-          .post(
-            `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewInitData.search.secretKey}`,
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-              telegram_id: getters.viewInitData.data.user.id,
-            }
-          )
-          .then((response) => {
-            console.log(response, "Пользователь");
-            if (response.status == 200) {
-              commit("openUserData", response.data.data);
-              dispatch("actionsWithBasket", { action: "get" });
-              dispatch("actionsWithOrders", { action: "count" });
-              dispatch("actionsWithOrders", { action: "index", offset: 0 });
-              // actionsBasket({
-              //   url: "get",
-              //   secret: getters.viewInitData.search.secretKey,
-              //   post: {
-              //     bot_id: getters.viewInitData.search.bot_id,
-              //     user_id: getters.viewUserData.id,
-              //     secret_user_key: getters.viewUserData.secret_user_key,
-              //   },
-              // }).then((response) => console.log(response));
-            }
-          });
-      } catch {
-        console.log("Пользователь не авторизован");
-      }
+      axios
+        .post(
+          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewInitData.search.secretKey}`,
+          {
+            bot_id: getters.viewInitData.search.bot_id,
+            telegram_id: getters.viewInitData.data.user.id,
+          }
+        )
+        .then((response) => {
+          console.log(response, "Пользователь");
+          if (response.status == 200) {
+            commit("openUserData", response.data.data);
+            dispatch("actionsWithBasket", { action: "get" });
+            dispatch("actionsWithOrders", { action: "count" });
+            dispatch("actionsWithOrders", { action: "index", offset: 0 });
+            // actionsBasket({
+            //   url: "get",
+            //   secret: getters.viewInitData.search.secretKey,
+            //   post: {
+            //     bot_id: getters.viewInitData.search.bot_id,
+            //     user_id: getters.viewUserData.id,
+            //     secret_user_key: getters.viewUserData.secret_user_key,
+            //   },
+            // }).then((response) => console.log(response));
+          }
+        });
+
+      // console.log("Пользователь не авторизован");
     },
     getAllProducts({ commit, getters }, category = 0) {
       axios
@@ -248,7 +246,7 @@ export default {
   },
   getters: {
     viewCoupon(state) {
-      return state.coupon;
+      return state.coupons;
     },
     viewInfoSales(state) {
       return state.infoSales;
@@ -296,7 +294,8 @@ export default {
     orders: ref([]),
     products: ref([]),
     coupons: ref({
-      loading: true,
+      has: true,
+      loading: false,
       data: [],
     }),
     infoSales: ref({
