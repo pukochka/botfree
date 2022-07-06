@@ -1,20 +1,27 @@
 <template>
-  <q-card class="fit active">
+  <div class="fit active relative-position">
     <div class="active-drop fit absolute-center"></div>
-    <div class="bg-primary flex flex-center q-pa-sm">
-      <div class="column flex-center">
-        <q-avatar
-          size="56px"
-          font-size="40px"
-          color="transparent"
-          text-color="white"
-          icon="image"
-        />
+    <q-avatar
+      class="avatar"
+      size="30px"
+      font-size="30px"
+      color="transparent"
+      text-color="white"
+      icon="chevron_right"
+    />
+    <div
+      class="bg-primary flex flex-center q-pa-sm q-py-lg rounded-borders column"
+    >
+      <div class="text-center">
         <div class="text-caption text-wight-bold text-white">Категория</div>
-        <div class="text-h6 text-white">{{ product.design.title }}</div>
+      </div>
+      <div class="flex flex-center">
+        <div class="text-h6 text-white text-center">
+          {{ product.design.title }}
+        </div>
       </div>
     </div>
-  </q-card>
+  </div>
 </template>
 <script>
 export default {
@@ -33,6 +40,12 @@ export default {
   transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
 }
 .active:hover .active-drop {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+.avatar {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
 }
 </style>

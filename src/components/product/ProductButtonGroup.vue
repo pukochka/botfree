@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-bottom q-mx-md q-my-sm">
+  <div class="absolute-bottom q-mx-sm q-my-sm">
     <q-btn
       label="В корзину"
       color="primary"

@@ -2,7 +2,10 @@
   <div class="max-xxl center q-pa-md">
     <div class="text-h4">Стиль приложения</div>
     <q-separator class="q-mt-sm" />
-    <div class="row q-mt-md">
+    <div class="text-h6 flex flex-center q-pa-md">
+      Данный раздел находится в разработке
+    </div>
+    <!-- <div class="row q-mt-md">
       <div
         class="col-4 col-sm-2 text-primary cursor-pointer"
         v-for="(color, index) of viewColor"
@@ -71,7 +74,7 @@
           </q-card>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

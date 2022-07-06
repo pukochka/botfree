@@ -38,7 +38,7 @@
                 v-if="viewBasket.length != 0"
                 class="absolute-top-right"
                 rounded
-                color="red"
+                color="red-4"
                 >{{ viewBasket.length }}</q-badge
               >
             </q-btn>
@@ -63,7 +63,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <div class="bg-grey-2">
+    <!-- <div class="bg-grey-2">
       <q-separator />
       <div class="q-pa-sm q-px-lg row justify-between items-center">
         <q-btn
@@ -79,7 +79,7 @@
           <q-avatar size="30px" color="purple-4" text-color="white" />
         </div>
       </div>
-    </div>
+    </div> -->
     <q-footer
       bordered
       class="bg-grey-2 text-primary mobile-footer"

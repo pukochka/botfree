@@ -42,7 +42,7 @@
   <q-card-section class="max-xxl center flex">
     <div class="max-md full-width">
       <q-card
-        class="full-width q-mb-xxl relative-position bg-grey-2"
+        class="full-width relative-position bg-grey-2"
         v-if="viewBasket.length != 0"
       >
         <q-card-section class="">

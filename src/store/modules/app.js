@@ -23,7 +23,7 @@ export default {
     getUserData({ commit, dispatch, getters }) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewInitData.search.secretKey}`,
+          `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewInitData.search.secretKey}`,
           {
             bot_id: getters.viewInitData.search.bot_id,
             telegram_id: getters.viewInitData.data.user.id,
@@ -226,9 +226,6 @@ export default {
     changeCategory(state, categoryes) {
       state.products = categoryes;
     },
-    changeCategoryView(state, view) {
-      state.selectCategoryView = view;
-    },
     changeTabs(state, view) {
       state.tabs = view;
     },
@@ -275,9 +272,6 @@ export default {
     viewInitData(state) {
       return state.initData;
     },
-    viewSelectCategory(state) {
-      return state.selectCategoryView;
-    },
     viewBasket(state) {
       return state.basket;
     },
@@ -313,7 +307,6 @@ export default {
     userValidate: ref(false),
     initLoading: ref(true),
     userData: ref({}),
-    selectCategoryView: ref(0),
     initData: ref({
       data: {},
       search: {},
