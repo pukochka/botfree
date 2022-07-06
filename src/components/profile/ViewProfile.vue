@@ -62,7 +62,7 @@
         /></q-item-section>
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
-            <div class="">Правила магазина</div>
+            <div class="">Правила и помощь в магазине</div>
           </q-item-label>
         </q-item-section>
       </q-item>
