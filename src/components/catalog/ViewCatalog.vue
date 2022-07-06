@@ -159,7 +159,7 @@ export default defineComponent({
     ...mapGetters(["viewAllProducts", "viewSelectCategory", "viewTab"]),
     data() {
       console.log(window.Telegram.WebApp.initData);
-      return window.Telegram.WebApp.initData;
+      return this.convertURL(window.Telegram.WebApp.initData);
     },
   },
   methods: {
