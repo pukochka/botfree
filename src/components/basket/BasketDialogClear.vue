@@ -9,7 +9,7 @@
         <q-btn
           flat
           label="Подтвердить"
-          color="primary"
+          color="red"
           v-close-popup
           @click="actionsWithBasket({ action: 'remove-all' })"
         />

@@ -5,9 +5,25 @@ body {
   font-family: "Open Sans", sans-serif !important;
   overflow-x: hidden;
 }
-.bg-layout {
-  background: rgba(238, 238, 238, 0.396) !important;
-  backdrop-filter: blur(7px);
+.bg-header {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%) !important;
+}
+.text-brand {
+  color: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%) !important;
+}
+.bg-brand {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%) !important;
+}
+.text-done {
+  color: $primary !important;
+  opacity: 0.7;
+}
+.bg-done {
+  background: $primary !important;
+  opacity: 0.7;
+}
+.bg-page {
+  background: #495057;
 }
 .center {
   margin: 0 auto;
@@ -16,7 +32,11 @@ body {
   font-size: 32px;
   font-weight: 500;
 }
-
+@media (max-width: 599px) {
+  .my-header {
+    font-size: 24px;
+  }
+}
 .max {
   &-xs {
     max-width: 150px;
@@ -42,36 +62,4 @@ body {
 }
 .end-dots {
   word-wrap: break-word;
-}
-.my-card {
-  max-width: calc(100% / 4- 16px);
-  min-width: calc(100% / 4 - 16px);
-  &-info {
-    max-width: fit-content;
-    font-size: 16px;
-    line-height: 18px;
-    color: #212121;
-  }
-}
-.q-tab__label {
-  font-size: 16px;
-  font-weight: 600 !important;
-}
-@media (max-width: 1023px) {
-  .my-card {
-    max-width: calc(100% / 3 - 16px);
-    min-width: calc(100% / 3 - 16px);
-  }
-}
-@media (max-width: 750px) {
-  .my-card {
-    max-width: calc(100% / 2 - 16px);
-    min-width: calc(100% / 2 - 16px);
-  }
-}
-@media (max-width: 500px) {
-  .my-card {
-    max-width: calc(100% - 16px);
-    min-width: calc(100% - 16px);
-  }
 }

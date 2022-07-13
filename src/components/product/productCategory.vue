@@ -1,14 +1,6 @@
 <template>
   <div class="fit active relative-position">
     <div class="active-drop fit absolute-center"></div>
-    <q-avatar
-      class="avatar"
-      size="30px"
-      font-size="30px"
-      color="transparent"
-      text-color="white"
-      icon="chevron_right"
-    />
     <div
       class="bg-primary flex flex-center q-pa-sm q-py-lg rounded-borders column"
     >

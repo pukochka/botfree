@@ -1,17 +1,23 @@
 <template>
   <div class="q-pa-sm max-xxl center">
-    <div class="my-header">Каталог товаров бота</div>
+    <div class="row items-center">
+      <div class="my-header">Каталог товаров бота</div>
+      <span
+        class="rounded-borders bg-primary text-h6 text-white q-ml-sm q-px-sm"
+        >{{ viewBotInfo.title }}</span
+      >
+    </div>
     <q-separator class="q-my-xs" />
   </div>
-  <div class="flex center max-xxl q-gutter-sm">
+  <!-- <div class="flex center max-xxl q-gutter-sm">
     <q-btn
       rounded
       outline
       color="primary"
       label="Все категории"
-      @click="getAllProducts()"
+      @click="getAllProducts({ category: 0, text: '' })"
     />
-  </div>
+  </div> -->
 
   <!-- <div class="flex center max-xxl">
     <q-input
@@ -27,46 +33,51 @@
   </div> -->
   <div class="center max-xxl min-size-xl q-px-sm">
     <div class="">
-      <div class="my-header q-py-md">Категории</div>
+      <div class="q-py-md row items-center">
+        <div
+          class="my-header cursor-pointer"
+          @click="getAllProducts({ category: 0, text: '' })"
+        >
+          Категории
+        </div>
+        <div class="q-ml-md">
+          <q-btn
+            rounded
+            outline
+            padding="4px 32px"
+            color="primary"
+            icon="chevron_left"
+            label="Обратно"
+            v-if="viewPrevCategory.now != 0"
+            @click="
+              getAllProducts({
+                category: viewPrevCategory.prev,
+                text: viewPrevCategory.textPrev,
+              })
+            "
+          />
+        </div>
+      </div>
       <div class="row q-col-gutter-sm">
         <div
           class="col-md-3 col-lg-3 col-6"
           v-for="(product, index) of viewItemsCategory"
           :key="index"
-          @click="getAllProducts(product.id)"
+          @click="
+            getAllProducts({ category: product.id, text: product.design.title })
+          "
         >
           <productCategory :product="product" />
         </div>
-        <div
-          class="col-md-3 col-lg-3 col-6"
-          v-if="viewItemsCategory.length == 0"
-        >
-          <div
-            class="
-              active
-              bg-primary
-              q-pa-md
-              text-center
-              rounded-borders
-              flex flex-center
-              relative-position
-            "
-          >
-            <div class="active-drop fit absolute-center"></div>
-            <q-avatar
-              size="30px"
-              font-size="26px"
-              color="transparent"
-              text-color="white"
-              icon="chevron_left"
-            />
-            <div class="text-white text-subtitle1">Обратно</div>
-          </div>
-        </div>
       </div>
     </div>
-    <div class="">
-      <div class="my-header q-py-md">Товары</div>
+    <div class="q-pb-lg">
+      <div class="my-header q-py-md">
+        Товары
+        <span v-if="viewPrevCategory.now != 0"
+          >из категории {{ viewPrevCategory.textNow }}</span
+        >
+      </div>
       <div class="row q-col-gutter-sm">
         <div
           class="col-md-3 col-lg-3 col-6"
@@ -118,7 +129,12 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewAllProducts", "viewTab"]),
+    ...mapGetters([
+      "viewAllProducts",
+      "viewTab",
+      "viewPrevCategory",
+      "viewBotInfo",
+    ]),
     viewItemsCategory() {
       return this.viewAllProducts.filter((item) => item.type == 0);
     },
@@ -146,6 +162,9 @@ export default defineComponent({
 }
 .active:hover .active-drop {
   background: rgba(255, 255, 255, 0.2);
+}
+.outline {
+  outline: 2px solid $primary;
 }
 @media (max-width: 450px) {
   .header {

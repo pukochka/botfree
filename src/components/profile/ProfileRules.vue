@@ -7,17 +7,21 @@
     </div>
     <div
       class="q-pa-md text-h6"
-      v-if="viewInfoRules.value.help == null && viewInfoRules.value.rules"
+      v-if="
+        viewInfoRules.value?.help == null &&
+        viewInfoRules.value?.rules == null &&
+        !viewInfoRules.loading
+      "
     >
       Владелец магазина пока не заполнил данную информацию.
     </div>
-    <div class="q-py-md">
+    <div class="q-py-md" v-if="!viewInfoRules.loading">
       <div class="text-h6">Помощь</div>
-      <div class="">{{ viewInfoRules.value.help }}</div>
+      <div class="">{{ viewInfoRules.value?.help }}</div>
     </div>
-    <div class="q-py-md">
+    <div class="q-py-md" v-if="!viewInfoRules.loading">
       <div class="text-h6">Правила</div>
-      <div class="">{{ viewInfoRules.value.rules }}</div>
+      <div class="">{{ viewInfoRules.value?.rules }}</div>
     </div>
   </div>
 </template>
@@ -36,7 +40,7 @@ export default defineComponent({
   },
   mounted() {
     this.actionsWithInfo({
-      action: "shop/info",
+      action: "shoppublic/shop/info",
     });
   },
 });

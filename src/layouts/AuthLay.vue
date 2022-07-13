@@ -1,15 +1,13 @@
 <template>
   <q-layout view="hHr lpR fFf">
-    <q-header
-      bordered
-      class="text-teal-7 flex items-center bg-layout"
-      style="height: 60px"
-    >
+    <q-header bordered class="text-teal-7 flex items-center bg-grey-2">
       <q-toolbar>
         <q-toolbar-title class="q-gutter-md">
-          <q-avatar size="40px" rounded color="teal"></q-avatar>
-          <q-avatar size="40px" rounded color="purple-4"></q-avatar>
-          <q-avatar size="40px" rounded color="orange-4"></q-avatar>
+          <q-avatar size="50px" font-size="20px" rounded color="brand">
+            <div class="fit q-ma-xs">
+              <div class="main_logo fit"></div>
+            </div>
+          </q-avatar>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -50,5 +48,10 @@ export default defineComponent({
       font-size: 12px;
     }
   }
+}
+.main_logo {
+  background-image: url("src/layouts/logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 </style>

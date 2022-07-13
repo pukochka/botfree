@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row q-col-gutter-sm">
     <div
       class="col-12 col-md-4"
       v-for="(item, index) of order.items"

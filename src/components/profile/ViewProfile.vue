@@ -17,7 +17,7 @@
     </div>
 
     <q-list separator>
-      <q-item clickable>
+      <q-item clickable class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -29,13 +29,13 @@
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Баланс</div>
-            <div class="text-weight-bold">
+            <div class="text-weight-bold text-primary">
               {{ viewUserData.balance }} {{ convertСurrency }}
             </div>
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="changeTabs('orders')">
+      <q-item clickable @click="changeTabs('orders')" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -47,11 +47,13 @@
         <q-item-section class="text-subtitle1">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Заказы</div>
-            <div class="text-weight-bold">{{ viewInfoOrders.count }}</div>
+            <div class="text-weight-bold text-primary">
+              {{ viewInfoOrders.count }}
+            </div>
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="changeTabs('rules')">
+      <q-item clickable @click="changeTabs('rules')" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -66,7 +68,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="changeTabs('sales')">
+      <q-item clickable @click="changeTabs('sales')" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -81,7 +83,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="changeTabs('appStyle')">
+      <q-item clickable @click="changeTabs('appStyle')" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -96,7 +98,62 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="info = !info">
+      <q-item clickable @click="botinfo = !botinfo" class="rounded-borders">
+        <q-item-section avatar
+          ><q-avatar
+            size="30px"
+            font-size="22px"
+            color="transparent"
+            text-color="primary"
+            icon="info"
+        /></q-item-section>
+        <q-item-section class="text-subtitle1">
+          <q-item-label lines="1" class="flex items-center justify-between">
+            <div class="">О боте</div>
+          </q-item-label>
+        </q-item-section>
+        <q-item-section avatar
+          ><q-avatar
+            size="30px"
+            font-size="30px"
+            color="transparent"
+            text-color="primary"
+            :icon="botinfo ? 'arrow_drop_up' : 'arrow_drop_down'"
+        /></q-item-section>
+      </q-item>
+      <q-slide-transition>
+        <div v-show="botinfo">
+          <div class="">
+            <q-list separator>
+              <q-item clickable dense>
+                <q-item-section avatar> Название </q-item-section>
+                <q-item-section class="text-primary">{{
+                  viewBotInfo.title
+                }}</q-item-section>
+              </q-item>
+              <q-item clickable dense>
+                <q-item-section avatar> Тип бота </q-item-section>
+                <q-item-section class="text-primary">{{
+                  viewBotInfo.type
+                }}</q-item-section>
+              </q-item>
+              <q-item clickable dense>
+                <q-item-section avatar> Валюта в боте </q-item-section>
+                <q-item-section class="text-primary">{{
+                  convertСurrency
+                }}</q-item-section>
+              </q-item>
+              <q-item clickable dense>
+                <q-item-section avatar> Язык в боте </q-item-section>
+                <q-item-section class="text-primary">{{
+                  viewBotInfo.language
+                }}</q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+        </div>
+      </q-slide-transition>
+      <q-item clickable @click="info = !info" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -146,11 +203,18 @@ export default defineComponent({
   setup() {
     return {
       info: ref(false),
+      botinfo: ref(false),
       tab: ref("mails"),
     };
   },
   computed: {
-    ...mapGetters(["viewUserData", "viewOrders", "viewInfoOrders", "viewTab"]),
+    ...mapGetters([
+      "viewUserData",
+      "viewOrders",
+      "viewInfoOrders",
+      "viewTab",
+      "viewBotInfo",
+    ]),
     convertСurrency() {
       switch (this.viewUserData.currency) {
         case "RUB":

@@ -1,6 +1,7 @@
 <template>
   <q-page class="bg-white">
     <q-tab-panels
+      class="min"
       v-model="viewTab"
       animated
       transition-prev="fade"
@@ -37,6 +38,24 @@
         <SalesBot />
       </q-tab-panel>
     </q-tab-panels>
+    <OrderDanger />
+    <div class="bg-grey-2">
+      <q-separator />
+      <div class="q-pa-sm q-px-lg row justify-between items-center">
+        <q-btn
+          flat
+          dense
+          color="primary"
+          padding="4px 8px"
+          label="Другая информация"
+        />
+        <div class="social q-gutter-md">
+          <q-avatar size="30px" color="primary" text-color="white" />
+          <q-avatar size="30px" color="blue-4" text-color="white" />
+          <q-avatar size="30px" color="purple-4" text-color="white" />
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -52,9 +71,11 @@ import Orders from "src/components/order/ViewOrders.vue";
 import FormOrder from "src/components/form/ViewForm.vue";
 
 import Profile from "src/components/profile/ViewProfile.vue";
-import AppStyle from "src/components/profile/appStyle.vue";
-import BotRules from "src/components/profile/botRules.vue";
-import SalesBot from "src/components/profile/salesBot.vue";
+import AppStyle from "src/components/profile/ProfileStyle.vue";
+import BotRules from "src/components/profile/ProfileRules.vue";
+import SalesBot from "src/components/profile/ProfileSales.vue";
+
+import OrderDanger from "src/components/infoDialogs/OrderDanger.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -67,6 +88,7 @@ export default defineComponent({
     AppStyle,
     BotRules,
     SalesBot,
+    OrderDanger,
   },
   setup() {
     return {};
@@ -79,13 +101,16 @@ export default defineComponent({
   },
   mounted() {
     this.getUserData();
-    this.getAllProducts();
+    this.getAllProducts({ category: 0, text: "" });
   },
 });
 </script>
 <style lang="scss" scoped>
 .min-size-xl {
   min-height: 600px;
+}
+.min {
+  min-height: calc(100vh - 100px);
 }
 
 @media (max-width: 450px) {

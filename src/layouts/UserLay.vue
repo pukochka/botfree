@@ -3,12 +3,14 @@
     <q-header bordered class="text-primary-7 row items-center bg-grey-2">
       <q-toolbar>
         <div class="flex no-wrap q-gutter-sm">
-          <q-avatar size="40px" rounded color="primary"></q-avatar>
-          <q-avatar size="40px" rounded color="purple-4"></q-avatar>
-          <q-avatar size="40px" rounded color="orange-4"></q-avatar>
+          <q-avatar size="50px" font-size="20px" rounded color="brand">
+            <div class="fit q-ma-xs">
+              <div class="main_logo fit"></div>
+            </div>
+          </q-avatar>
         </div>
 
-        <div class="row full-height q-ml-md" v-if="!width">
+        <div class="row full-height q-ml-sm" v-if="!width">
           <div class="col-4">
             <q-btn
               flat
@@ -19,7 +21,7 @@
               label="Каталог"
               no-caps
               no-wrap
-              @click="changeTabs('catalog')"
+              @click="correctWork('catalog')"
             />
           </div>
           <div class="col-4">
@@ -32,14 +34,14 @@
               label="Корзина"
               no-caps
               no-wrap
-              @click="changeTabs('basket')"
+              @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.length != 0"
+                v-if="viewBasket.countItems != 0"
                 class="absolute-top-right"
                 rounded
                 color="red-4"
-                >{{ viewBasket.length }}</q-badge
+                >{{ viewBasket.countItems }}</q-badge
               >
             </q-btn>
           </div>
@@ -53,7 +55,7 @@
               label="Профиль"
               no-caps
               no-wrap
-              @click="changeTabs('profile')"
+              @click="correctWork('profile')"
             />
           </div>
         </div>
@@ -63,23 +65,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <!-- <div class="bg-grey-2">
-      <q-separator />
-      <div class="q-pa-sm q-px-lg row justify-between items-center">
-        <q-btn
-          flat
-          dense
-          color="primary"
-          padding="4px 8px"
-          label="Другая информация"
-        />
-        <div class="social q-gutter-md">
-          <q-avatar size="30px" color="primary" text-color="white" />
-          <q-avatar size="30px" color="blue-4" text-color="white" />
-          <q-avatar size="30px" color="purple-4" text-color="white" />
-        </div>
-      </div>
-    </div> -->
+
     <q-footer
       bordered
       class="bg-grey-2 text-primary mobile-footer"
@@ -98,7 +84,7 @@
               label="Каталог"
               no-caps
               size="13px"
-              @click="changeTabs('catalog')"
+              @click="correctWork('catalog')"
             />
           </div>
           <div class="col-4">
@@ -112,14 +98,14 @@
               label="Корзина"
               no-caps
               size="13px"
-              @click="changeTabs('basket')"
+              @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.length != 0"
+                v-if="viewBasket.countItems != 0"
                 class="absolute-top-right"
                 rounded
                 color="red"
-                >{{ viewBasket.length }}</q-badge
+                >{{ viewBasket.countItems }}</q-badge
               >
             </q-btn>
           </div>
@@ -134,7 +120,7 @@
               label="Профиль"
               no-caps
               size="13px"
-              @click="changeTabs('profile')"
+              @click="correctWork('profile')"
             />
           </div>
         </div>
@@ -162,11 +148,23 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewBasket", "viewTab"]),
+    ...mapGetters(["viewBasket", "viewTab", "viewInfoDialogs"]),
   },
   methods: {
-    ...mapMutations(["changeTabs"]),
+    ...mapMutations([
+      "changeTabs",
+      "changeInfoDialogsValue",
+      "changeInfoDialogs",
+    ]),
+    correctWork(tab) {
+      if (this.viewInfoDialogs.createOrder.danger) {
+        this.changeInfoDialogs({ dialog: "createOrder", view: tab });
+      } else {
+        this.changeTabs(tab);
+      }
+    },
   },
+  watch: {},
   mounted() {},
 });
 </script>
@@ -180,6 +178,11 @@ export default defineComponent({
       font-size: 12px;
     }
   }
+}
+.main_logo {
+  background-image: url("src/layouts/logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .mobile {
   &-tab {

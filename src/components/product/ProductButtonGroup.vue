@@ -22,7 +22,7 @@
         text-center
       "
       v-if="countInBasket == prod.setting.count || prod.setting.count == 0"
-      style="padding: 8px; text-transform: uppercase"
+      style="padding: 7px; text-transform: uppercase"
     >
       Нет в наличии
     </div>
@@ -116,15 +116,14 @@ export default {
   computed: {
     ...mapGetters(["viewBasket"]),
     countInBasket() {
-      return this.viewBasket.find((item) => item.product.id == this.prod.id)
-        ?.count;
+      return this.viewBasket.items.find(
+        (item) => item.product.id == this.prod.id
+      )?.count;
     },
     hasBasketItem() {
-      if (this.viewBasket.find((item) => item.product.id == this.prod.id)) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.viewBasket.items.find(
+        (item) => item.product.id == this.prod.id
+      );
     },
   },
   methods: {

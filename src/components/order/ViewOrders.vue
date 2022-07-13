@@ -24,7 +24,7 @@
         <div class="text-weight-bold">Итого {{ order.price }}</div>
       </div>
       <q-separator />
-      <div class="q-pa-md">
+      <div class="q-pa-sm">
         <order-item :order="order" />
       </div>
     </div>

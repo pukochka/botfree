@@ -97,11 +97,14 @@ export default {
   computed: {
     ...mapGetters(["viewBasket"]),
     countInBasket() {
-      return this.viewBasket.find((item) => item.product.id == this.prod.id)
-        ?.count;
+      return this.viewBasket.items.find(
+        (item) => item.product.id == this.prod.id
+      )?.count;
     },
     hasBasketItem() {
-      if (this.viewBasket.find((item) => item.product.id == this.prod.id)) {
+      if (
+        this.viewBasket.items.find((item) => item.product.id == this.prod.id)
+      ) {
         return true;
       } else {
         return false;

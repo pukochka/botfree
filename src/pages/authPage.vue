@@ -104,7 +104,7 @@ export default defineComponent({
         this.$router.push("/auth");
         this.changeInitLoading(false);
       } else {
-        setTimeout(() => this.changeInitLoading(false), 2000);
+        setTimeout(() => this.changeInitLoading(false), 500);
       }
     },
   },

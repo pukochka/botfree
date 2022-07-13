@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-ma-sm">
+  <q-card class="fit">
     <div class="q-pa-sm">
       <div class="row">
         <div class="col-4">
