@@ -47,7 +47,7 @@ export default {
     getAllProducts({ commit, getters }, { category, text }) {
       axios
         .post(
-          `https://api.bot-t.ru/v1/shoppublic/category/view?secretKey=${getters.viewInitData.search.secretKey}`,
+          `https://api.bot-t.com/v1/shoppublic/category/view?secretKey=${getters.viewInitData.search.secretKey}`,
           {
             bot_id: getters.viewInitData.search.bot_id,
             category_id: category,
@@ -143,7 +143,7 @@ export default {
       }
       axios
         .post(
-          `https://api.bot-t.ru/v1/shoppublic/coupon/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
+          `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
           createParams(
             ["code"],
             {
@@ -204,7 +204,7 @@ export default {
       }
       axios
         .post(
-          `https://api.bot-t.ru/v1/shopcart/order/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
+          `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
           createParams(
             ["order_id", "offset"],
             {
@@ -288,6 +288,10 @@ export default {
     },
     changeInfoOrders(state, count) {
       state.infoOrders.count = count;
+    },
+    changeInfoCurrentOrder(state, { order, page }) {
+      state.infoOrders.order = order;
+      state.infoOrders.page = page;
     },
     changeInfoOrdersLoading(state, value) {
       state.infoOrders.loading = value;
@@ -423,6 +427,8 @@ export default {
     }),
     infoOrders: ref({
       count: 0,
+      order: {},
+      page: "all",
       loading: true,
     }),
     prevCategory: ref({

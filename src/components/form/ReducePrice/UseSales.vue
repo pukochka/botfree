@@ -16,14 +16,12 @@
           class="absolute-center"
           v-if="false"
         />
-        <div
-          class="bg-grey-3 rounded-borders q-pa-sm fit outline"
-          :class="{ done: false }"
-        >
+        <div class="rounded-borders q-pa-sm fit outline">
           <div class="text-weight-bold text-center">
             {{ sale.info }}
           </div>
-          <div class="text-caption text-grey-8">
+          <q-separator spaced="" color="primary" />
+          <div class="text-caption text-grey-8 line">
             {{ sale.terms }}
           </div>
         </div>
@@ -32,7 +30,7 @@
     <div class="q-pt-md">
       <div class="text-subtitle1">
         Сумма со скидкой
-        <span class="text-weight-bold">{{ viewBasket.sum }}</span>
+        <span class="text-weight-bold text-primary">{{ viewBasket.sum }}</span>
       </div>
     </div>
   </div>
@@ -58,18 +56,11 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.done {
+.outline {
   outline: 3px solid $primary;
   border-radius: 4px;
 }
-.outline {
-  outline: 3px solid $grey-4;
-  border-radius: 4px;
-}
-.index {
-  z-index: 100;
-  &-m {
-    z-index: 99;
-  }
+.line {
+  line-height: 14px;
 }
 </style>

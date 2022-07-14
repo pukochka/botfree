@@ -20,13 +20,11 @@
           class="absolute-center"
           v-if="false"
         />
-        <div
-          class="bg-grey-3 rounded-borders q-pa-sm fit outline"
-          :class="{ done: false }"
-        >
+        <div class="rounded-borders q-pa-sm fit outline">
           <div class="text-weight-bold text-center">
             {{ sale.info }}
           </div>
+          <q-separator spaced color="primary" />
           <div class="text-caption text-grey-8">
             {{ sale.terms }}
           </div>
@@ -64,12 +62,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.done {
-  outline: 3px solid $primary;
-  border-radius: 4px;
-}
 .outline {
-  outline: 3px solid $grey-4;
-  border-radius: 4px;
+  outline: 3px solid $primary;
 }
 </style>

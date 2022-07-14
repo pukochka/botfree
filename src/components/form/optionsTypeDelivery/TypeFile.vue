@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="text-weight-bold q-pt-sm">{{ option.text }}</div>
+    <div class="text-weight-bold q-py-sm">{{ option.text }}</div>
     <q-uploader
       class="fit"
       color="primary"

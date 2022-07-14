@@ -1,11 +1,10 @@
 <template>
   <div class="q-pa-sm max-xxl center">
+    <span class="rounded-borders bg-primary text-h6 text-white q-px-md">{{
+      viewBotInfo.title
+    }}</span>
     <div class="row items-center">
       <div class="my-header">Каталог товаров бота</div>
-      <span
-        class="rounded-borders bg-primary text-h6 text-white q-ml-sm q-px-sm"
-        >{{ viewBotInfo.title }}</span
-      >
     </div>
     <q-separator class="q-my-xs" />
   </div>
@@ -67,7 +66,7 @@
             getAllProducts({ category: product.id, text: product.design.title })
           "
         >
-          <productCategory :product="product" />
+          <CategoryProduct :product="product" />
         </div>
       </div>
     </div>
@@ -84,7 +83,7 @@
           v-for="(product, index) of viewItemsProduct"
           :key="index"
         >
-          <product-item class="" :product="product" />
+          <ProductItem class="" :product="product" />
         </div>
         <div
           class="col-12 flex flex-center"
@@ -114,14 +113,14 @@
 import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 
-import productItem from "components/product/productItem.vue";
-import productCategory from "src/components/product/productCategory.vue";
+import ProductItem from "src/components/product/ProductPattern.vue";
+import CategoryProduct from "src/components/product/CategoryProduct.vue";
 
 export default defineComponent({
   name: "IndexPage",
   components: {
-    productItem,
-    productCategory,
+    ProductItem,
+    CategoryProduct,
   },
   setup() {
     return {

@@ -20,10 +20,13 @@
         class="col-12"
         v-if="!viewCoupon.loadingFirst && viewCoupon.data.length != 0"
       >
-        <div class="bg-grey-2 flex flex-center rounded-borders q-pa-sm">
+        <div class="outline rounded-borders q-pa-sm">
           <div class="text-center text-weight-bold text-subtitle1">
             Купон <span class="text-primary">{{ viewCoupon.data.code }}</span>
           </div>
+
+          <q-separator spaced color="primary" />
+
           <div class="text-caption line">
             {{ viewCoupon.data.info }}
           </div>
@@ -99,5 +102,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .line {
   line-height: 14px;
+}
+.outline {
+  outline: 3px solid $primary;
 }
 </style>

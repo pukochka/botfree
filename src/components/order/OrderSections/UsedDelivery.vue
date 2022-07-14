@@ -1,0 +1,34 @@
+<template>
+  <div class="text-weight-bold">Доставка</div>
+  <q-separator />
+  <div class="text-subtitle1 text-red" v-if="delivery == null">
+    Доставка не была выбрана
+  </div>
+  <div class="row" v-if="delivery != null">
+    <div
+      class="col-12 col-md-3 col-sm-6 rounded-borders q-pa-sm q-my-sm outline"
+    >
+      <div class="text-subtitle1 text-center">{{ delivery?.description }}</div>
+      <q-separator color="primary" />
+      <div class="text-subtitle1 text-center text-primary text-weight-bold">
+        {{ delivery?.price }}
+      </div>
+      <div class="text-caption">{{ delivery?.title }}</div>
+    </div>
+  </div>
+</template>
+<script>
+import { ref, defineComponent } from "vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+export default defineComponent({
+  props: ["delivery"],
+  setup() {
+    return {};
+  },
+});
+</script>
+<style lang="scss" scoped>
+.outline {
+  outline: 3px solid $primary;
+}
+</style>

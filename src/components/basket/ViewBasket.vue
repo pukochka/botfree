@@ -77,7 +77,7 @@ import { ref } from "vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import BasketDialogClear from "src/components/basket/BasketDialogClear.vue";
-import productItemBasket from "components/basket/productItemBasket.vue";
+import productItemBasket from "src/components/basket/BasketProduct.vue";
 
 export default {
   props: {},

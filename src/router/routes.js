@@ -3,19 +3,19 @@ const routes = [
     path: "/auth",
     component: () => import("src/layouts/UserLay.vue"),
     children: [
-      { path: "/auth", component: () => import("pages/userPage.vue") },
+      { path: "/auth", component: () => import("src/pages/UserPage.vue") },
     ],
   },
   {
     path: "/",
     component: () => import("src/layouts/AuthLay.vue"),
     children: [
-      { path: "/", component: () => import("src/pages/authPage.vue") },
+      { path: "/", component: () => import("src/pages/AuthPage.vue") },
     ],
   },
   {
     path: "/:catchAll(.*)*",
-    component: () => import("pages/ErrorNotFound.vue"),
+    component: () => import("src/pages/404.vue"),
   },
 ];
 

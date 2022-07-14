@@ -1,7 +1,7 @@
 <template>
   <div class="max-md center">
     <div class="text-h5 q-pb-md">Выберите способ оплаты</div>
-    <div class="row q-col-gutter-xs">
+    <!-- <div class="row q-col-gutter-xs">
       <div
         class="col-6"
         v-for="(item, index) of test"
@@ -35,7 +35,7 @@
           </div>
         </q-slide-transition>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
