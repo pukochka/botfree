@@ -114,7 +114,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["viewBasket"]),
+    ...mapGetters({ viewBasket: "basket/viewBasket" }),
     countInBasket() {
       return this.viewBasket.items.find(
         (item) => item.product.id == this.prod.id
@@ -127,7 +127,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["actionsWithBasket"]),
+    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
   },
   watch: {},
 };

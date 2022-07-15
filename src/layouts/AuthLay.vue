@@ -27,14 +27,7 @@ export default defineComponent({
   components: {},
 
   setup() {
-    const rightDrawerOpen = ref(false);
-
-    return {
-      rightDrawerOpen,
-      toggleRightDrawer() {
-        rightDrawerOpen.value = !rightDrawerOpen.value;
-      },
-    };
+    return {};
   },
 });
 </script>

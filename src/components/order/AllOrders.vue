@@ -1,5 +1,10 @@
 <template>
   <div class="max-xxl center q-px-md q-pt-lg">
+    <div class="fixed-center" v-if="viewInfoOrders.loading">
+      <div class="bg-white rounded-borders">
+        <q-spinner color="primary" class="q-ma-xl" size="6em" />
+      </div>
+    </div>
     <div class="flex">
       <div class="text-h4">Мои заказы</div>
       <div class="text-grey-8 text-caption self-end q-ml-sm">
@@ -27,7 +32,7 @@
           Итого <span class="text-primary">{{ order.price }}</span>
         </div>
       </div>
-      <q-separator color="white" />
+      <q-separator class="q-mx-md" color="primary" />
       <div class="row q-col-gutter-sm q-pa-sm">
         <div
           class="col-12 col-md-4"
@@ -39,7 +44,13 @@
       </div>
       <div class="row justify-end q-px-sm q-pb-sm">
         <q-btn
-          padding="4px 32px"
+          padding="4px 16px"
+          flat
+          color="primary"
+          label="Повторить заказ"
+        />
+        <q-btn
+          padding="4px 16px"
           flat
           color="primary"
           label="Подробнее"
@@ -48,15 +59,8 @@
       </div>
     </div>
 
-    <div
-      class="absolute-center flex justify-center fit bg-layout"
-      v-if="viewInfoOrders.loading"
-    >
-      <q-spinner color="primary" class="q-ma-xl" size="3em" />
-    </div>
-
     <div class="max-xxl center flex justify-end q-pa-sm q-pb-md">
-      <div class="flex no-wrap items-center q-gutter-sm">
+      <div class="flex no-wrap items-center">
         <q-btn
           :disable="page == 1"
           dense
@@ -132,12 +136,10 @@ export default defineComponent({
         offset: (this.offset += 3),
       });
       this.page++;
-      window.scrollTo({ top: 0 });
     },
     prevPage() {
       this.actionsWithOrders({ action: "index", offset: (this.offset -= 3) });
       this.page--;
-      window.scrollTo({ top: 0 });
     },
   },
   mounted() {},

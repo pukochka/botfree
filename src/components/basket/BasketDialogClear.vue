@@ -26,7 +26,7 @@ export default defineComponent({
   },
   computed: {},
   methods: {
-    ...mapActions(["actionsWithBasket"]),
+    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
   },
 });
 </script>

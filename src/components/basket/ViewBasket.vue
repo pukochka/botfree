@@ -49,11 +49,11 @@
           <div class="flex flex-grow justify-between text-h5 text-weight-bold">
             <div class="">Итого</div>
             <div class="">
-              {{ viewBasket.sum_full }}
+              {{ viewBasket.sum }}
             </div>
           </div>
           <div class="flex flex-grow justify-between text-caption text-grey-7">
-            <div class="">Всего товаров {{ viewBasket.countItems }}</div>
+            <div class="">Всего товаров : {{ viewBasket.count }}</div>
             <div class="">
               {{ viewBasket.sum_full }}
             </div>
@@ -92,7 +92,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["viewBasket", "viewInitData"]),
+    ...mapGetters({ viewBasket: ["basket/viewBasket"] }, ["viewInitData"]),
   },
   methods: {
     ...mapActions(["actionsWithBasket"]),

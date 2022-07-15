@@ -1,8 +1,11 @@
 <template>
   <div class="q-pa-sm max-xxl center">
-    <span class="rounded-borders bg-primary text-h6 text-white q-px-md">{{
-      viewBotInfo.title
-    }}</span>
+    <div class="row justify-center q-mt-lg">
+      <span class="rounded-borders bg-primary text-h6 text-white q-px-md">{{
+        viewBotInfo.title
+      }}</span>
+    </div>
+
     <div class="row items-center">
       <div class="my-header">Каталог товаров бота</div>
     </div>

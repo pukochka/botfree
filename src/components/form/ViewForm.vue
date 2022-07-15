@@ -5,7 +5,7 @@
     <q-separator class="q-my-xs" />
   </div>
   <div class="max-xxl center q-px-md">
-    <div class="q-ml-md text-grey-8 text-center">
+    <div class="max-md center q-ml-md text-grey-8 text-caption">
       Шаг {{ step + 1 }} из {{ steps.length }}
     </div>
     <q-tab-panels
@@ -33,7 +33,7 @@
       </q-tab-panel>
     </q-tab-panels>
     <div class="max-md center">
-      <div class="row q-col-gutter-sm q-mb-lg">
+      <div class="row q-col-gutter-sm">
         <div class="col-6">
           <q-btn
             flat
@@ -52,6 +52,11 @@
             unelevated
             @click="next"
           />
+        </div>
+      </div>
+      <div class="row q-mb-lg q-mt-sm">
+        <div class="col-12">
+          <q-btn flat color="red-6" label="Отменить заказ" class="fit" />
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@
     <div class="text-h5 q-pb-sm">Скидки в магазине</div>
     <div class="row q-col-gutter-sm">
       <div
-        class="col-4 relative-position"
-        v-for="(sale, index) of viewInfoSales.value"
+        class="col-12 col-sm-6 relative-position"
+        v-for="(sale, index) of viewBasket.discounts"
         :key="index"
       >
         <q-avatar
@@ -32,6 +32,7 @@
         Сумма со скидкой
         <span class="text-weight-bold text-primary">{{ viewBasket.sum }}</span>
       </div>
+      <q-separator />
     </div>
   </div>
 </template>
@@ -43,7 +44,7 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters(["viewInfoSales", "viewBasket"]),
+    ...mapGetters({ viewBasket: "basket/viewBasket" }, ["viewInfoSales"]),
   },
   methods: {
     ...mapActions(["actionsWithInfo"]),

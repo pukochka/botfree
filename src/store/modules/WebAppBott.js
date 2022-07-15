@@ -1,7 +1,5 @@
 import axios from "axios";
 import { ref } from "vue";
-import { setCssVar } from "quasar";
-import { actionsBasket } from "boot/axios";
 
 /*
   Actions : get | actions
@@ -38,7 +36,7 @@ export default {
           if (response.status == 200) {
             commit("openUserData", response.data.data);
             dispatch("getBotInfo");
-            dispatch("actionsWithBasket", { action: "get" });
+            dispatch("basket/actionsWithBasket", { action: "get" });
             dispatch("actionsWithOrders", { action: "count" });
             dispatch("actionsWithOrders", { action: "index", offset: 0 });
           }
@@ -75,6 +73,24 @@ export default {
           console.log(JSON.parse(response.data).data, "инфо о боте");
 
           commit("changeBotInfo", JSON.parse(response.data).data);
+        });
+    },
+    getPayments({ commit, getters }, { action, group_id }) {
+      axios
+        .post(
+          `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
+          createParams(
+            ["group_id"],
+            {
+              bot_id: getters.viewInitData.search.bot_id,
+            },
+            group_id
+          )
+        )
+        .then((response) => {
+          console.log(response, "Оплата");
+
+          // commit("changeCategory", categoryes);
         });
     },
     getGifts({ commit, getters }, { order_id }) {
@@ -177,27 +193,7 @@ export default {
           }
         });
     },
-    actionsWithBasket({ commit, getters }, { action, category_id, count }) {
-      axios
-        .post(
-          `https://api.bot-t.com/v1/shopcart/cart/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["category_id", "count"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-              user_id: getters.viewUserData.id,
-              secret_user_key: getters.viewUserData.secret_user_key,
-            },
-            category_id,
-            count
-          )
-        )
-        .then((response) => {
-          console.log(response, "Корзина");
 
-          commit("changeBasket", response.data.data);
-        });
-    },
     actionsWithOrders({ commit, getters }, { action, order_id, offset }) {
       if (action == "index") {
         commit("changeInfoOrdersLoading", true);
@@ -225,6 +221,7 @@ export default {
               console.log(response, "Заказы");
               commit("changeInfoOrdersLoading", false);
               commit("changeOrders", response.data.data);
+              window.scrollTo({ top: 0 });
             }
           }
         });
@@ -251,9 +248,9 @@ export default {
         state.initData = init;
       }
     },
-    changeBasket(state, items) {
-      state.basket = items;
-    },
+    // changeBasket(state, items) {
+    //   state.basket = items;
+    // },
     changeOrders(state, items) {
       state.orders = items;
     },
@@ -323,9 +320,11 @@ export default {
       state.coupon = data;
     },
 
-    changeInfoDialogsValue(state, val) {
-      state.tabs = val;
+    changeSelectDelivery(state, { delivery, page }) {
+      state.delivery.select = delivery;
+      state.delivery.page = page;
     },
+
     changePrevCategory(state, { category, text }) {
       state.prevCategory.prev = state.prevCategory.now;
       state.prevCategory.textPrev = state.prevCategory.textNow;
@@ -376,9 +375,6 @@ export default {
     viewInitData(state) {
       return state.initData;
     },
-    viewBasket(state) {
-      return state.basket;
-    },
     viewOrders(state) {
       return state.orders;
     },
@@ -391,7 +387,6 @@ export default {
   },
   state: {
     tabs: ref("catalog"),
-    basket: ref([]),
     orders: ref([]),
     products: ref([]),
     infoDialogs: ref({
@@ -414,6 +409,8 @@ export default {
     }),
     delivery: ref({
       data: [],
+      select: [],
+      page: "all",
       loading: true,
     }),
     botInfo: ref([]),

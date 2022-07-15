@@ -97,7 +97,7 @@ export default defineComponent({
     ...mapGetters(["viewTab"]),
   },
   methods: {
-    ...mapActions(["getUserData", "getAllProducts", "actionsWithСoupon"]),
+    ...mapActions(["getUserData", "getAllProducts"]),
   },
   mounted() {
     this.getUserData();

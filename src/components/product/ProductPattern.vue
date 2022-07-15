@@ -16,12 +16,22 @@
       </div>
       <q-btn
         class="text-weight-bold q-my-sm"
+        :class="{ underline: product.price.old_price != 0 }"
+        flat
+        size="20px"
+        padding="0"
+        :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
+        no-wrap
+        :label="product.price.old_price + ' ' + convertСurrency"
+      />
+      <q-btn
+        class="text-weight-bold q-my-sm q-ml-xs"
         flat
         size="20px"
         padding="0"
         color="primary"
         no-wrap
-        :label="product.price.amount + ' ' + convertСurrency"
+        :label="product.price.full"
       />
       <div class="q-py-md">
         <ProductButtonGroup class="" :prod="product" />
@@ -60,7 +70,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["actionsWithBasket"]),
+    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
   },
   setup() {},
 };
@@ -82,5 +92,8 @@ export default {
 .img {
   min-height: 150px;
   max-height: 150px;
+}
+.underline {
+  text-decoration: line-through;
 }
 </style>

@@ -91,7 +91,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["actionsWithBasket"]),
+    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
   },
 };
 </script>

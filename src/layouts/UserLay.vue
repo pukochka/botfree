@@ -148,15 +148,16 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewBasket", "viewTab", "viewInfoDialogs"]),
+    ...mapGetters({
+      viewBasket: "basket/viewBasket",
+      viewTab: "viewTab",
+      viewInfoDialogs: "viewInfoDialogs",
+    }),
   },
   methods: {
-    ...mapMutations([
-      "changeTabs",
-      "changeInfoDialogsValue",
-      "changeInfoDialogs",
-    ]),
+    ...mapMutations(["changeTabs", "changeInfoDialogs"]),
     correctWork(tab) {
+      console.log(this.viewInfoDialogs);
       if (this.viewInfoDialogs.createOrder.danger) {
         this.changeInfoDialogs({ dialog: "createOrder", view: tab });
       } else {
