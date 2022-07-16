@@ -1,5 +1,17 @@
 <template>
-  <q-card class="flex no-wrap col q-my-xs">
+  <q-card class="flex no-wrap col q-my-xs relative-position">
+    <div
+      class="absolute fit flex flex-center bg-opacity z-max"
+      v-if="
+        (viewBasket.loading['subtract'] ||
+          viewBasket.loading['remove'] ||
+          viewBasket.loading['add'] ||
+          viewBasket.loading['set-count']) &&
+        viewBasket.elem == product.id
+      "
+    >
+      <q-spinner color="primary" size="5rem" class="z-max" />
+    </div>
     <div class="bg-primary width flex flex-center q-ma-xs">
       <q-avatar
         size="36px"
@@ -38,9 +50,7 @@
               icon="clear"
               no-caps
               no-wrap
-              @click="
-                actionsWithBasket({ action: 'remove', category_id: product.id })
-              "
+              @click="getBasket({ action: 'remove', category_id: product.id })"
             />
           </div>
         </div>
@@ -54,7 +64,7 @@
 </template>
 <script>
 import { ref } from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
 
@@ -73,6 +83,9 @@ export default {
     return { width };
   },
   computed: {
+    ...mapGetters({
+      viewBasket: "basket/viewBasket",
+    }),
     convertСurrency() {
       switch (this.product.price.currency) {
         case "RUB":
@@ -91,7 +104,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
+    ...mapActions({ getBasket: "basket/getBasket" }),
   },
 };
 </script>

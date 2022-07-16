@@ -1,5 +1,17 @@
 <template>
   <q-card class="fit">
+    <div
+      class="absolute fit flex flex-center bg-opacity z-max"
+      v-if="
+        (viewBasket.loading['subtract'] ||
+          viewBasket.loading['remove'] ||
+          viewBasket.loading['add'] ||
+          viewBasket.loading['set-count']) &&
+        viewBasket.elem == product.id
+      "
+    >
+      <q-spinner color="primary" size="5rem" class="z-max" />
+    </div>
     <div class="bg-primary flex flex-center img">
       <q-avatar
         size="56px"
@@ -16,13 +28,14 @@
       </div>
       <q-btn
         class="text-weight-bold q-my-sm"
-        :class="{ underline: product.price.old_price != 0 }"
         flat
         size="20px"
         padding="0"
-        :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
         no-wrap
+        :class="{ underline: product.price.old_price != 0 }"
+        :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
         :label="product.price.old_price + ' ' + convertСurrency"
+        v-if="product.price.old_price != 0"
       />
       <q-btn
         class="text-weight-bold q-my-sm q-ml-xs"
@@ -41,7 +54,7 @@
 </template>
 <script>
 import { ref } from "vue";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapMutations, mapGetters } from "vuex";
 
 import ProductButtonGroup from "src/components/product/ProductButtonGroup.vue";
 
@@ -51,6 +64,9 @@ export default {
   },
   props: ["product"],
   computed: {
+    ...mapGetters({
+      viewBasket: "basket/viewBasket",
+    }),
     convertСurrency() {
       switch (this.product.price.currency) {
         case "RUB":
@@ -67,10 +83,6 @@ export default {
           return this.product.price.currency;
       }
     },
-  },
-
-  methods: {
-    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
   },
   setup() {},
 };

@@ -9,9 +9,10 @@
       no-wrap
       dense
       @click="
-        changeSelectDelivery({
-          delivery: [],
-          page: 'all',
+        changeFormSelect({
+          section: 'delivery',
+          data: {},
+          tab: 'all',
         })
       "
     />
@@ -43,7 +44,7 @@ export default defineComponent({
     return {};
   },
   methods: {
-    ...mapMutations(["changeSelectDelivery"]),
+    ...mapMutations({ changeFormSelect: "form/changeFormSelect" }),
   },
 });
 </script>

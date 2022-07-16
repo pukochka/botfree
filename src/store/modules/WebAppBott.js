@@ -1,16 +1,6 @@
 import axios from "axios";
 import { ref } from "vue";
 
-/*
-  Actions : get | actions
-  Getters : view
-  Mutations : change | open 
-*/
-
-/*
-  Структура всего проекта здесь
-*/
-
 const createParams = (items, params, ...args) => {
   for (let i = 0; i < args.length; i++) {
     if (args[i] != null || args[i] != undefined) {
@@ -36,9 +26,9 @@ export default {
           if (response.status == 200) {
             commit("openUserData", response.data.data);
             dispatch("getBotInfo");
-            dispatch("basket/actionsWithBasket", { action: "get" });
-            dispatch("actionsWithOrders", { action: "count" });
-            dispatch("actionsWithOrders", { action: "index", offset: 0 });
+            dispatch("basket/getBasket", { action: "get" });
+            dispatch("order/getOrders", { action: "index", offset: 0 });
+            dispatch("order/getOrdersCount");
           }
         });
     },
@@ -75,42 +65,7 @@ export default {
           commit("changeBotInfo", JSON.parse(response.data).data);
         });
     },
-    getPayments({ commit, getters }, { action, group_id }) {
-      axios
-        .post(
-          `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["group_id"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-            },
-            group_id
-          )
-        )
-        .then((response) => {
-          console.log(response, "Оплата");
 
-          // commit("changeCategory", categoryes);
-        });
-    },
-    getGifts({ commit, getters }, { order_id }) {
-      axios
-        .post(
-          `https://api.bot-t.com/v1/shopcart/discount/for-order?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["order_id"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-            },
-            order_id
-          )
-        )
-        .then((response) => {
-          console.log(response, "подарки");
-
-          // commit("changeCategory", categoryes);
-        });
-    },
     actionsWithInfo({ commit, getters }, { action }) {
       axios
         .post(
@@ -132,98 +87,6 @@ export default {
             });
           }
           console.log(response, "Правила и скидки");
-        });
-    },
-    actionsDelivery({ commit, getters }, { action, id }) {
-      axios
-        .post(
-          `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["id"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-            },
-            id
-          )
-        )
-        .then((response) => {
-          console.log(response, "Доставка");
-          commit("changeDataDelivery", response.data.data);
-        });
-    },
-    actionsСoupon({ commit, getters }, { action, coupon }) {
-      if (action == "find-active") {
-        commit("changeFirstLoadingCoupon", true);
-      } else if (action == "activate") {
-        commit("changeFindLoadingCoupon", true);
-      }
-      axios
-        .post(
-          `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["code"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-              user_id: getters.viewUserData.id,
-              secret_user_key: getters.viewUserData.secret_user_key,
-            },
-            coupon
-          )
-        )
-        .then((response) => {
-          console.log(response, "Купон");
-          commit("changeFirstLoadingCoupon", false);
-          commit("changeFindLoadingCoupon", false);
-          if (action == "find-active") {
-            commit("changeHasCoupon", response.data.result);
-            if (response.data.result) {
-              commit("changeActiveCoupon", response.data.data);
-            }
-          } else if (action == "activate") {
-            if (response.data.result) {
-              commit("changeActiveCoupon", response.data.data);
-              commit("changeHasCoupon", response.data.result);
-              commit("changeInCorrectCoupon", false);
-            } else {
-              commit("changeInCorrectCoupon", true);
-            }
-          } else if (action == "deactivated") {
-            commit("changeActiveCoupon", response.data.data);
-            commit("changeInCorrectCoupon", false);
-          }
-        });
-    },
-
-    actionsWithOrders({ commit, getters }, { action, order_id, offset }) {
-      if (action == "index") {
-        commit("changeInfoOrdersLoading", true);
-      }
-      axios
-        .post(
-          `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${getters.viewInitData.search.secretKey}`,
-          createParams(
-            ["order_id", "offset"],
-            {
-              bot_id: getters.viewInitData.search.bot_id,
-              user_id: getters.viewUserData.id,
-              secret_user_key: getters.viewUserData.secret_user_key,
-            },
-            order_id,
-            offset
-          )
-        )
-        .then((response) => {
-          if (response.status == 200) {
-            if (action == "count") {
-              console.log(response, "Количество заказов");
-              commit("changeInfoOrders", response.data.data.count);
-            } else {
-              console.log(response, "Заказы");
-              commit("changeInfoOrdersLoading", false);
-              commit("changeOrders", response.data.data);
-              window.scrollTo({ top: 0 });
-            }
-          }
         });
     },
   },
@@ -248,51 +111,16 @@ export default {
         state.initData = init;
       }
     },
-    // changeBasket(state, items) {
-    //   state.basket = items;
-    // },
-    changeOrders(state, items) {
-      state.orders = items;
-    },
 
     changeBotInfo(state, val) {
       state.botInfo = val;
-    },
-
-    changeHasCoupon(state, val) {
-      state.coupons.has = val;
-    },
-    changeActiveCoupon(state, val) {
-      state.coupons.data = val;
-    },
-    changeInCorrectCoupon(state, val) {
-      state.coupons.correct = val;
-    },
-    changeFirstLoadingCoupon(state, val) {
-      state.coupons.loadingFirst = val;
-    },
-    changeFindLoadingCoupon(state, val) {
-      state.coupons.loadingFind = val;
-    },
-
-    changeDataDelivery(state, val) {
-      state.delivery.data = val;
     },
 
     changeInfo(state, { select, value }) {
       state[select].value = value;
       state[select].loading = false;
     },
-    changeInfoOrders(state, count) {
-      state.infoOrders.count = count;
-    },
-    changeInfoCurrentOrder(state, { order, page }) {
-      state.infoOrders.order = order;
-      state.infoOrders.page = page;
-    },
-    changeInfoOrdersLoading(state, value) {
-      state.infoOrders.loading = value;
-    },
+
     changeValidator(state, value) {
       state.userValidate = value;
     },
@@ -320,11 +148,6 @@ export default {
       state.coupon = data;
     },
 
-    changeSelectDelivery(state, { delivery, page }) {
-      state.delivery.select = delivery;
-      state.delivery.page = page;
-    },
-
     changePrevCategory(state, { category, text }) {
       state.prevCategory.prev = state.prevCategory.now;
       state.prevCategory.textPrev = state.prevCategory.textNow;
@@ -342,9 +165,6 @@ export default {
     viewPrevCategory(state) {
       return state.prevCategory;
     },
-    viewDelivery(state) {
-      return state.delivery;
-    },
     viewCoupon(state) {
       return state.coupons;
     },
@@ -353,9 +173,6 @@ export default {
     },
     viewInfoRules(state) {
       return state.infoRules;
-    },
-    viewColor(state) {
-      return state.colors;
     },
     viewTab(state) {
       return state.tabs;
@@ -375,9 +192,7 @@ export default {
     viewInitData(state) {
       return state.initData;
     },
-    viewOrders(state) {
-      return state.orders;
-    },
+
     viewInfoOrders(state) {
       return state.infoOrders;
     },
@@ -387,7 +202,6 @@ export default {
   },
   state: {
     tabs: ref("catalog"),
-    orders: ref([]),
     products: ref([]),
     infoDialogs: ref({
       createOrder: {
@@ -400,19 +214,7 @@ export default {
       data: [],
       loading: true,
     }),
-    coupons: ref({
-      has: true,
-      loadingFirst: false,
-      loadingFind: false,
-      correct: false,
-      data: [],
-    }),
-    delivery: ref({
-      data: [],
-      select: [],
-      page: "all",
-      loading: true,
-    }),
+
     botInfo: ref([]),
     infoSales: ref({
       value: null,
@@ -422,12 +224,7 @@ export default {
       value: null,
       loading: true,
     }),
-    infoOrders: ref({
-      count: 0,
-      order: {},
-      page: "all",
-      loading: true,
-    }),
+
     prevCategory: ref({
       now: 0,
       prev: 0,

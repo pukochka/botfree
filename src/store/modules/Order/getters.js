@@ -1,3 +1,3 @@
-export function viewBasket(state) {
-  return state.basket;
+export function viewOrders(state) {
+  return state.orders;
 }

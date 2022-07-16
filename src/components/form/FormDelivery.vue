@@ -2,7 +2,7 @@
   <div class="max-md center">
     <div class="text-h5">Выберите способ доставки</div>
     <q-tab-panels
-      v-model="viewDelivery.page"
+      v-model="viewDelivery.tab"
       animated
       transition-next="slide-left"
       transition-prev="slide-right"
@@ -32,7 +32,7 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters(["viewDelivery"]),
+    ...mapGetters({ viewDelivery: "form/viewDelivery" }),
   },
   methods: {},
   mounted() {},

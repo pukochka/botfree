@@ -5,39 +5,39 @@
       flat
       icon="chevron_left"
       color="primary"
-      @click="changeInfoCurrentOrder({ order: {}, page: 'all' })"
+      @click="changeOrdersSelect({ order: {}, tab: 'all' })"
     />
     <q-separator />
     <div class="text-h6 q-py-sm">
       <div class="q-py-md">
         <div class="text-weight-bold">
-          Номер заказа <span class="text-primary">#{{ current.id }}</span>
+          Номер заказа <span class="text-primary">#{{ select.id }}</span>
         </div>
         <q-separator />
         <div class="text-subtitle1">
-          Заказ от <span class="text-primary">{{ current.created_at }}</span>
+          Заказ от <span class="text-primary">{{ select.created_at }}</span>
         </div>
       </div>
       <div class="q-py-md">
-        <UsedCoupon :coupon="current.coupon" />
+        <UsedCoupon :coupon="select.coupon" />
       </div>
       <div class="q-py-md">
         <UsedDiscount
           :item="{
-            discount: current.discount,
-            discounts: current.discounts,
+            discount: select.discount,
+            discounts: select.discounts,
           }"
         />
       </div>
       <div class="q-py-md">
-        <UsedDelivery :delivery="current.delivery" />
+        <UsedDelivery :delivery="select.delivery" />
       </div>
       <div class="q-py-md">
-        <UsedPayment :payment="current.payment" />
+        <UsedPayment :payment="select.payment" />
       </div>
 
       <div class="text-weight-bold">
-        Итого <span class="text-primary">{{ current.price }}</span>
+        Итого <span class="text-primary">{{ select.price }}</span>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ import UsedDiscount from "src/components/order/OrderSections/UsedDiscount.vue";
 import UsedPayment from "src/components/order/OrderSections/UsedPayment.vue";
 
 export default defineComponent({
-  props: ["current"],
+  props: ["select"],
   components: {
     UsedCoupon,
     UsedDelivery,
@@ -63,7 +63,7 @@ export default defineComponent({
     return {};
   },
   methods: {
-    ...mapMutations(["changeInfoCurrentOrder"]),
+    ...mapMutations({ changeOrdersSelect: "order/changeOrdersSelect" }),
   },
 });
 </script>

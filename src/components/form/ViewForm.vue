@@ -89,9 +89,14 @@ export default defineComponent({
     FormPay,
   },
   computed: {
-    ...mapGetters(["viewDelivery"]),
+    ...mapGetters({
+      viewDelivery: "form/viewDelivery",
+      viewCoupon: "form/viewCoupon",
+      viewBasket: "basket/viewBasket",
+    }),
   },
   methods: {
+    ...mapActions({ getOrders: "order/getOrders" }),
     next() {
       if (this.step == this.steps.length - 1) return;
       this.step++;
@@ -104,7 +109,7 @@ export default defineComponent({
       if ("coupons".length != 0) {
         this.steps.push("1");
       }
-      if ("sales".length != 0) {
+      if (this.viewBasket.data.discounts.length != 0) {
         this.steps.push("2");
       }
       if ("gifts".length != 0) {

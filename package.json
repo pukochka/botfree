@@ -1,8 +1,8 @@
 {
-  "name": "botfree",
+  "name": "webappbott",
   "version": "0.0.1",
-  "description": "free bot for Telegram",
-  "productName": "appFree",
+  "description": "web app for Telegram",
+  "productName": "webappbott",
   "author": "pukochka <tema.puko@gmail.com>",
   "private": true,
   "scripts": {

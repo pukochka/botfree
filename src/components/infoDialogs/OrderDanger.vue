@@ -38,6 +38,7 @@ export default defineComponent({
     ...mapGetters(["viewInfoDialogs"]),
   },
   methods: {
+    ...mapActions({ getOrders: "order/getOrders" }),
     ...mapMutations(["changeInfoDialogs", "changeTabs"]),
   },
 });

@@ -11,7 +11,7 @@
           label="Подтвердить"
           color="red"
           v-close-popup
-          @click="actionsWithBasket({ action: 'remove-all' })"
+          @click="getBasket({ action: 'remove-all' })"
         />
       </q-card-actions>
     </q-card>
@@ -26,7 +26,7 @@ export default defineComponent({
   },
   computed: {},
   methods: {
-    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
+    ...mapActions({ getBasket: "basket/getBasket" }),
   },
 });
 </script>

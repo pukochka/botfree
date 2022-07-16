@@ -48,7 +48,7 @@
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Заказы</div>
             <div class="text-weight-bold text-primary">
-              {{ viewInfoOrders.count }}
+              {{ viewOrders.count }}
             </div>
           </q-item-label>
         </q-item-section>
@@ -208,13 +208,10 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters([
-      "viewUserData",
-      "viewOrders",
-      "viewInfoOrders",
-      "viewTab",
-      "viewBotInfo",
-    ]),
+    ...mapGetters(["viewUserData", "viewTab", "viewBotInfo"]),
+    ...mapGetters({
+      viewOrders: "order/viewOrders",
+    }),
     convertСurrency() {
       switch (this.viewUserData.currency) {
         case "RUB":

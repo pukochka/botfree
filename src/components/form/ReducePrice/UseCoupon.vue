@@ -1,16 +1,17 @@
 <template>
   <div class="max-md center">
-    <div class="text-h5 q-pb-sm" v-if="!viewCoupon.loading">
-      Активать купона
-    </div>
-    <div class="flex flex-center q-pa-md" v-if="viewCoupon.loadingFirst">
+    <div class="text-h5 q-pb-sm">Активать купона</div>
+    <div
+      class="flex flex-center q-pa-md"
+      v-if="viewCoupon.loading['find-active']"
+    >
       <q-spinner color="primary" size="3em" />
     </div>
     <div class="row q-col-gutter-sm">
       <div class="col-12">
         <div
-          class="q-ma-xs text-center text-weight-bold text-subtitle1"
-          v-if="!viewCoupon.loadingFirst && viewCoupon.data.length == 0"
+          class="q-ma-xs text-subtitle1"
+          v-if="!viewCoupon.loading['find-active'] && viewCoupon.status"
         >
           У вас пока нет активированных купонов
         </div>
@@ -18,7 +19,7 @@
 
       <div
         class="col-12"
-        v-if="!viewCoupon.loadingFirst && viewCoupon.data.length != 0"
+        v-if="!viewCoupon.loading['find-active'] && !viewCoupon.status"
       >
         <div class="outline rounded-borders q-pa-sm">
           <div class="text-center text-weight-bold text-subtitle1">
@@ -39,17 +40,28 @@
               color="red-6"
               icon="clear"
               label="Убрать купон"
+              :loading="viewCoupon.loading['deactivated']"
               no-wrap
               no-caps
               flat
-              @click="actionsСoupon({ action: 'deactivated' })"
+              @click="
+                getСoupon({ action: 'deactivated' });
+                coupon = '';
+              "
             />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="" v-if="!viewCoupon.loadingFirst && !viewCoupon.has">
+    <div
+      class=""
+      v-if="
+        (!viewCoupon.loading['find-active'] ||
+          !viewCoupon.loading['activate']) &&
+        viewCoupon.status
+      "
+    >
       <q-input
         v-model="coupon"
         type="text"
@@ -61,7 +73,7 @@
       <div class="col-12">
         <div
           class="text-red-4 text-weight-bold text-caption"
-          v-if="viewCoupon.correct"
+          v-if="viewCoupon.current"
         >
           Введен неверный купон
         </div>
@@ -72,8 +84,8 @@
           dense
           color="primary"
           label="Активировать"
-          :loading="viewCoupon.loadingFind"
-          @click="actionsСoupon({ action: 'activate', coupon: coupon })"
+          :loading="viewCoupon.loading['activate']"
+          @click="getСoupon({ action: 'activate', coupon: coupon })"
         />
       </div>
     </div>
@@ -89,13 +101,13 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewCoupon"]),
+    ...mapGetters({ viewCoupon: "form/viewCoupon" }),
   },
   methods: {
-    ...mapActions(["actionsСoupon"]),
+    ...mapActions({ getСoupon: "form/getСoupon" }),
   },
   mounted() {
-    this.actionsСoupon({ action: "find-active" });
+    this.getСoupon({ action: "find-active" });
   },
 });
 </script>

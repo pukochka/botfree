@@ -1,19 +1,27 @@
 <template>
   <div class="q-pa-md max-xxl center">
+    <div class="fixed-center z-max">
+      <div
+        class="bg-white q-pa-md rounded-borders"
+        v-if="viewBasket.loading['remove-all']"
+      >
+        <q-spinner color="primary" size="6rem" />
+      </div>
+    </div>
     <div class="my-header flex items-end">
       Корзина
       <div
         class="q-ml-sm text-caption text-grey-7"
-        v-if="viewBasket.countItems != 0"
+        v-if="viewBasket.data.countItems != 0"
       >
-        Товаров {{ viewBasket.countItems }}
+        Товаров {{ viewBasket.data.countItems }}
       </div>
     </div>
     <q-separator class="q-my-sm" />
   </div>
   <q-card-actions align="right" class="max-xxl center">
     <q-btn
-      v-if="viewBasket.countItems != 0"
+      v-if="viewBasket.data.countItems != 0"
       flat
       dense
       color="primary"
@@ -23,7 +31,7 @@
     />
   </q-card-actions>
   <q-card-section class="max-xxl center column">
-    <div class="text-h5 column" v-if="viewBasket.countItems == 0">
+    <div class="text-h5 column" v-if="viewBasket.data.countItems == 0">
       В корзине пока пусто
       <q-btn
         class="text-primary q-ma-md"
@@ -33,8 +41,8 @@
         @click="changeTabs('catalog')"
       />
     </div>
-    <productItemBasket
-      v-for="(item, index) of viewBasket.items"
+    <BasketProduct
+      v-for="(item, index) of viewBasket.data.items"
       :key="index"
       :product="item.product"
     />
@@ -43,19 +51,30 @@
     <div class="max-md full-width">
       <q-card
         class="full-width relative-position bg-grey-2"
-        v-if="viewBasket.countItems != 0"
+        v-if="viewBasket.data.countItems != 0"
       >
+        <div
+          class="absolute fit flex flex-center bg-opacity z-max"
+          v-if="
+            viewBasket.loading['subtract'] ||
+            viewBasket.loading['remove'] ||
+            viewBasket.loading['add'] ||
+            viewBasket.loading['set-count']
+          "
+        >
+          <q-spinner color="primary" size="5rem" class="z-max" />
+        </div>
         <q-card-section class="">
           <div class="flex flex-grow justify-between text-h5 text-weight-bold">
             <div class="">Итого</div>
             <div class="">
-              {{ viewBasket.sum }}
+              {{ viewBasket.data.sum }}
             </div>
           </div>
           <div class="flex flex-grow justify-between text-caption text-grey-7">
-            <div class="">Всего товаров : {{ viewBasket.count }}</div>
+            <div class="">Всего товаров : {{ viewBasket.data.count }}</div>
             <div class="">
-              {{ viewBasket.sum_full }}
+              {{ viewBasket.data.sum_full }}
             </div>
           </div>
           <div class="flex-grow q-mt-sm">
@@ -63,7 +82,7 @@
               class="fit"
               color="primary"
               label="Перейти к оформлению"
-              @click="changeTabs('formsOrders')"
+              @click="toFormOrder"
             />
           </div>
         </q-card-section>
@@ -71,32 +90,38 @@
     </div>
   </q-card-section>
   <BasketDialogClear v-model="sure" />
+  <OrderCreate />
 </template>
 <script>
 import { ref } from "vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import BasketDialogClear from "src/components/basket/BasketDialogClear.vue";
-import productItemBasket from "src/components/basket/BasketProduct.vue";
+import BasketProduct from "src/components/basket/BasketProduct.vue";
+import OrderCreate from "src/components/infoDialogs/OrderCreate.vue";
 
 export default {
   props: {},
   components: {
-    productItemBasket,
+    BasketProduct,
     BasketDialogClear,
+    OrderCreate,
   },
   setup() {
     return {
-      promo: ref(""),
       sure: ref(false),
     };
   },
   computed: {
-    ...mapGetters({ viewBasket: ["basket/viewBasket"] }, ["viewInitData"]),
+    ...mapGetters({ viewBasket: ["basket/viewBasket"] }),
   },
   methods: {
-    ...mapActions(["actionsWithBasket"]),
+    ...mapActions({ getBasket: "getBasket", getOrders: "order/getOrders" }),
     ...mapMutations(["changeTabs"]),
+    toFormOrder() {
+      // this.getOrders({ action: "create" });
+      this.changeTabs("formsOrders");
+    },
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":

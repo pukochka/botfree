@@ -3,9 +3,9 @@
     <q-header bordered class="text-teal-7 flex items-center bg-grey-2">
       <q-toolbar>
         <q-toolbar-title class="q-gutter-md">
-          <q-avatar size="50px" font-size="20px" rounded color="brand">
-            <div class="fit q-ma-xs">
-              <div class="main_logo fit"></div>
+          <q-avatar color="brand" size="50px" rounded>
+            <div class="q-pa-xs fit">
+              <img src="~assets/logo.png" alt="bott" />
             </div>
           </q-avatar>
         </q-toolbar-title>
@@ -41,10 +41,5 @@ export default defineComponent({
       font-size: 12px;
     }
   }
-}
-.main_logo {
-  background-image: url("src/layouts/logo.png");
-  background-repeat: no-repeat;
-  background-size: contain;
 }
 </style>

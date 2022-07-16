@@ -1,6 +1,6 @@
 <template>
   <div class="max-xxl center q-px-md q-pt-lg">
-    <div class="fixed-center" v-if="viewInfoOrders.loading">
+    <div class="fixed-center z-max" v-if="viewOrders.loading.index">
       <div class="bg-white rounded-borders">
         <q-spinner color="primary" class="q-ma-xl" size="6em" />
       </div>
@@ -8,19 +8,19 @@
     <div class="flex">
       <div class="text-h4">Мои заказы</div>
       <div class="text-grey-8 text-caption self-end q-ml-sm">
-        Заказы {{ viewInfoOrders.count }}
+        Заказы {{ viewOrders.count }}
       </div>
     </div>
     <q-separator class="q-mt-sm" />
   </div>
   <div class="max-xxl center q-pa-md">
     <div class="">Страница {{ page }} из {{ countOfPages }}</div>
-    <div class="text-h4 text-center q-pa-lg" v-if="viewInfoOrders.length == 0">
+    <div class="text-h4 text-center q-pa-lg" v-if="viewOrders.data.length == 0">
       Заказов пока нет
     </div>
     <div
       class="bg-grey-2 rounded-borders q-my-md"
-      v-for="(order, index) of viewOrders"
+      v-for="(order, index) of viewOrders.data"
       :key="index"
     >
       <div class="q-px-md q-py-sm text-subtitle1">
@@ -54,7 +54,7 @@
           flat
           color="primary"
           label="Подробнее"
-          @click="moreAboutOrder(order)"
+          @click="changeOrdersSelect({ order: order, tab: 'selected' })"
         />
       </div>
     </div>
@@ -103,14 +103,14 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewOrders", "viewInfoOrders"]),
+    ...mapGetters({ viewOrders: "order/viewOrders" }),
     countOfPages() {
-      return Math.ceil(this.viewInfoOrders.count / 3);
+      return Math.ceil(this.viewOrders.count / 3);
     },
   },
   methods: {
-    ...mapActions(["actionsWithOrders"]),
-    ...mapMutations(["changeInfoCurrentOrder"]),
+    ...mapActions({ getOrders: "order/getOrders" }),
+    ...mapMutations({ changeOrdersSelect: "order/changeOrdersSelect" }),
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":
@@ -127,23 +127,18 @@ export default defineComponent({
           return currency;
       }
     },
-    moreAboutOrder(current) {
-      this.changeInfoCurrentOrder({ order: current, page: "current" });
-    },
     nextPage() {
-      this.actionsWithOrders({
+      this.getOrders({
         action: "index",
         offset: (this.offset += 3),
       });
       this.page++;
     },
     prevPage() {
-      this.actionsWithOrders({ action: "index", offset: (this.offset -= 3) });
+      this.getOrders({ action: "index", offset: (this.offset -= 3) });
       this.page--;
     },
   },
-  mounted() {},
-  watch: {},
 });
 </script>
 <style lang="scss" scoped>

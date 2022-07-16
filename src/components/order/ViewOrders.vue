@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <q-tab-panels
-      v-model="viewInfoOrders.page"
+      v-model="viewOrders.tab"
       animated
       transition-next="slide-left"
       transition-prev="slide-right"
@@ -9,8 +9,8 @@
       <q-tab-panel name="all">
         <AllOrders />
       </q-tab-panel>
-      <q-tab-panel name="current">
-        <CurrentOrder :current="viewInfoOrders.order" />
+      <q-tab-panel name="selected">
+        <CurrentOrder :select="viewOrders.select" />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -21,18 +21,17 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 
 import AllOrders from "src/components/order/AllOrders.vue";
 import CurrentOrder from "src/components/order/CurrentOrder.vue";
+
 export default defineComponent({
   components: {
     AllOrders,
     CurrentOrder,
   },
   setup() {
-    return {
-      view: ref("all"),
-    };
+    return {};
   },
   computed: {
-    ...mapGetters(["viewInfoOrders"]),
+    ...mapGetters({ viewOrders: "order/viewOrders" }),
   },
 });
 </script>

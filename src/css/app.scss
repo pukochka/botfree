@@ -22,11 +22,17 @@ body {
   background: $primary !important;
   opacity: 0.7;
 }
+.bg-opacity {
+  background: rgba(255, 255, 255, 0.499) !important;
+}
 .bg-page {
   background: #495057;
 }
 .center {
   margin: 0 auto;
+}
+.q-tab-panel {
+  padding: 4px !important;
 }
 .my-header {
   font-size: 32px;
@@ -55,6 +61,26 @@ body {
   }
   &-xxl {
     max-width: 1200px;
+  }
+}
+.min-h {
+  &-xs {
+    min-height: 150px;
+  }
+  &-sm {
+    min-height: 300px;
+  }
+  &-md {
+    min-height: 500px;
+  }
+  &-lg {
+    min-height: 700px;
+  }
+  &-xl {
+    min-height: 900px;
+  }
+  &-xxl {
+    min-height: 1200px;
   }
 }
 .q-mb-xxl {

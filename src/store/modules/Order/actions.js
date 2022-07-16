@@ -1,27 +1,48 @@
 import axios from "axios";
 import { createParams } from "src/store/helpers.js";
 
-export function actionsWithBasket(
+export function getOrders(
   { commit, rootGetters },
-  { action, category_id, count }
+  { action, order_id, offset }
 ) {
+  commit("changeOrdersLoading", { section: action, value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/cart/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
       createParams(
-        ["category_id", "count"],
+        ["order_id", "offset"],
         {
           bot_id: rootGetters.viewInitData.search.bot_id,
           user_id: rootGetters.viewUserData.id,
           secret_user_key: rootGetters.viewUserData.secret_user_key,
         },
-        category_id,
-        count
+        order_id,
+        offset
       )
     )
     .then((response) => {
-      console.log(response, "Корзина");
+      if (response.status == 200) {
+        console.log(response, "Заказы");
+        commit("changeOrdersLoading", { section: action, value: false });
+        commit("changeOrdersData", response.data.data);
+        window.scrollTo({ top: 0 });
+      }
+    });
+}
 
-      commit("changeBasket", response.data.data);
+export function getOrdersCount({ commit, rootGetters }) {
+  axios
+    .post(
+      `https://api.bot-t.com/v1/shopcart/order/count?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      {
+        bot_id: rootGetters.viewInitData.search.bot_id,
+        user_id: rootGetters.viewUserData.id,
+        secret_user_key: rootGetters.viewUserData.secret_user_key,
+      }
+    )
+    .then((response) => {
+      if (response.status == 200) {
+        commit("changeOrdersCount", response.data.data.count);
+      }
     });
 }

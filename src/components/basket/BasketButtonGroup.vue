@@ -27,7 +27,7 @@
         flat
         color="primary"
         icon="remove"
-        @click="actionsWithBasket({ action: 'subtract', category_id: prod.id })"
+        @click="getBasket({ action: 'subtract', category_id: prod.id })"
       />
       <div class="q-px-xs absolute-center">
         {{ countInBasket }}
@@ -56,7 +56,7 @@
                 color="positive"
                 icon="check"
                 @click="
-                  actionsWithBasket({
+                  getBasket({
                     action: 'set-count',
                     category_id: prod.id,
                     count: +scope.value,
@@ -75,7 +75,7 @@
         color="primary"
         icon="add"
         v-if="countInBasket < prod.setting.max_count"
-        @click="actionsWithBasket({ action: 'add', category_id: prod.id })"
+        @click="getBasket({ action: 'add', category_id: prod.id })"
       />
     </div>
   </div>
@@ -97,13 +97,15 @@ export default {
   computed: {
     ...mapGetters({ viewBasket: "basket/viewBasket" }),
     countInBasket() {
-      return this.viewBasket.items.find(
+      return this.viewBasket.data.items.find(
         (item) => item.product.id == this.prod.id
       )?.count;
     },
     hasBasketItem() {
       if (
-        this.viewBasket.items.find((item) => item.product.id == this.prod.id)
+        this.viewBasket.data.items.find(
+          (item) => item.product.id == this.prod.id
+        )
       ) {
         return true;
       } else {
@@ -112,7 +114,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions({ actionsWithBasket: "basket/actionsWithBasket" }),
+    ...mapActions({ getBasket: "basket/getBasket" }),
   },
   watch: {},
 };

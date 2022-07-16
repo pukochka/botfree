@@ -3,9 +3,9 @@
     <q-header bordered class="text-primary-7 row items-center bg-grey-2">
       <q-toolbar>
         <div class="flex no-wrap q-gutter-sm">
-          <q-avatar size="50px" font-size="20px" rounded color="brand">
-            <div class="fit q-ma-xs">
-              <div class="main_logo fit"></div>
+          <q-avatar color="brand" size="50px" rounded>
+            <div class="q-pa-xs fit">
+              <img src="~assets/logo.png" alt="bott" />
             </div>
           </q-avatar>
         </div>
@@ -37,11 +37,11 @@
               @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.countItems != 0"
+                v-if="viewBasket.data.countItems != 0"
                 class="absolute-top-right"
                 rounded
                 color="red-4"
-                >{{ viewBasket.countItems }}</q-badge
+                >{{ viewBasket.data.countItems }}</q-badge
               >
             </q-btn>
           </div>
@@ -101,11 +101,11 @@
               @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.countItems != 0"
+                v-if="viewBasket.data.countItems != 0"
                 class="absolute-top-right"
                 rounded
                 color="red"
-                >{{ viewBasket.countItems }}</q-badge
+                >{{ viewBasket.data.countItems }}</q-badge
               >
             </q-btn>
           </div>
@@ -157,7 +157,6 @@ export default defineComponent({
   methods: {
     ...mapMutations(["changeTabs", "changeInfoDialogs"]),
     correctWork(tab) {
-      console.log(this.viewInfoDialogs);
       if (this.viewInfoDialogs.createOrder.danger) {
         this.changeInfoDialogs({ dialog: "createOrder", view: tab });
       } else {
@@ -179,11 +178,6 @@ export default defineComponent({
       font-size: 12px;
     }
   }
-}
-.main_logo {
-  background-image: url("src/layouts/logo.png");
-  background-repeat: no-repeat;
-  background-size: contain;
 }
 .mobile {
   &-tab {

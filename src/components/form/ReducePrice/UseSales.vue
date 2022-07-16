@@ -4,7 +4,7 @@
     <div class="row q-col-gutter-sm">
       <div
         class="col-12 col-sm-6 relative-position"
-        v-for="(sale, index) of viewBasket.discounts"
+        v-for="(sale, index) of viewBasket.data.discounts"
         :key="index"
       >
         <q-avatar
@@ -30,7 +30,9 @@
     <div class="q-pt-md">
       <div class="text-subtitle1">
         Сумма со скидкой
-        <span class="text-weight-bold text-primary">{{ viewBasket.sum }}</span>
+        <span class="text-weight-bold text-primary">{{
+          viewBasket.data.sum
+        }}</span>
       </div>
       <q-separator />
     </div>

@@ -1,10 +1,16 @@
 import axios from "axios";
 import { createParams } from "src/store/helpers.js";
 
-export function actionsWithBasket(
+export function getBasket(
   { commit, rootGetters },
   { action, category_id, count }
 ) {
+  commit("changeBasketLoading", {
+    section: action,
+    value: true,
+    elem: category_id,
+  });
+  console.log(action);
   axios
     .post(
       `https://api.bot-t.com/v1/shopcart/cart/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
@@ -21,7 +27,11 @@ export function actionsWithBasket(
     )
     .then((response) => {
       console.log(response, "Корзина");
-
-      commit("changeBasket", response.data.data);
+      commit("changeBasketLoading", {
+        section: action,
+        value: false,
+        elem: category_id,
+      });
+      commit("changeBasketData", response.data.data);
     });
 }
