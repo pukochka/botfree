@@ -59,12 +59,14 @@ export default defineComponent({
           item: item,
         });
       }
+
       return mass.value;
     },
   },
   methods: {
     selectOption(item) {
-      if (this.option.data.is_multiply) {
+      console.log(this.option.data.is_multiple);
+      if (this.option.data.is_multiple) {
         if (item.select) {
           this.select = this.select.filter((sel) => sel != item.item.text);
           item.select = false;

@@ -10,9 +10,9 @@
       />
       <div class="text-h6 q-pl-md">
         <div class="">
-          {{ viewUserData.first_name }} {{ viewUserData.last_name }}
+          {{ viewUser.data.first_name }} {{ viewUser.data.last_name }}
         </div>
-        <div class="text-caption">@{{ viewUserData.username }}</div>
+        <div class="text-caption">@{{ viewUser.data.username }}</div>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Баланс</div>
             <div class="text-weight-bold text-primary">
-              {{ viewUserData.balance }} {{ convertСurrency }}
+              {{ viewUser.data.balance }} {{ convertСurrency }}
             </div>
           </q-item-label>
         </q-item-section>
@@ -128,13 +128,13 @@
               <q-item clickable dense>
                 <q-item-section avatar> Название </q-item-section>
                 <q-item-section class="text-primary">{{
-                  viewBotInfo.title
+                  viewInfo.bot.title
                 }}</q-item-section>
               </q-item>
               <q-item clickable dense>
                 <q-item-section avatar> Тип бота </q-item-section>
                 <q-item-section class="text-primary">{{
-                  viewBotInfo.type
+                  viewInfo.bot.type
                 }}</q-item-section>
               </q-item>
               <q-item clickable dense>
@@ -146,7 +146,7 @@
               <q-item clickable dense>
                 <q-item-section avatar> Язык в боте </q-item-section>
                 <q-item-section class="text-primary">{{
-                  viewBotInfo.language
+                  viewInfo.bot.language
                 }}</q-item-section>
               </q-item>
             </q-list>
@@ -204,16 +204,18 @@ export default defineComponent({
     return {
       info: ref(false),
       botinfo: ref(false),
-      tab: ref("mails"),
     };
   },
   computed: {
-    ...mapGetters(["viewUserData", "viewTab", "viewBotInfo"]),
+    ...mapGetters({
+      viewUser: "user/viewUser",
+      viewInfo: "info/viewInfo",
+    }),
     ...mapGetters({
       viewOrders: "order/viewOrders",
     }),
     convertСurrency() {
-      switch (this.viewUserData.currency) {
+      switch (this.viewUser.data.currency) {
         case "RUB":
           return "₽";
         case "USD":
@@ -230,8 +232,7 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapMutations(["changeTabs"]),
-    ...mapActions(["getAllProducts"]),
+    ...mapMutations({ changeTabs: "user/changeUserTab" }),
   },
   watch: {},
   mounted() {},

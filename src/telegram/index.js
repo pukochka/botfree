@@ -1,9 +1,7 @@
 import CryptoJS from "crypto-js";
 
 export default function (init, params) {
-  if (init == false || params.secretKey == false) {
-    return false;
-  } else {
+  if (init && params) {
     let data = init;
     let hash = data.hash;
 
@@ -13,17 +11,13 @@ export default function (init, params) {
       .sort()
       .join("\n");
 
-    console.log();
-
     const signature = CryptoJS.HmacSHA256(
       checkString,
       CryptoJS.enc.Hex.parse(params.secretKey)
     ).toString(CryptoJS.enc.Hex);
 
-    if (signature == hash) {
-      return true;
-    } else {
-      return false;
-    }
+    return signature == hash;
+  } else {
+    return false;
   }
 }

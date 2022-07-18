@@ -2,13 +2,13 @@
   <div class="max-xxl center q-pa-md">
     <div class="text-h4">Акции в магазине</div>
     <q-separator class="q-mt-sm" />
-    <div class="flex flex-center q-pa-xl" v-if="viewInfoSales.loading">
+    <div class="flex flex-center q-pa-xl" v-if="viewInfo.loading.sales">
       <q-spinner color="primary" size="3rem" />
     </div>
-    <div class="row q-col-gutter-sm q-pt-md" v-if="!viewInfoSales.loading">
+    <div class="row q-col-gutter-sm q-pt-md" v-if="!viewInfo.loading.sales">
       <div
-        class="col-4"
-        v-for="(sale, index) of viewInfoSales.value"
+        class="col-12 col-sm-6"
+        v-for="(sale, index) of viewInfo.sales"
         :key="index"
       >
         <q-avatar
@@ -44,20 +44,13 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters(["viewInfoSales"]),
+    ...mapGetters({ viewInfo: "info/viewInfo" }),
   },
   methods: {
-    ...mapActions(["actionsWithInfo"]),
-    contentText(text) {
-      let a = document.createElement("div");
-      a.append(text);
-      return a.textContent;
-    },
+    ...mapActions({ getSales: "info/getSales" }),
   },
   mounted() {
-    this.actionsWithInfo({
-      action: "shopcart/discount/index",
-    });
+    this.getSales();
   },
 });
 </script>

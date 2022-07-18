@@ -1,7 +1,13 @@
 <template>
   <q-layout view="lHr lpR lFf">
     <q-header bordered class="text-primary-7 row items-center bg-grey-2">
-      <q-toolbar>
+      <div
+        class="fit text-center text-h6 text-primary q-pa-sm text-weight-bold"
+        v-if="width"
+      >
+        {{ viewInfo.bot.title }}
+      </div>
+      <q-toolbar v-if="!width">
         <div class="flex no-wrap q-gutter-sm">
           <q-avatar color="brand" size="50px" rounded>
             <div class="q-pa-xs fit">
@@ -10,7 +16,7 @@
           </q-avatar>
         </div>
 
-        <div class="row full-height q-ml-sm" v-if="!width">
+        <div class="row full-height q-ml-sm">
           <div class="col-4">
             <q-btn
               flat
@@ -150,22 +156,31 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       viewBasket: "basket/viewBasket",
-      viewTab: "viewTab",
       viewInfoDialogs: "viewInfoDialogs",
+      viewInfo: "info/viewInfo",
     }),
   },
   methods: {
-    ...mapMutations(["changeTabs", "changeInfoDialogs"]),
+    ...mapMutations({
+      initApp: "user/initApp",
+      changeTabs: "user/changeUserTab",
+      changeInfoDialogs: "info/changeInfoDialogs",
+    }),
     correctWork(tab) {
-      if (this.viewInfoDialogs.createOrder.danger) {
-        this.changeInfoDialogs({ dialog: "createOrder", view: tab });
+      if (this.viewInfo.dialogs.order.danger) {
+        this.changeInfoDialogs({
+          section: "order",
+          value: tab,
+        });
       } else {
         this.changeTabs(tab);
       }
     },
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.initApp();
+  },
 });
 </script>
 <style lang="scss" scoped>

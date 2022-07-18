@@ -52,62 +52,17 @@
 import { defineComponent, ref } from "vue";
 import { mapGetters, mapMutations, mapActions, mapState } from "vuex";
 
-import validate from "src/telegram/index";
-import "url-search-params-polyfill";
-
 export default defineComponent({
   name: "IndexPage",
   setup() {
     return {
-      dialCode: ref(false),
       code: ref(""),
     };
   },
-  computed: {
-    ...mapGetters(["viewUserValid", "viewInitData", "viewInitLoading"]),
-  },
-  methods: {
-    ...mapActions(["getUserData"]),
-    ...mapMutations(["changeValidator", "changeInitData", "changeInitLoading"]),
-
-    convertURL(search) {
-      if (search == "") {
-        return false;
-      } else {
-        let result = {};
-        for (const [key, value] of new URLSearchParams(search)) {
-          result[key] = value;
-        }
-        return result;
-      }
-    },
-  },
-  mounted() {
-    this.changeValidator(
-      validate(
-        this.convertURL(window.Telegram.WebApp.initData),
-        this.convertURL(window.location.search)
-      )
-    );
-    this.changeInitData({
-      data: this.convertURL(window.Telegram.WebApp.initData),
-      search: this.convertURL(window.location.search),
-    });
-  },
-  watch: {
-    viewInitData() {
-      if (
-        this.viewUserValid &&
-        this.viewInitData.data != "" &&
-        this.viewInitData.search != ""
-      ) {
-        this.$router.push("/auth");
-        this.changeInitLoading(false);
-      } else {
-        setTimeout(() => this.changeInitLoading(false), 500);
-      }
-    },
-  },
+  computed: {},
+  methods: {},
+  mounted() {},
+  watch: {},
 });
 </script>
 <style lang="scss" scoped>

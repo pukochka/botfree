@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="viewInfoDialogs.createOrder.open" persistent>
+  <q-dialog v-model="viewInfo.dialogs.order.open" persistent>
     <q-card>
       <q-card-section class="row items-center">
         <span class=""
@@ -12,13 +12,13 @@
           flat
           label="Отменить заказ"
           color="red"
-          @click="changeTabs(viewInfoDialogs.createOrder.value)"
+          @click="changeTabs(viewInfo.dialogs.order.name)"
         />
         <q-btn
           flat
           label="закончить заказ"
           color="primary"
-          @click="changeInfoDialogs({ dialog: 'createOrder', view: null })"
+          @click="changeInfoDialogs({ section: 'order', value: null })"
         />
       </q-card-actions>
     </q-card>
@@ -35,11 +35,14 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["viewInfoDialogs"]),
+    ...mapGetters({ viewInfo: "info/viewInfo" }),
   },
   methods: {
     ...mapActions({ getOrders: "order/getOrders" }),
-    ...mapMutations(["changeInfoDialogs", "changeTabs"]),
+    ...mapMutations({
+      changeTabs: "user/changeUserTab",
+      changeInfoDialogs: "info/changeInfoDialogs",
+    }),
   },
 });
 </script>

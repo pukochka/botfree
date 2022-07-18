@@ -11,8 +11,14 @@ export default defineComponent({
     return {};
   },
   computed: {},
-  methods: {},
-  mounted() {},
+  methods: {
+    ...mapActions({
+      getGifts: "form/getGifts",
+    }),
+  },
+  mounted() {
+    this.getGifts({ order_id: 20896 });
+  },
 });
 </script>
 <style lang="scss" scoped>

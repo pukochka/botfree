@@ -1,5 +1,8 @@
 <template>
   <q-page class="bg-white">
+    <!-- <div class="flex flex-center" v-if="!viewUser.status">
+      Пользователь не авторизован
+    </div> -->
     <q-tab-panels
       class="min"
       v-model="viewTab"
@@ -39,7 +42,7 @@
       </q-tab-panel>
     </q-tab-panels>
     <OrderDanger />
-    <div class="bg-grey-2">
+    <!-- <div class="bg-grey-2">
       <q-separator />
       <div class="q-pa-sm q-px-lg row justify-between items-center">
         <q-btn
@@ -55,7 +58,7 @@
           <q-avatar size="30px" color="purple-4" text-color="white" />
         </div>
       </div>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
@@ -94,14 +97,14 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters(["viewTab"]),
+    ...mapGetters({ viewUser: "user/viewUser", viewTab: "user/viewTab" }),
   },
   methods: {
     ...mapActions(["getUserData", "getAllProducts"]),
   },
   mounted() {
-    this.getUserData();
-    this.getAllProducts({ category: 0, text: "" });
+    // this.getUserData();
+    // this.getAllProducts({ category: 0, text: "" });
   },
 });
 </script>

@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     ...mapActions({ getBasket: "getBasket", getOrders: "order/getOrders" }),
-    ...mapMutations(["changeTabs"]),
+    ...mapMutations({ changeTabs: "user/changeUserTab" }),
     toFormOrder() {
       // this.getOrders({ action: "create" });
       this.changeTabs("formsOrders");

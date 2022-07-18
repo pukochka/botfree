@@ -5,11 +5,11 @@ export function getPayments({ commit, rootGetters }, { action, group_id }) {
   commit("changeFormLoading", { section: "payments", value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
         ["group_id"],
         {
-          bot_id: rootGetters.viewInitData.search.bot_id,
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
         },
         group_id
       )
@@ -30,11 +30,11 @@ export function getDelivery({ commit, rootGetters }, { action, id }) {
   commit("changeFormLoading", { section: "delivery", value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
         ["id"],
         {
-          bot_id: rootGetters.viewInitData.search.bot_id,
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
         },
         id
       )
@@ -54,11 +54,11 @@ export function getDelivery({ commit, rootGetters }, { action, id }) {
 export function getGifts({ commit, rootGetters }, { order_id }) {
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/discount/for-order?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/discount/for-order?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
         ["order_id"],
         {
-          bot_id: rootGetters.viewInitData.search.bot_id,
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
         },
         order_id
       )
@@ -74,13 +74,13 @@ export function getСoupon({ commit, rootGetters }, { action, coupon }) {
   commit("changeCouponLoading", { section: action, value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${rootGetters.viewInitData.search.secretKey}`,
+      `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
         ["code"],
         {
-          bot_id: rootGetters.viewInitData.search.bot_id,
-          user_id: rootGetters.viewUserData.id,
-          secret_user_key: rootGetters.viewUserData.secret_user_key,
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          user_id: rootGetters["user/viewUser"].data.id,
+          secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
         },
         coupon
       )

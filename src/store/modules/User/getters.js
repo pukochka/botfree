@@ -1,3 +1,6 @@
-export function viewBasket(state) {
-  return state.basket;
+export function viewUser(state) {
+  return state.user;
+}
+export function viewTab(state) {
+  return state.user.tab;
 }
