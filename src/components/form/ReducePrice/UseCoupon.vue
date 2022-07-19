@@ -1,6 +1,6 @@
 <template>
-  <div class="max-md center">
-    <div class="text-h5 q-pb-sm">Активать купона</div>
+  <div class="">
+    <div class="text-h5 q-py-md">Активировать купон</div>
     <div
       class="flex flex-center q-pa-md"
       v-if="viewCoupon.loading['find-active']"

@@ -3,27 +3,37 @@ import { createParams } from "src/store/helpers.js";
 
 export function getOrders(
   { commit, rootGetters },
-  { action, order_id, offset }
+  { action, order_id, offset, group_id }
 ) {
   commit("changeOrdersLoading", { section: action, value: true });
   axios
     .post(
       `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
-        ["order_id", "offset"],
+        ["order_id", "offset", "group_id"],
         {
           bot_id: rootGetters["user/viewUser"].search.bot_id,
           user_id: rootGetters["user/viewUser"].data.id,
           secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
         },
         order_id,
-        offset
+        offset,
+        group_id
       )
     )
     .then((response) => {
+      console.log(response, "Заказы");
       if (response.status == 200) {
-        console.log(response, "Заказы");
-        if (action != "create") {
+        if (action == "create") {
+          // commit("changeOrdersLoading", { section: action, value: false });
+          // commit("newOrderInfo", response.data.data);
+        } else if (action == "set-item") {
+          commit("form/changeFormSelect", {
+            section: "payments",
+            data: response.data.data,
+          });
+          commit("changeOrdersLoading", { section: action, value: false });
+        } else {
           commit("changeOrdersLoading", { section: action, value: false });
           commit("changeOrdersData", response.data.data);
           window.scrollTo({ top: 0 });

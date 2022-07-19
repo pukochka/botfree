@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createParams } from "src/store/helpers.js";
 
-export function getUserData({ commit, getters }) {
+export function getUserData({ commit, getters, rootGetters }) {
   axios
     .post(
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.search.secretKey}`,
@@ -18,6 +18,7 @@ export function getUserData({ commit, getters }) {
           value: response.data.data,
         });
         commit("changeUserProp", { section: "loading", value: false });
+
         this.dispatch("info/getBot");
         this.dispatch("order/getOrders", { action: "index", offset: 0 });
         this.dispatch("order/getOrdersCount");

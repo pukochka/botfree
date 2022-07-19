@@ -1,17 +1,19 @@
 <template>
   <q-card class="fit">
-    <div
-      class="absolute fit flex flex-center bg-opacity z-max"
-      v-if="
-        (viewBasket.loading['subtract'] ||
-          viewBasket.loading['remove'] ||
-          viewBasket.loading['add'] ||
-          viewBasket.loading['set-count']) &&
-        viewBasket.elem == product.id
-      "
-    >
-      <q-spinner color="primary" size="5rem" class="z-max" />
-    </div>
+    <Transition name="fade">
+      <div
+        class="absolute fit flex flex-center bg-opacity z-max"
+        v-if="
+          (viewBasket.loading['subtract'] ||
+            viewBasket.loading['remove'] ||
+            viewBasket.loading['add'] ||
+            viewBasket.loading['set-count']) &&
+          viewBasket.elem == product.id
+        "
+      >
+        <q-spinner color="primary" size="5rem" class="z-max" />
+      </div>
+    </Transition>
     <div class="bg-primary flex flex-center img">
       <q-avatar
         size="56px"
@@ -26,26 +28,33 @@
       <div class="text-caption text-weight-bold text-grey-7 end-dots caption">
         {{ product.design.rules }}
       </div>
-      <q-btn
-        class="text-weight-bold q-my-sm"
-        flat
-        size="20px"
-        padding="0"
-        no-wrap
-        :class="{ underline: product.price.old_price != 0 }"
-        :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
-        :label="product.price.old_price + ' ' + convertСurrency"
-        v-if="product.price.old_price != 0"
-      />
-      <q-btn
-        class="text-weight-bold q-my-sm q-ml-xs"
-        flat
-        size="20px"
-        padding="0"
-        color="primary"
-        no-wrap
-        :label="product.price.full"
-      />
+      <div class="row">
+        <div class="col-12 col-sm-4">
+          <q-btn
+            class="text-weight-bold"
+            flat
+            size="20px"
+            padding="0"
+            no-wrap
+            :class="{ underline: product.price.old_price != 0 }"
+            :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
+            :label="product.price.old_price + ' ' + convertСurrency"
+            v-if="product.price.old_price != 0"
+          />
+        </div>
+        <div class="col-12 col-sm-4">
+          <q-btn
+            class="text-weight-bold"
+            flat
+            size="20px"
+            padding="0"
+            color="primary"
+            no-wrap
+            :label="product.price.full"
+          />
+        </div>
+      </div>
+
       <div class="q-py-md">
         <ProductButtonGroup class="" :prod="product" />
       </div>
@@ -104,6 +113,10 @@ export default {
 .img {
   min-height: 150px;
   max-height: 150px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: #e3e3e3;
 }
 .underline {
   text-decoration: line-through;

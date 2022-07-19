@@ -1,17 +1,19 @@
 <template>
   <q-card class="flex no-wrap col q-my-xs relative-position">
-    <div
-      class="absolute fit flex flex-center bg-opacity z-max"
-      v-if="
-        (viewBasket.loading['subtract'] ||
-          viewBasket.loading['remove'] ||
-          viewBasket.loading['add'] ||
-          viewBasket.loading['set-count']) &&
-        viewBasket.elem == product.id
-      "
-    >
-      <q-spinner color="primary" size="5rem" class="z-max" />
-    </div>
+    <Transition name="fade">
+      <div
+        class="absolute fit flex flex-center bg-opacity z-max"
+        v-if="
+          (viewBasket.loading['subtract'] ||
+            viewBasket.loading['remove'] ||
+            viewBasket.loading['add'] ||
+            viewBasket.loading['set-count']) &&
+          viewBasket.elem == product.id
+        "
+      >
+        <q-spinner color="primary" size="5rem" class="z-max" />
+      </div>
+    </Transition>
     <div class="bg-primary width flex flex-center q-ma-xs">
       <q-avatar
         size="36px"

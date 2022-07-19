@@ -2,24 +2,29 @@
   <div class="fit active relative-position">
     <div class="active-drop fit absolute-center"></div>
     <div
-      class="bg-primary flex flex-center q-pa-sm q-py-lg rounded-borders column"
+      class="bg-primary q-py-lg q-pl-md rounded-borders column"
+      :class="{ 'q-pl-xl': !width }"
     >
-      <div class="text-center">
-        <div class="text-caption text-wight-bold text-white">Категория</div>
+      <div class="text-h6 text-white">
+        {{ product.design.title }}
       </div>
-      <div class="flex flex-center">
-        <div class="text-h6 text-white text-center">
-          {{ product.design.title }}
-        </div>
-      </div>
+      <div class="text-overline text-wight-bold text-white">Категория</div>
     </div>
   </div>
 </template>
 <script>
+import { useQuasar } from "quasar";
+import { computed } from "vue";
 export default {
   props: ["product"],
   setup() {
-    return {};
+    const $q = useQuasar();
+    const width = computed(() => {
+      return $q.screen.lt.sm;
+    });
+    return {
+      width,
+    };
   },
 };
 </script>

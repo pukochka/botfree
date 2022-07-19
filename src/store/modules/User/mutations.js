@@ -1,5 +1,6 @@
 import { convertURL } from "src/store/helpers";
 import verification from "src/telegram";
+let root;
 //-------------------------------------------------------
 export function changeUserProp(state, { section, value }) {
   state.user[section] = value;
@@ -21,6 +22,7 @@ export function initApp(state) {
   state.user.init_telegram = convertURL(window.Telegram.WebApp.initData);
   state.user.search = convertURL(window.location.search);
   state.user.status = verification(state.user.init_telegram, state.user.search);
+
   if (!state.user.status) {
     state.user.search = {
       bot_id: 12845,

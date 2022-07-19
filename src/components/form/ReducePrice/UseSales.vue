@@ -1,40 +1,20 @@
 <template>
-  <div class="max-md center">
-    <div class="text-h5 q-pb-sm">Скидки в магазине</div>
-    <div class="row q-col-gutter-sm">
-      <div
-        class="col-12 col-sm-6 relative-position"
-        v-for="(sale, index) of viewBasket.data.discounts"
-        :key="index"
-      >
-        <q-avatar
-          size="50px"
-          font-size="50px"
-          color="transparent"
-          text-color="done"
-          icon="done"
-          class="absolute-center"
-          v-if="false"
-        />
-        <div class="rounded-borders q-pa-sm fit outline">
-          <div class="text-weight-bold text-center">
-            {{ sale.info }}
-          </div>
-          <q-separator spaced="" color="primary" />
-          <div class="text-caption text-grey-8 line">
-            {{ sale.terms }}
-          </div>
+  <div class="text-h5 q-py-md">Примененные скидки</div>
+  <div class="row q-col-gutter-sm">
+    <div
+      class="col-12"
+      v-for="(discount, index) of viewBasket.data.discounts"
+      :key="index"
+    >
+      <div class="outline rounded-borders q-pa-sm">
+        <div class="text-subtitle1 text-primary text-center">
+          {{ discount.info }}
+        </div>
+        <q-separator />
+        <div class="text-subtitle2 text-center">
+          {{ discount.terms }}
         </div>
       </div>
-    </div>
-    <div class="q-pt-md">
-      <div class="text-subtitle1">
-        Сумма со скидкой
-        <span class="text-weight-bold text-primary">{{
-          viewBasket.data.sum
-        }}</span>
-      </div>
-      <q-separator />
     </div>
   </div>
 </template>
@@ -46,16 +26,10 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters({ viewBasket: "basket/viewBasket" }, ["viewInfoSales"]),
+    ...mapGetters({ viewBasket: "basket/viewBasket" }),
   },
-  methods: {
-    ...mapActions(["actionsWithInfo"]),
-  },
-  mounted() {
-    this.actionsWithInfo({
-      action: "shopcart/discount/index",
-    });
-  },
+  methods: {},
+  mounted() {},
 });
 </script>
 <style lang="scss" scoped>

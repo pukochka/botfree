@@ -48,11 +48,11 @@
     />
   </q-card-section>
   <q-card-section class="max-xxl center flex">
-    <div class="max-md full-width">
-      <q-card
-        class="full-width relative-position bg-grey-2"
-        v-if="viewBasket.data.countItems != 0"
-      >
+    <q-card
+      class="full-width relative-position bg-grey-2"
+      v-if="viewBasket.data.countItems != 0"
+    >
+      <Transition name="fade">
         <div
           class="absolute fit flex flex-center bg-opacity z-max"
           v-if="
@@ -64,30 +64,49 @@
         >
           <q-spinner color="primary" size="5rem" class="z-max" />
         </div>
-        <q-card-section class="">
-          <div class="flex flex-grow justify-between text-h5 text-weight-bold">
-            <div class="">Итого</div>
-            <div class="">
-              {{ viewBasket.data.sum }}
+      </Transition>
+      <q-card-section class="">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="q-mb-sm">
+              <q-btn
+                class="fit"
+                color="primary"
+                label="Перейти к оформлению"
+                @click="toFormOrder"
+              />
+            </div>
+            <div
+              class="flex flex-grow justify-between text-h5 text-weight-bold"
+            >
+              <div class="">Итого</div>
+              <div class="">
+                {{ viewBasket.data.sum }}
+              </div>
+            </div>
+            <div
+              class="flex flex-grow justify-between text-caption text-grey-7"
+            >
+              <div class="">Всего товаров : {{ viewBasket.data.count }}</div>
+              <div class="">
+                {{ viewBasket.data.sum_full }}
+              </div>
             </div>
           </div>
-          <div class="flex flex-grow justify-between text-caption text-grey-7">
-            <div class="">Всего товаров : {{ viewBasket.data.count }}</div>
-            <div class="">
-              {{ viewBasket.data.sum_full }}
-            </div>
+        </div>
+        <div class="row q-col-gutter-md">
+          <div class="col-12 col-sm-6">
+            <UseCoupon />
           </div>
-          <div class="flex-grow q-mt-sm">
-            <q-btn
-              class="fit"
-              color="primary"
-              label="Перейти к оформлению"
-              @click="toFormOrder"
-            />
+          <div
+            class="col-12 col-sm-6"
+            v-if="viewBasket.data.discounts.length != 0"
+          >
+            <UseSales />
           </div>
-        </q-card-section>
-      </q-card>
-    </div>
+        </div>
+      </q-card-section>
+    </q-card>
   </q-card-section>
   <BasketDialogClear v-model="sure" />
   <OrderCreate />
@@ -97,6 +116,8 @@ import { ref } from "vue";
 import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import BasketDialogClear from "src/components/basket/BasketDialogClear.vue";
+import UseSales from "src/components/form/ReducePrice/UseSales.vue";
+import UseCoupon from "src/components/form/ReducePrice/UseCoupon.vue";
 import BasketProduct from "src/components/basket/BasketProduct.vue";
 import OrderCreate from "src/components/infoDialogs/OrderCreate.vue";
 
@@ -106,6 +127,8 @@ export default {
     BasketProduct,
     BasketDialogClear,
     OrderCreate,
+    UseSales,
+    UseCoupon,
   },
   setup() {
     return {
@@ -155,5 +178,8 @@ export default {
   line-height: 36px;
   font-weight: 500;
   color: #212121;
+}
+.outline {
+  outline: solid 2px $primary;
 }
 </style>

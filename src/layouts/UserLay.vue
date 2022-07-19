@@ -2,13 +2,13 @@
   <q-layout view="lHr lpR lFf">
     <q-header bordered class="text-primary-7 row items-center bg-grey-2">
       <div
-        class="fit text-center text-h6 text-primary q-pa-sm text-weight-bold"
+        class="fit text-h5 text-primary q-pa-sm text-weight-bold"
         v-if="width"
       >
         {{ viewInfo.bot.title }}
       </div>
-      <q-toolbar v-if="!width">
-        <div class="flex no-wrap q-gutter-sm">
+      <div class="row" v-if="!width">
+        <div class="q-ml-lg">
           <q-avatar color="brand" size="50px" rounded>
             <div class="q-pa-xs fit">
               <img src="~assets/logo.png" alt="bott" />
@@ -16,14 +16,15 @@
           </q-avatar>
         </div>
 
-        <div class="row full-height q-ml-sm">
+        <div class="row no-wrap">
           <div class="col-4">
             <q-btn
+              padding="0 64px"
+              size="16px"
               flat
               unelevated
-              class="fit column"
-              color="primary"
-              icon="manage_search"
+              class="fit text-weight-bold text-teal-5"
+              :class="{ 'text-teal-9': viewTabs == 'catalog' }"
               label="Каталог"
               no-caps
               no-wrap
@@ -32,11 +33,11 @@
           </div>
           <div class="col-4">
             <q-btn
+              size="16px"
               flat
               unelevated
-              class="fit"
-              color="primary"
-              icon="shopping_cart"
+              class="fit text-weight-bold text-teal-5"
+              :class="{ 'text-teal-9 ': viewTabs == 'basket' }"
               label="Корзина"
               no-caps
               no-wrap
@@ -53,11 +54,12 @@
           </div>
           <div class="col-4">
             <q-btn
+              size="16px"
               flat
               unelevated
-              class="fit"
+              class="fit text-weight-bold text-teal-5"
+              :class="{ 'text-teal-9': viewTabs == 'profile' }"
               color="primary"
-              icon="person"
               label="Профиль"
               no-caps
               no-wrap
@@ -65,7 +67,7 @@
             />
           </div>
         </div>
-      </q-toolbar>
+      </div>
     </q-header>
 
     <q-page-container>
@@ -84,8 +86,8 @@
               flat
               stack
               unelevated
-              class="fit column"
-              color="primary"
+              class="fit column text-teal-5"
+              :class="{ 'text-teal-9': viewTabs == 'catalog' }"
               icon="manage_search"
               label="Каталог"
               no-caps
@@ -98,8 +100,8 @@
               flat
               stack
               unelevated
-              class="fit"
-              color="primary"
+              class="fit text-teal-5"
+              :class="{ 'text-teal-9': viewTabs == 'basket' }"
               icon="shopping_cart"
               label="Корзина"
               no-caps
@@ -120,8 +122,8 @@
               flat
               stack
               unelevated
-              class="fit"
-              color="primary"
+              class="fit text-teal-5"
+              :class="{ 'text-teal-9': viewTabs == 'profile' }"
               icon="person"
               label="Профиль"
               no-caps
@@ -156,8 +158,8 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       viewBasket: "basket/viewBasket",
-      viewInfoDialogs: "viewInfoDialogs",
       viewInfo: "info/viewInfo",
+      viewTabs: "user/viewTab",
     }),
   },
   methods: {

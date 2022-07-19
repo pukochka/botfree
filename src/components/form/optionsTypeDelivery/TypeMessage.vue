@@ -6,7 +6,11 @@
       type="text"
       dense
       outlined
-      :rules="[(val) => checkValidator || 'Поле заполнено не правильно']"
+      :rules="
+        option.confirm
+          ? [(val) => checkValidator || 'Поле Обязательно для заполнения']
+          : null
+      "
     />
   </div>
 </template>
@@ -21,6 +25,7 @@ export default defineComponent({
     };
   },
   computed: {
+    ...mapGetters({ viewFormData: "form/viewFormData" }),
     checkValidator() {
       if (this.option.data.validator != "") {
         let reg = this.option.data.validator;
@@ -28,11 +33,22 @@ export default defineComponent({
         let rules = new RegExp(curr);
         return rules.test(this.text);
       } else {
-        return this.text.length > 8;
+        return this.text.length > 4;
       }
     },
   },
-  methods: {},
+  methods: {
+    ...mapMutations({ changeFieldValue: "form/changeFieldValue" }),
+  },
+  watch: {
+    text(val) {
+      this.changeFieldValue({
+        section: "fields",
+        id: this.option.id,
+        value: this.text,
+      });
+    },
+  },
 });
 </script>
 <style lang="scss" scoped>

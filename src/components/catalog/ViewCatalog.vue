@@ -1,39 +1,24 @@
 <template>
+  <div class="row max-xxl center" v-if="!width">
+    <span
+      class="
+        rounded-borders
+        text-primary text-h4
+        col-12
+        decoration
+        text-weight-bolder
+        q-pa-sm
+      "
+      >{{ info.bot.title }}</span
+    >
+  </div>
   <div class="q-pa-sm max-xxl center">
-    <div class="row justify-center" v-if="!width">
-      <span
-        class="rounded-borders bg-primary text-h6 text-white col-8 text-center"
-        >{{ info.bot.title }}</span
-      >
-    </div>
-
     <div class="row items-center">
       <div class="my-header">Каталог товаров бота</div>
     </div>
     <q-separator class="q-my-xs" />
   </div>
-  <!-- <div class="flex center max-xxl q-gutter-sm">
-    <q-btn
-      rounded
-      outline
-      color="primary"
-      label="Все категории"
-      @click="getProducts({ category: 0, text: '' })"
-    />
-  </div> -->
 
-  <!-- <div class="flex center max-xxl">
-    <q-input
-      class="q-mt-sm q-mb-none q-mx-sm max-lg"
-      style="width: 100%"
-      outlined
-      dense
-      label="Поиск товаров"
-      color="primary"
-      v-model="search"
-      type="text"
-    />
-  </div> -->
   <Transition name="fade">
     <div class="fixed-center" v-if="viewProducts.loading">
       <q-spinner color="primary" size="6rem" />
@@ -52,25 +37,8 @@
           >
             Категории
           </div>
-          <div class="q-ml-md">
-            <q-btn
-              rounded
-              outline
-              padding="4px 32px"
-              color="primary"
-              icon="chevron_left"
-              label="Обратно"
-              v-if="viewProducts.now != 0"
-              @click="
-                getProducts({
-                  category: viewProducts.prev,
-                  text: viewProducts.textPrev,
-                })
-              "
-            />
-          </div>
         </div>
-        <div class="row q-col-gutter-sm">
+        <div class="row q-col-gutter-xs">
           <div
             class="col-md-3 col-lg-3 col-6"
             v-for="(product, index) of viewItemsCategory"
@@ -83,15 +51,15 @@
           </div>
         </div>
       </div>
-      <div class="q-pb-lg">
+      <div class="q-pb-lg" v-if="viewProducts.now != 0">
         <div class="my-header q-py-md">
           Товары
-          <span v-if="viewProducts.now != 0"
+          <span
             >из категории
             <span class="text-primary">{{ viewProducts.textNow }}</span></span
           >
         </div>
-        <div class="row q-col-gutter-sm">
+        <div class="row q-col-gutter-xs">
           <div
             class="col-md-3 col-lg-3 col-6"
             v-for="(product, index) of viewItemsProduct"
@@ -165,7 +133,13 @@ export default defineComponent({
 
   methods: {
     ...mapMutations(["changeTabs"]),
-    ...mapActions({ getProducts: "products/getProducts" }),
+    ...mapActions({
+      getProducts: "products/getProducts",
+      getReferalBalance: "form/getReferalBalance",
+    }),
+    v() {
+      console.log(BOT_ID, USER_DATA, SECRETKEY);
+    },
   },
 });
 </script>
@@ -186,15 +160,7 @@ export default defineComponent({
 .outline {
   outline: 2px solid $primary;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 @media (max-width: 450px) {
   .header {
     font-size: 28px;
@@ -204,6 +170,9 @@ export default defineComponent({
   .min-size-xl {
     min-height: 400px;
   }
+}
+.decoration {
+  text-decoration: underline;
 }
 @media (max-width: 350px) {
   .footer {

@@ -16,19 +16,16 @@
       transition-next="fade"
     >
       <q-tab-panel name="1">
-        <UseCoupon />
+        <UseBalance />
       </q-tab-panel>
       <q-tab-panel name="2">
-        <UseSales />
-      </q-tab-panel>
-      <q-tab-panel name="3">
         <UseGifts />
         <UseGiftFromGroup />
       </q-tab-panel>
-      <q-tab-panel name="4">
+      <q-tab-panel name="3">
         <FormDelivery />
       </q-tab-panel>
-      <q-tab-panel name="5">
+      <q-tab-panel name="4">
         <FormPay />
       </q-tab-panel>
     </q-tab-panels>
@@ -68,9 +65,8 @@ import { mapGetters, mapMutations, mapActions } from "vuex";
 
 import FormPay from "src/components/form/FormPay.vue";
 import FormDelivery from "src/components/form/FormDelivery.vue";
-import UseCoupon from "src/components/form/ReducePrice/UseCoupon.vue";
-import UseSales from "src/components/form/ReducePrice/UseSales.vue";
 import UseGifts from "src/components/form/ReducePrice/UseGifts.vue";
+import UseBalance from "src/components/form/ReducePrice/UseBalance.vue";
 import UseGiftFromGroup from "src/components/form/ReducePrice/UseGiftFromGroup.vue";
 
 export default defineComponent({
@@ -82,10 +78,9 @@ export default defineComponent({
   },
   components: {
     UseGiftFromGroup,
-    UseSales,
     UseGifts,
-    UseCoupon,
     FormDelivery,
+    UseBalance,
     FormPay,
   },
   computed: {
@@ -106,20 +101,17 @@ export default defineComponent({
       this.step--;
     },
     currentCountOfSteps() {
-      if ("coupons".length != 0) {
+      if ("gifts".length != 0) {
         this.steps.push("1");
       }
-      if (this.viewBasket.data.discounts.length != 0) {
-        this.steps.push("2");
-      }
-      if ("gifts".length != 0) {
+      // if ("gifts".length != 0) {
+      //   this.steps.push("2");
+      // }
+      if ("delivery".length != 0) {
         this.steps.push("3");
       }
-      if ("delivery".length != 0) {
-        this.steps.push("4");
-      }
       if ("pay".length != 0) {
-        this.steps.push("5");
+        this.steps.push("4");
       }
       console.log(this.steps);
     },

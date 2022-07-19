@@ -1,51 +1,84 @@
 import axios from "axios";
-import { createParams } from "src/store/helpers.js";
+import {
+  createParams,
+  createFormFields,
+  createFormCheckBoxes,
+  createFormFiles,
+} from "src/store/helpers.js";
 
-export function getPayments({ commit, rootGetters }, { action, group_id }) {
+export function getPayments(
+  { commit, rootGetters },
+  { action, group_id, order_id }
+) {
   commit("changeFormLoading", { section: "payments", value: true });
   axios
     .post(
       `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
-        ["group_id"],
+        ["group_id", "order_id"],
         {
           bot_id: rootGetters["user/viewUser"].search.bot_id,
         },
-        group_id
+        group_id,
+        order_id
       )
     )
     .then((response) => {
       if (response.status === 200) {
-        commit("changeFormData", {
-          section: "payments",
-          data: response.data.data[0].groups,
-        });
-        commit("changeFormLoading", { section: "payments", value: false });
+        if (action != "set-item") {
+          commit("changeFormData", {
+            section: "payments",
+            data: response.data.data[0].groups,
+          });
+          commit("changeFormLoading", { section: "payments", value: false });
+        } else {
+          commit("form/changeFormSelect", {
+            section: "payments",
+            data: response.data.data,
+          });
+          commit("order/changeOrdersLoading", {
+            section: action,
+            value: false,
+          });
+        }
       }
       console.log(response.data.data[0], "Оплата");
     });
 }
 
-export function getDelivery({ commit, rootGetters }, { action, id }) {
+export function getDelivery({ commit, rootGetters }, { action, order_id }) {
   commit("changeFormLoading", { section: "delivery", value: true });
   axios
     .post(
       `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
       createParams(
-        ["id"],
+        ["order_id"],
         {
           bot_id: rootGetters["user/viewUser"].search.bot_id,
         },
-        id
+        order_id
       )
     )
     .then((response) => {
       if (response.status === 200) {
-        commit("changeFormData", {
-          section: "delivery",
-          data: response.data.data,
-        });
-        commit("changeFormLoading", { section: "delivery", value: false });
+        if (action != "set-delivery") {
+          commit("changeFormData", {
+            section: "delivery",
+            data: response.data.data,
+          });
+          commit("createAnswerGroup", {
+            section: "delivery",
+            data: {
+              fields: createFormFields(response.data.data),
+              checkboxes: createFormCheckBoxes(response.data.data),
+              files: createFormFiles(response.data.data),
+            },
+          });
+          createFormFields(response.data.data, 1);
+          commit("changeFormLoading", { section: "delivery", value: false });
+        } else {
+          let t = 0;
+        }
       }
       console.log(response, "Доставка");
     });
@@ -65,6 +98,27 @@ export function getGifts({ commit, rootGetters }, { order_id }) {
     )
     .then((response) => {
       console.log(response, "подарки");
+
+      // commit("changeCategory", categoryes);
+    });
+}
+
+export function getReferalBalance({ commit, rootGetters }, { order_id }) {
+  axios
+    .post(
+      `https://api.bot-t.com/v1/shopcart/order/use-balance?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      createParams(
+        ["order_id"],
+        {
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          user_id: rootGetters["user/viewUser"].data.id,
+          secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+        },
+        order_id
+      )
+    )
+    .then((response) => {
+      console.log(response, "Баланс");
 
       // commit("changeCategory", categoryes);
     });
@@ -113,5 +167,26 @@ export function getСoupon({ commit, rootGetters }, { action, coupon }) {
         }
       }
       console.log(response, "Купон");
+    });
+}
+
+export function formAnswers({ commit, rootGetters }, { action, type, data }) {
+  axios
+    .post(
+      `https://api.bot-t.com/v1/shopcart/order/use-balance?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      createParams(
+        ["order_id"],
+        {
+          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          user_id: rootGetters["user/viewUser"].data.id,
+          secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+        },
+        order_id
+      )
+    )
+    .then((response) => {
+      console.log(response, "Баланс");
+
+      // commit("changeCategory", categoryes);
     });
 }

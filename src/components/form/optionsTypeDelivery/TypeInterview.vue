@@ -3,14 +3,21 @@
     <div class="text-weight-bold q-pt-sm">{{ option.text }}</div>
     <q-list>
       <q-item
-        v-for="(item, index) of checkBoxs"
+        v-for="(item, index) of currentCheckboxes"
         :key="index"
         dense
         tag="label"
         v-ripple
         clickable
         class="rounded-borders q-my-xs row items-center"
-        @click="selectOption(item)"
+        @click="
+          changeCheckBoxesValue({
+            is_multiple: option.data.is_multiple,
+            option_id: item.option_id,
+            id: option.id,
+            value: true,
+          })
+        "
       >
         <q-item-section side top class="">
           <div class="box relative-position flex flex-center">
@@ -18,7 +25,7 @@
               <Transition name="bounce">
                 <q-avatar
                   class=""
-                  v-show="item.select"
+                  v-show="item.value"
                   size="25px"
                   font-size="25px"
                   color="transparent"
@@ -32,7 +39,7 @@
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>{{ item.item.text }}</q-item-label>
+          <q-item-label>{{ item.text }}</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
@@ -46,42 +53,23 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 export default defineComponent({
   props: ["option"],
   setup() {
-    return {
-      select: ref([]),
-    };
+    return {};
   },
   computed: {
-    checkBoxs() {
-      let mass = ref([]);
-      for (let item of this.option.data.options) {
-        mass.value.push({
-          select: false,
-          item: item,
-        });
-      }
-
-      return mass.value;
+    ...mapGetters({ viewFormData: "form/viewFormData" }),
+    currentCheckboxes() {
+      return this.viewFormData.delivery.checkboxes.filter(
+        (checkbox) => checkbox.id == this.option.id
+      );
     },
   },
   methods: {
-    selectOption(item) {
-      console.log(this.option.data.is_multiple);
-      if (this.option.data.is_multiple) {
-        if (item.select) {
-          this.select = this.select.filter((sel) => sel != item.item.text);
-          item.select = false;
-        } else {
-          item.select = true;
-          this.select.push(item.item.text);
-        }
-      } else {
-        for (let sel of this.checkBoxs) {
-          sel.select = false;
-        }
-        this.select = [item.item.text];
-        item.select = true;
-      }
-    },
+    ...mapMutations({ changeCheckBoxesValue: "form/changeCheckBoxesValue" }),
+  },
+  watch: {},
+  mounted(a) {
+    console.log(a);
+    console.log(this.viewFormData);
   },
 });
 </script>
