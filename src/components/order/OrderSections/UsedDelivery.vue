@@ -9,8 +9,8 @@
       class="col-12 col-md-3 col-sm-6 rounded-borders q-pa-sm q-my-sm outline"
     >
       <div class="text-subtitle1 text-center">{{ delivery?.description }}</div>
-      <q-separator color="primary" />
-      <div class="text-subtitle1 text-center text-primary text-weight-bold">
+      <q-separator color="secondary" />
+      <div class="text-subtitle1 text-center text-secondary text-weight-bold">
         {{ delivery?.price }}
       </div>
       <div class="text-caption">{{ delivery?.title }}</div>
@@ -29,6 +29,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
 }
 </style>

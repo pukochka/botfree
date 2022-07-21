@@ -17,7 +17,7 @@
         <q-btn
           flat
           label="закончить заказ"
-          color="primary"
+          color="secondary"
           @click="changeInfoDialogs({ section: 'order', value: null })"
         />
       </q-card-actions>

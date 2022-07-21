@@ -7,7 +7,7 @@ export default function () {
         index: false,
         create: false,
         cancel: false,
-        "set-item": false,
+        "set-delivery": false,
       },
       select: {},
       count: 0,

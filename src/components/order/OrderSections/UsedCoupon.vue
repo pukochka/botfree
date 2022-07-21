@@ -30,6 +30,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
 }
 </style>

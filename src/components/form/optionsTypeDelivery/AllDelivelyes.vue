@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-center min-h-sm" v-if="viewDelivery.loading">
-    <q-spinner color="primary" size="3rem" />
+    <q-spinner color="secondary" size="3rem" />
   </div>
   <div class="row q-col-gutter-sm" v-if="!viewDelivery.loading">
     <div
@@ -10,15 +10,15 @@
     >
       <q-btn
         align="left"
-        color="primary"
+        color="secondary"
         outline
         class="fit"
         no-caps
         @click="
-          changeFormSelect({
-            section: 'delivery',
-            data: delivery.feedback,
-            tab: 'selected',
+          setDelivery({
+            action: 'set-delivery',
+            order_id: 21228,
+            delivery_id: delivery.id,
           })
         "
       >
@@ -26,12 +26,12 @@
           <div class="text-subtitle1 text-weight-bold">
             {{ delivery.title }}
           </div>
-          <q-separator color="primary" class="q-mt-xs q-mb-xs" />
+          <q-separator color="secondary" class="q-mt-xs q-mb-xs" />
           <div class="text-subtitle2">
             {{ delivery.description }}
           </div>
           <div class="text-weight-bold text-subtitle2">
-            Стоимость <span class="text-primary">{{ delivery.price }}</span>
+            Стоимость <span class="text-secondary">{{ delivery.price }}</span>
           </div>
         </div>
       </q-btn>
@@ -50,7 +50,10 @@ export default defineComponent({
     ...mapGetters({ viewDelivery: "form/viewDelivery" }),
   },
   methods: {
-    ...mapActions({ getDelivery: "form/getDelivery" }),
+    ...mapActions({
+      getDelivery: "form/getDelivery",
+      setDelivery: "order/getOrders",
+    }),
     ...mapMutations({ changeFormSelect: "form/changeFormSelect" }),
   },
   mounted() {
@@ -60,6 +63,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 2px $primary solid;
+  outline: 2px $secondary solid;
 }
 </style>

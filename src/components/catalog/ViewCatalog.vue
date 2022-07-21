@@ -3,7 +3,7 @@
     <span
       class="
         rounded-borders
-        text-primary text-h4
+        text-secondary text-h4
         col-12
         decoration
         text-weight-bolder
@@ -14,7 +14,7 @@
   </div>
   <div class="q-pa-sm max-xxl center">
     <div class="row items-center">
-      <div class="my-header">Каталог товаров бота</div>
+      <div class="my-header text-secondary">Каталог товаров бота</div>
     </div>
     <q-separator class="q-my-xs" />
   </div>
@@ -32,7 +32,7 @@
       <div class="">
         <div class="q-py-md row items-center">
           <div
-            class="my-header cursor-pointer"
+            class="my-header text-secondary cursor-pointer"
             @click="getProducts({ category: 0, text: '' })"
           >
             Категории
@@ -56,7 +56,7 @@
           Товары
           <span
             >из категории
-            <span class="text-primary">{{ viewProducts.textNow }}</span></span
+            <span class="text-secondary">{{ viewProducts.textNow }}</span></span
           >
         </div>
         <div class="row q-col-gutter-xs">

@@ -1,6 +1,8 @@
 <template>
   <div class="max-md center">
-    <div class="text-h5 q-pb-sm">Применить реферальный баланс</div>
+    <div class="text-h5 q-pb-sm text-secondary">
+      Применить реферальный баланс
+    </div>
     <q-banner class="bg-warning" rounded>
       <div class="text-subtitle2">
         При использовании реферального баланса, списывается весь баланс!

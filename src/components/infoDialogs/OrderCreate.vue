@@ -7,7 +7,7 @@
     transition-hide="fade"
   >
     <q-card class="bg-opacity flex flex-center">
-      <q-spinner color="primary" size="10rem" />
+      <q-spinner color="secondary" size="10rem" />
     </q-card>
   </q-dialog>
 </template>

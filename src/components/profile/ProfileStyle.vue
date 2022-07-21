@@ -1,80 +1,79 @@
 <template>
-  <div class="max-xxl center q-pa-md">
-    <div class="text-h4">Стиль приложения</div>
-    <q-separator class="q-mt-sm" />
-    <div class="text-h6 flex flex-center q-pa-md">
-      Данный раздел находится в разработке
-    </div>
-    <!-- <div class="row q-mt-md">
+  <div class="max-xxl center q-pa-md min-h-md non-selectable">
+    <div class="my-header text-secondary">Стиль приложения</div>
+    <q-separator class="q-mb-xs" />
+
+    <q-item clickable @click="value = !value" class="non-selectable">
+      <q-item-section top avatar class="flex flex-center">
+        <div class="relative-position fit flex flex-center">
+          <Transition name="slide-up">
+            <q-avatar
+              size="50px"
+              class="absolute"
+              v-if="value"
+              color="transparent"
+              text-color="black"
+              icon=" dark_mode"
+            />
+            <q-avatar
+              size="50px"
+              class="absolute"
+              v-else
+              color="transparent"
+              text-color="secondary"
+              icon="sunny"
+            />
+          </Transition>
+        </div>
+      </q-item-section>
+
+      <q-item-section>
+        <q-item-label>Сменить тему</q-item-label>
+        <q-item-label caption lines="2">
+          {{ value ? "Светлая" : "Темная" }} тема</q-item-label
+        >
+      </q-item-section>
+    </q-item>
+    <div class="text-secondary text-h6 q-py-sm">Сменить цвет</div>
+    <div class="row q-col-gutter-sm">
       <div
-        class="col-4 col-sm-2 text-primary cursor-pointer"
-        v-for="(color, index) of viewColor"
+        class="col-12 col-sm-3 cursor-pointer"
+        v-for="(color, index) of viewColors.colors"
         :key="index"
-        @click="select(color)"
+        @click="changeColor(color)"
       >
         <div
-          class="flex flex-center q-ma-sm rounded-borders"
-          :class="{ selected: color.selected }"
+          class="fit rounded-borders row relative-position"
+          :style="{
+            color: color.text,
+            background: color.background,
+            minHeight: '130px',
+          }"
         >
-          <q-avatar class="q-ma-xs" size="50px" :color="color.value" />
-        </div>
-      </div>
-    </div>
-    <div class="row wrap">
-      <div class="col-sm-6 col-12">
-        <div class="q-ma-sm">
+          <Transition name="slide-up">
+            <q-avatar
+              v-if="color.select"
+              size="35px"
+              font-size="25px"
+              color="transparent"
+              text-color="green"
+              icon="done"
+              class="absolute-right"
+            />
+          </Transition>
           <div
-            class="bg-primary flex flex-center rounded-borders"
-            style="height: 150px"
-          >
-            Категории
+            class="q-ma-md q-pa-md rounded-borders"
+            :style="{
+              background: color.text,
+            }"
+          ></div>
+          <div class="q-pa-md self-end">
+            <div class="">{{ color.name }}</div>
+            <div class="text-accent text-overline">Сменить тему</div>
           </div>
         </div>
       </div>
-
-      <div class="col-sm-6 col-12">
-        <div class="q-ma-sm">
-          <q-card class="flex no-wrap col q-my-xs">
-            <div
-              class="bg-primary width flex flex-center q-ma-xs"
-              style="height: 142px"
-            >
-              <q-avatar
-                size="36px"
-                font-size="30px"
-                color="transparent"
-                text-color="white"
-                icon="image_not_supported"
-              />
-            </div>
-            <div class="column justify-between q-pa-md" style="flex-grow: 1">
-              <div class="">
-                <div class="end-dots title">XXX</div>
-                <div
-                  class="
-                    text-caption text-weight-bold text-grey-7
-                    end-dots
-                    caption
-                  "
-                >
-                  XXX
-                </div>
-              </div>
-
-              <div class="row items-center" :class="{ 'q-gutter-sm': width }">
-                <q-btn
-                  class="fit"
-                  dense
-                  color="primary"
-                  label="В корзину"
-                  no-wrap
-                />
-              </div>
-            </div>
-          </q-card>
-        </div>
-      </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -92,16 +91,14 @@ export default {
 
     return {
       width,
+      value: ref(false),
     };
   },
   computed: {
-    ...mapGetters(["viewColor"]),
+    ...mapGetters({ viewColors: "user/viewUser" }),
   },
   methods: {
-    ...mapMutations(["changeColor"]),
-    select(color) {
-      this.changeColor(color);
-    },
+    ...mapMutations({ changeColor: "user/changeColor" }),
   },
   watch: {},
 };
@@ -112,5 +109,19 @@ export default {
 }
 .selected {
   outline: 3px solid;
+}
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

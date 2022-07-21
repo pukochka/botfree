@@ -1,10 +1,10 @@
 <template>
-  <div class="max-lg center">
+  <div class="max-lg center q-pb-xl">
     <div class="user flex items-center q-pa-md flex flex-center">
       <q-avatar
         size="100px"
         font-size="52px"
-        color="primary"
+        color="secondary"
         text-color="white"
         icon="person"
       />
@@ -23,13 +23,13 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="account_balance_wallet"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
-            <div class="">Баланс</div>
-            <div class="text-weight-bold text-primary">
+            <div class="">Кошелёк</div>
+            <div class="text-weight-bold text-secondary">
               {{ viewUser.data.balance }} {{ convertСurrency }}
             </div>
           </q-item-label>
@@ -41,13 +41,13 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="reorder"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Заказы</div>
-            <div class="text-weight-bold text-primary">
+            <div class="text-weight-bold text-secondary">
               {{ viewOrders.count }}
             </div>
           </q-item-label>
@@ -59,10 +59,10 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="gavel"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Правила и помощь в магазине</div>
           </q-item-label>
@@ -74,10 +74,10 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="receipt"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Акции в магазине</div>
           </q-item-label>
@@ -89,10 +89,10 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="style"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">Стиль приложения</div>
           </q-item-label>
@@ -104,10 +104,10 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="info"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">О боте</div>
           </q-item-label>
@@ -117,7 +117,7 @@
             size="30px"
             font-size="30px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             :icon="botinfo ? 'arrow_drop_up' : 'arrow_drop_down'"
         /></q-item-section>
       </q-item>
@@ -127,25 +127,25 @@
             <q-list separator>
               <q-item clickable dense>
                 <q-item-section avatar> Название </q-item-section>
-                <q-item-section class="text-primary">{{
+                <q-item-section class="text-secondary">{{
                   viewInfo.bot.title
                 }}</q-item-section>
               </q-item>
               <q-item clickable dense>
                 <q-item-section avatar> Тип бота </q-item-section>
-                <q-item-section class="text-primary">{{
+                <q-item-section class="text-secondary">{{
                   viewInfo.bot.type
                 }}</q-item-section>
               </q-item>
               <q-item clickable dense>
                 <q-item-section avatar> Валюта в боте </q-item-section>
-                <q-item-section class="text-primary">{{
+                <q-item-section class="text-secondary">{{
                   convertСurrency
                 }}</q-item-section>
               </q-item>
               <q-item clickable dense>
                 <q-item-section avatar> Язык в боте </q-item-section>
-                <q-item-section class="text-primary">{{
+                <q-item-section class="text-secondary">{{
                   viewInfo.bot.language
                 }}</q-item-section>
               </q-item>
@@ -159,10 +159,10 @@
             size="30px"
             font-size="22px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             icon="info"
         /></q-item-section>
-        <q-item-section class="text-subtitle1">
+        <q-item-section class="text-subtitle1 text-secondary">
           <q-item-label lines="1" class="flex items-center justify-between">
             <div class="">О сервисе</div>
           </q-item-label>
@@ -172,7 +172,7 @@
             size="30px"
             font-size="30px"
             color="transparent"
-            text-color="primary"
+            text-color="secondary"
             :icon="info ? 'arrow_drop_up' : 'arrow_drop_down'"
         /></q-item-section>
       </q-item>

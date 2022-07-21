@@ -6,18 +6,18 @@
           size="36px"
           font-size="30px"
           color="transparent"
-          text-color="white"
-          icon="image_not_supported"
+          text-color="secondary"
+          icon="image"
         />
       </div>
     </div>
     <div class="col-8 q-pa-sm">
       <div class="end-dots title">{{ item.product.design.title }}</div>
-      <div class="text-caption text-weight-bold text-grey-7 end-dots caption">
+      <div class="text-caption text-weight-medium text-grey-7 end-dots caption">
         {{ item.product.design.rules }}
       </div>
       <q-btn
-        color="primary"
+        color="secondary"
         dense
         flat
         no-wrap
@@ -27,7 +27,7 @@
         :label="item.product.price.amount + ' ' + convertСurrency"
       />
       <q-btn
-        color="primary"
+        color="secondary"
         dense
         flat
         no-wrap
@@ -38,7 +38,7 @@
         no-caps
       />
       <q-btn
-        color="primary"
+        color="secondary"
         dense
         flat
         no-wrap

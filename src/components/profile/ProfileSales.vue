@@ -1,9 +1,9 @@
 <template>
   <div class="max-xxl center q-pa-md">
-    <div class="text-h4">Акции в магазине</div>
+    <div class="text-h4 text-secondary">Акции в магазине</div>
     <q-separator class="q-mt-sm" />
     <div class="flex flex-center q-pa-xl" v-if="viewInfo.loading.sales">
-      <q-spinner color="primary" size="3rem" />
+      <q-spinner color="secondary" size="3rem" />
     </div>
     <div class="row q-col-gutter-sm q-pt-md" v-if="!viewInfo.loading.sales">
       <div
@@ -11,21 +11,12 @@
         v-for="(sale, index) of viewInfo.sales"
         :key="index"
       >
-        <q-avatar
-          size="50px"
-          font-size="50px"
-          color="transparent"
-          text-color="done"
-          icon="done"
-          class="absolute-center"
-          v-if="false"
-        />
         <div class="rounded-borders q-pa-sm fit outline">
           <div class="text-weight-bold text-center">
             {{ sale.info }}
           </div>
-          <q-separator spaced color="primary" />
-          <div class="text-caption text-grey-8">
+          <q-separator spaced color="secondary" />
+          <div class="text-grey-8">
             {{ sale.terms }}
           </div>
         </div>
@@ -56,6 +47,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
 }
 </style>

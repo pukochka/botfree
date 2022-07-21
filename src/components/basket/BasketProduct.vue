@@ -11,7 +11,7 @@
           viewBasket.elem == product.id
         "
       >
-        <q-spinner color="primary" size="5rem" class="z-max" />
+        <q-spinner color="secondary" size="5rem" class="z-max" />
       </div>
     </Transition>
     <div class="bg-primary width flex flex-center q-ma-xs">
@@ -19,14 +19,16 @@
         size="36px"
         font-size="30px"
         color="transparent"
-        text-color="white"
-        icon="image_not_supported"
+        text-color="secondary"
+        icon="image "
       />
     </div>
     <div class="column justify-between q-pa-md" style="flex-grow: 1">
       <div class="">
         <div class="end-dots title">{{ product.design.title }}</div>
-        <div class="text-caption text-weight-bold text-grey-7 end-dots caption">
+        <div
+          class="text-caption text-weight-medium text-grey-7 end-dots caption"
+        >
           {{ product.design.rules }}
         </div>
       </div>
@@ -35,7 +37,7 @@
         <div class="row col-sm-6 col-12">
           <div class="col-6">
             <q-btn
-              color="primary"
+              color="secondary"
               dense
               flat
               no-wrap
@@ -48,7 +50,7 @@
             <q-btn
               dense
               flat
-              color="primary"
+              color="secondary"
               icon="clear"
               no-caps
               no-wrap

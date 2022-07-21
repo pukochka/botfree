@@ -8,7 +8,7 @@
     <div class="col-12 col-md-3 col-sm-6">
       <div class="bg-white outline rounded-borders q-pa-sm q-my-sm">
         <div class="text-subtitle1 text-center">{{ checkDiscount.info }}</div>
-        <q-separator color="primary" />
+        <q-separator color="secondary" />
         <div class="text-caption">{{ checkDiscount.terms }}</div>
       </div>
     </div>
@@ -33,6 +33,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
 }
 </style>

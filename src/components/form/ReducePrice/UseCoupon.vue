@@ -1,18 +1,18 @@
 <template>
   <div class="">
-    <div class="text-h5 q-py-md">Активировать купон</div>
+    <div class="text-h5 q-py-md text-secondary">Активировать купон</div>
     <div
       class="flex flex-center q-pa-md"
       v-if="viewCoupon.loading['find-active']"
     >
-      <q-spinner color="primary" size="3em" />
+      <q-spinner color="secondary" size="3em" />
     </div>
     <div class="row q-col-gutter-sm">
-      <div class="col-12">
-        <div
-          class="q-ma-xs text-subtitle1"
-          v-if="!viewCoupon.loading['find-active'] && viewCoupon.status"
-        >
+      <div
+        class="col-12"
+        v-if="!viewCoupon.loading['find-active'] && viewCoupon.status"
+      >
+        <div class="q-ma-xs text-subtitle1">
           У вас пока нет активированных купонов
         </div>
       </div>
@@ -21,12 +21,12 @@
         class="col-12"
         v-if="!viewCoupon.loading['find-active'] && !viewCoupon.status"
       >
-        <div class="outline rounded-borders q-pa-sm">
+        <div class="outline rounded-borders q-pa-sm fit">
           <div class="text-center text-weight-bold text-subtitle1">
-            Купон <span class="text-primary">{{ viewCoupon.data.code }}</span>
+            Купон <span class="text-secondary">{{ viewCoupon.data.code }}</span>
           </div>
 
-          <q-separator spaced color="primary" />
+          <q-separator spaced color="secondary" />
 
           <div class="text-caption line">
             {{ viewCoupon.data.info }}
@@ -66,6 +66,7 @@
         v-model="coupon"
         type="text"
         label="Ввести купон"
+        color="secondary"
         dense
         borderless
         outlined
@@ -82,7 +83,7 @@
         <q-btn
           class="fit"
           dense
-          color="primary"
+          color="secondary"
           label="Активировать"
           :loading="viewCoupon.loading['activate']"
           @click="getСoupon({ action: 'activate', coupon: coupon })"
@@ -116,6 +117,6 @@ export default defineComponent({
   line-height: 14px;
 }
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
 }
 </style>

@@ -1,21 +1,20 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header bordered class="text-primary-7 row items-center bg-grey-2">
-      <div
-        class="fit text-h5 text-primary q-pa-sm text-weight-bold"
-        v-if="width"
-      >
-        {{ viewInfo.bot.title }}
-      </div>
-      <div class="row" v-if="!width">
-        <div class="q-ml-lg">
-          <q-avatar color="brand" size="50px" rounded>
+    <q-header bordered class="row items-center bg-primary">
+      <div class="row no-wrap items-center">
+        <div class="q-mx-sm" :class="{ 'q-mx-lg': !width }">
+          <q-avatar color="transparent" size="50px" rounded>
             <div class="q-pa-xs fit">
               <img src="~assets/logo.png" alt="bott" />
             </div>
           </q-avatar>
         </div>
+        <div class="fit text-h5 text-secondary text-weight-bold" v-if="width">
+          {{ viewInfo.bot.title }}
+        </div>
+      </div>
 
+      <div class="row" v-if="!width">
         <div class="row no-wrap">
           <div class="col-4">
             <q-btn
@@ -23,8 +22,11 @@
               size="16px"
               flat
               unelevated
-              class="fit text-weight-bold text-teal-5"
-              :class="{ 'text-teal-9': viewTabs == 'catalog' }"
+              class="fit text-weight-bold"
+              :class="{
+                'text-secondary': viewTabs == 'catalog',
+                'text-accent': viewTabs != 'catalog',
+              }"
               label="Каталог"
               no-caps
               no-wrap
@@ -36,8 +38,11 @@
               size="16px"
               flat
               unelevated
-              class="fit text-weight-bold text-teal-5"
-              :class="{ 'text-teal-9 ': viewTabs == 'basket' }"
+              class="fit text-weight-bold"
+              :class="{
+                'text-secondary ': viewTabs == 'basket',
+                'text-accent': viewTabs != 'basket',
+              }"
               label="Корзина"
               no-caps
               no-wrap
@@ -57,9 +62,12 @@
               size="16px"
               flat
               unelevated
-              class="fit text-weight-bold text-teal-5"
-              :class="{ 'text-teal-9': viewTabs == 'profile' }"
-              color="primary"
+              class="fit text-weight-bold"
+              :class="{
+                'text-secondary': viewTabs == 'profile',
+                'text-accent': viewTabs != 'profile',
+              }"
+              color="secondary"
               label="Профиль"
               no-caps
               no-wrap
@@ -76,7 +84,7 @@
 
     <q-footer
       bordered
-      class="bg-grey-2 text-primary mobile-footer"
+      class="bg-primary text-secondary mobile-footer"
       v-if="width"
     >
       <q-toolbar class="" style="padding: 0">
@@ -86,8 +94,11 @@
               flat
               stack
               unelevated
-              class="fit column text-teal-5"
-              :class="{ 'text-teal-9': viewTabs == 'catalog' }"
+              class="fit column"
+              :class="{
+                'text-secondary': viewTabs == 'catalog',
+                'text-accent': viewTabs != 'catalog',
+              }"
               icon="manage_search"
               label="Каталог"
               no-caps
@@ -100,8 +111,11 @@
               flat
               stack
               unelevated
-              class="fit text-teal-5"
-              :class="{ 'text-teal-9': viewTabs == 'basket' }"
+              class="fit"
+              :class="{
+                'text-secondary': viewTabs == 'basket',
+                'text-accent': viewTabs != 'basket',
+              }"
               icon="shopping_cart"
               label="Корзина"
               no-caps
@@ -122,8 +136,11 @@
               flat
               stack
               unelevated
-              class="fit text-teal-5"
-              :class="{ 'text-teal-9': viewTabs == 'profile' }"
+              class="fit"
+              :class="{
+                'text-secondary': viewTabs == 'profile',
+                'text-accent': viewTabs != 'profile',
+              }"
               icon="person"
               label="Профиль"
               no-caps

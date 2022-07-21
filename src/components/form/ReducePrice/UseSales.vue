@@ -1,5 +1,5 @@
 <template>
-  <div class="text-h5 q-py-md">Примененные скидки</div>
+  <div class="text-h5 q-py-md text-secondary">Примененные скидки</div>
   <div class="row q-col-gutter-sm">
     <div
       class="col-12"
@@ -7,7 +7,7 @@
       :key="index"
     >
       <div class="outline rounded-borders q-pa-sm">
-        <div class="text-subtitle1 text-primary text-center">
+        <div class="text-subtitle1 text-secondary text-center">
           {{ discount.info }}
         </div>
         <q-separator />
@@ -34,7 +34,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .outline {
-  outline: 3px solid $primary;
+  outline: 1px solid $secondary;
   border-radius: 4px;
 }
 .line {

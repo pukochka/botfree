@@ -4,18 +4,18 @@
       class="q-mb-sm"
       flat
       icon="chevron_left"
-      color="primary"
+      color="secondary"
       @click="changeOrdersSelect({ order: {}, tab: 'all' })"
     />
     <q-separator />
     <div class="text-h6 q-py-sm">
       <div class="q-py-md">
         <div class="text-weight-bold">
-          Номер заказа <span class="text-primary">#{{ select.id }}</span>
+          Номер заказа <span class="text-secondary">#{{ select.id }}</span>
         </div>
         <q-separator />
         <div class="text-subtitle1">
-          Заказ от <span class="text-primary">{{ select.created_at }}</span>
+          Заказ от <span class="text-secondary">{{ select.created_at }}</span>
         </div>
       </div>
       <div class="q-py-md">
@@ -37,7 +37,7 @@
       </div>
 
       <div class="text-weight-bold">
-        Итого <span class="text-primary">{{ select.price }}</span>
+        Итого <span class="text-secondary">{{ select.price }}</span>
       </div>
     </div>
   </div>

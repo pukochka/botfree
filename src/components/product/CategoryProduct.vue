@@ -2,13 +2,17 @@
   <div class="fit active relative-position">
     <div class="active-drop fit absolute-center"></div>
     <div
-      class="bg-primary q-py-lg q-pl-md rounded-borders column"
-      :class="{ 'q-pl-xl': !width }"
+      class="bg-primary rounded-borders row items-end"
+      style="min-height: 130px"
     >
-      <div class="text-h6 text-white">
-        {{ product.design.title }}
+      <div class="shadow q-pl-md q-pb-xs">
+        <div class="text-h6 text-secondary text-weight-medium">
+          {{ product.design.title }}
+        </div>
+        <div class="text-overline text-wight-bold text-secondary">
+          Категория
+        </div>
       </div>
-      <div class="text-overline text-wight-bold text-white">Категория</div>
     </div>
   </div>
 </template>

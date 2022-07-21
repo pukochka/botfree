@@ -1,6 +1,6 @@
 import { convertURL } from "src/store/helpers";
 import verification from "src/telegram";
-let root;
+import { setCssVar } from "quasar";
 //-------------------------------------------------------
 export function changeUserProp(state, { section, value }) {
   state.user[section] = value;
@@ -45,3 +45,10 @@ export function initApp(state) {
   this.dispatch("user/getUserData");
 }
 //-------------------------------------------------------
+export function changeColor(state, { text, background, add, id }) {
+  setCssVar("primary", background);
+  setCssVar("secondary", text);
+  setCssVar("accent", add);
+  state.user.colors.map((item) => (item.select = false));
+  state.user.colors.filter((item) => item.id == id)[0].select = true;
+}

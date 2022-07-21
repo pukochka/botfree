@@ -11,7 +11,7 @@
           viewBasket.elem == product.id
         "
       >
-        <q-spinner color="primary" size="5rem" class="z-max" />
+        <q-spinner color="secondary" size="5rem" class="z-max" />
       </div>
     </Transition>
     <div class="bg-primary flex flex-center img">
@@ -19,17 +19,17 @@
         size="56px"
         font-size="40px"
         color="transparent"
-        text-color="white"
+        text-color="secondary"
         icon="image"
       />
     </div>
     <div class="q-pa-md">
       <div class="end-dots title">{{ product.design.title }}</div>
-      <div class="text-caption text-weight-bold text-grey-7 end-dots caption">
+      <div class="text-caption text-weight-medium text-grey-7 end-dots caption">
         {{ product.design.rules }}
       </div>
       <div class="row">
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-sm-4" v-if="product.price.old_price != 0">
           <q-btn
             class="text-weight-bold"
             flat
@@ -37,9 +37,8 @@
             padding="0"
             no-wrap
             :class="{ underline: product.price.old_price != 0 }"
-            :color="product.price.old_price != 0 ? 'red-5' : 'primary'"
+            :color="product.price.old_price != 0 ? 'red-5' : 'secondary'"
             :label="product.price.old_price + ' ' + convertСurrency"
-            v-if="product.price.old_price != 0"
           />
         </div>
         <div class="col-12 col-sm-4">
@@ -48,7 +47,7 @@
             flat
             size="20px"
             padding="0"
-            color="primary"
+            color="secondary"
             no-wrap
             :label="product.price.full"
           />

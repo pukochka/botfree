@@ -5,7 +5,7 @@
         <span class="">Вы уверены, что хотите очистить всю корзину?</span>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="Отмена" color="primary" v-close-popup />
+        <q-btn flat label="Отмена" color="secondary" v-close-popup />
         <q-btn
           flat
           label="Подтвердить"

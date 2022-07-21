@@ -2,11 +2,11 @@
   <div class="max-xxl center q-px-md q-pt-lg">
     <div class="fixed-center z-max" v-if="viewOrders.loading.index">
       <div class="bg-white rounded-borders">
-        <q-spinner color="primary" class="q-ma-xl" size="6em" />
+        <q-spinner color="secondary" class="q-ma-xl" size="6em" />
       </div>
     </div>
     <div class="flex">
-      <div class="text-h4">Мои заказы</div>
+      <div class="text-h4 text-secondary">Мои заказы</div>
       <div class="text-grey-8 text-caption self-end q-ml-sm">
         Заказы {{ viewOrders.count }}
       </div>
@@ -24,15 +24,17 @@
       :key="index"
     >
       <div class="q-px-md q-py-sm text-subtitle1">
-        <div class="text-weight-bold">Заказ от {{ order.created_at }}</div>
         <div class="text-weight-bold">
-          Номер <span class="text-primary">#{{ order.id }}</span>
+          Заказ от <span class="text-secondary">{{ order.created_at }}</span>
         </div>
         <div class="text-weight-bold">
-          Итого <span class="text-primary">{{ order.price }}</span>
+          Номер <span class="text-secondary">#{{ order.id }}</span>
+        </div>
+        <div class="text-weight-bold">
+          Итого <span class="text-secondary">{{ order.price }}</span>
         </div>
       </div>
-      <q-separator class="q-mx-md" color="primary" />
+      <q-separator class="q-mx-md" color="secondary" />
       <div class="row q-col-gutter-sm q-pa-sm">
         <div
           class="col-12 col-md-4"
@@ -46,13 +48,13 @@
         <q-btn
           padding="4px 16px"
           flat
-          color="primary"
+          color="secondary"
           label="Повторить заказ"
         />
         <q-btn
           padding="4px 16px"
           flat
-          color="primary"
+          color="secondary"
           label="Подробнее"
           @click="changeOrdersSelect({ order: order, tab: 'selected' })"
         />
@@ -66,7 +68,7 @@
           dense
           flat
           round
-          color="primary"
+          color="secondary"
           icon="chevron_left"
           @click="prevPage"
         />
@@ -78,7 +80,7 @@
           title=""
           flat
           round
-          color="primary"
+          color="secondary"
           icon="chevron_right"
           @click="nextPage"
         />

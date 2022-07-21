@@ -2,7 +2,7 @@
   <div class="absolute-bottom q-mx-sm q-my-sm">
     <q-btn
       label="В корзину"
-      color="primary"
+      color="secondary"
       class="fit"
       padding="5px 0"
       v-if="
@@ -38,14 +38,14 @@
         rounded-borders
         justify-between
         count
-        text-primary text-h6
+        text-secondary text-h6
         fit
       "
     >
       <q-btn
         padding="4px"
         flat
-        color="primary"
+        color="secondary"
         icon="remove"
         @click="getBasket({ action: 'subtract', category_id: prod.id })"
       />
@@ -54,7 +54,7 @@
         <q-popup-edit v-model.number="countInBasket" v-slot="scope">
           <q-input
             type="number"
-            color="primary"
+            color="secondary"
             autofocus
             dense
             v-model="scope.value"
@@ -91,7 +91,7 @@
       <q-btn
         padding="4px"
         flat
-        color="primary"
+        color="secondary"
         icon="add"
         v-if="countInBasket < prod.setting.max_count"
         @click="getBasket({ action: 'add', category_id: prod.id })"

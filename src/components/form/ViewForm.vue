@@ -25,9 +25,9 @@
       <q-tab-panel name="3">
         <FormDelivery />
       </q-tab-panel>
-      <q-tab-panel name="4">
+      <!-- <q-tab-panel name="4">
         <FormPay />
-      </q-tab-panel>
+      </q-tab-panel> -->
     </q-tab-panels>
     <div class="max-md center">
       <div class="row q-col-gutter-sm">
@@ -63,7 +63,7 @@
 import { ref, defineComponent } from "vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
-import FormPay from "src/components/form/FormPay.vue";
+// import FormPay from "src/components/form/FormPay.vue";
 import FormDelivery from "src/components/form/FormDelivery.vue";
 import UseGifts from "src/components/form/ReducePrice/UseGifts.vue";
 import UseBalance from "src/components/form/ReducePrice/UseBalance.vue";
@@ -81,13 +81,13 @@ export default defineComponent({
     UseGifts,
     FormDelivery,
     UseBalance,
-    FormPay,
   },
   computed: {
     ...mapGetters({
       viewDelivery: "form/viewDelivery",
       viewCoupon: "form/viewCoupon",
       viewBasket: "basket/viewBasket",
+      balance: "user/viewUser",
     }),
   },
   methods: {
@@ -101,7 +101,7 @@ export default defineComponent({
       this.step--;
     },
     currentCountOfSteps() {
-      if ("gifts".length != 0) {
+      if (+this.balance.data.balance != 0) {
         this.steps.push("1");
       }
       // if ("gifts".length != 0) {
@@ -110,10 +110,6 @@ export default defineComponent({
       if ("delivery".length != 0) {
         this.steps.push("3");
       }
-      if ("pay".length != 0) {
-        this.steps.push("4");
-      }
-      console.log(this.steps);
     },
   },
   mounted() {
