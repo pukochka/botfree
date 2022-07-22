@@ -16,12 +16,12 @@
     <div class="row items-center">
       <div class="my-header text-secondary">Каталог товаров бота</div>
     </div>
-    <q-separator class="q-my-xs" />
+    <q-separator class="q-my-xs" :dark="viewUser.theme.is_dark" />
   </div>
 
   <Transition name="fade">
     <div class="fixed-center" v-if="viewProducts.loading">
-      <q-spinner color="primary" size="6rem" />
+      <q-spinner color="secondary" size="6rem" />
     </div>
   </Transition>
   <Transition name="fade">
@@ -52,11 +52,10 @@
         </div>
       </div>
       <div class="q-pb-lg" v-if="viewProducts.now != 0">
-        <div class="my-header q-py-md">
+        <div class="my-header q-py-md text-secondary">
           Товары
           <span
-            >из категории
-            <span class="text-secondary">{{ viewProducts.textNow }}</span></span
+            >из категории <span class="">{{ viewProducts.textNow }}</span></span
           >
         </div>
         <div class="row q-col-gutter-xs">
@@ -121,7 +120,7 @@ export default defineComponent({
     ...mapGetters({
       info: "info/viewInfo",
       viewProducts: "products/viewProducts",
-      viewTab: "viewTab",
+      viewUser: "user/viewUser",
     }),
     viewItemsCategory() {
       return this.viewProducts.data.filter((item) => item.type == 0);
@@ -137,9 +136,6 @@ export default defineComponent({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",
     }),
-    v() {
-      console.log(BOT_ID, USER_DATA, SECRETKEY);
-    },
   },
 });
 </script>

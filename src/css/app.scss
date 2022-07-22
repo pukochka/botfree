@@ -26,7 +26,8 @@ body {
   opacity: 0.7;
 }
 .bg-opacity {
-  background: rgba(255, 255, 255, 0.499) !important;
+  background: $accent !important;
+  filter: invert(100%);
 }
 .bg-page {
   background: #495057;

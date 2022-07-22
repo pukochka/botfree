@@ -66,7 +66,8 @@
         v-model="coupon"
         type="text"
         label="Ввести купон"
-        color="secondary"
+        color="primary"
+        class="bg-secondary rounded-borders"
         dense
         borderless
         outlined
@@ -83,6 +84,7 @@
         <q-btn
           class="fit"
           dense
+          text-color="primary"
           color="secondary"
           label="Активировать"
           :loading="viewCoupon.loading['activate']"
@@ -102,7 +104,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters({ viewCoupon: "form/viewCoupon" }),
+    ...mapGetters({ viewCoupon: "form/viewCoupon", viewUser: "user/viewUser" }),
   },
   methods: {
     ...mapActions({ getСoupon: "form/getСoupon" }),

@@ -17,7 +17,7 @@
         Товаров {{ viewBasket.data.countItems }}
       </div>
     </div>
-    <q-separator class="q-my-xs" />
+    <q-separator class="q-my-xs" :dark="viewUser.theme.is_dark" />
   </div>
   <div class="max-xxl center row justify-end q-py-sm">
     <q-btn
@@ -31,10 +31,14 @@
     />
   </div>
   <div class="max-xxl center column">
-    <div class="text-h5 column" v-if="viewBasket.data.countItems == 0">
+    <div
+      class="text-h5 column text-secondary"
+      v-if="viewBasket.data.countItems == 0"
+    >
       В корзине пока пусто
       <q-btn
         color="secondary"
+        text-color="primary"
         class="text-primary q-my-md"
         label="К товарам"
         @click="changeTabs('catalog')"
@@ -48,8 +52,9 @@
   </div>
   <div class="max-xxl center flex">
     <q-card
-      class="full-width relative-position bg-grey-2"
+      class="full-width relative-position"
       v-if="viewBasket.data.countItems != 0"
+      :dark="viewUser.theme.is_dark"
     >
       <Transition name="fade">
         <div
@@ -69,6 +74,7 @@
           <div class="col-12 col-sm-6">
             <div class="q-mb-sm">
               <q-btn
+                text-color="primary"
                 class="fit"
                 color="secondary"
                 unelevated
@@ -144,7 +150,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ viewBasket: ["basket/viewBasket"] }),
+    ...mapGetters({
+      viewBasket: "basket/viewBasket",
+      viewUser: "user/viewUser",
+    }),
     benefit() {
       const toNunber = (str) => {
         return Number([...str].slice(0, str.length - 2).join(""));

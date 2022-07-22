@@ -1,6 +1,6 @@
 <template>
   <div class="fit active relative-position">
-    <div class="active-drop fit absolute-center"></div>
+    <div class="active-drop fit absolute-center rounded-borders"></div>
     <div
       class="bg-primary rounded-borders row items-end"
       style="min-height: 130px"

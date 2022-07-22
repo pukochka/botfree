@@ -46,9 +46,24 @@ export function initApp(state) {
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {
-  setCssVar("primary", background);
-  setCssVar("secondary", text);
-  setCssVar("accent", add);
+  setCssVar(
+    "primary",
+    state.user.theme.is_dark ? background.dark : background.light
+  );
+  setCssVar("secondary", state.user.theme.is_dark ? text.dark : text.light);
+  setCssVar("accent", state.user.theme.is_dark ? add.dark : add.light);
   state.user.colors.map((item) => (item.select = false));
   state.user.colors.filter((item) => item.id == id)[0].select = true;
+}
+export function changeUserTheme(state) {
+  state.user.theme.is_dark = !state.user.theme.is_dark;
+  const { background, text, add } = state.user.colors.filter(
+    (item) => item.select == true
+  )[0];
+  setCssVar(
+    "primary",
+    state.user.theme.is_dark ? background.dark : background.light
+  );
+  setCssVar("secondary", state.user.theme.is_dark ? text.dark : text.light);
+  setCssVar("accent", state.user.theme.is_dark ? add.dark : add.light);
 }

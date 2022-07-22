@@ -1,6 +1,6 @@
 <template>
   <div class="max-md center">
-    <div class="text-h5">Выберите способ доставки</div>
+    <div class="text-h5 text-secondary">Выберите способ доставки</div>
     <AllDelivelyes />
     <!-- <q-tab-panels
       v-model="viewDelivery.tab"

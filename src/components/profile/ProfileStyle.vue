@@ -1,36 +1,37 @@
 <template>
   <div class="max-xxl center q-pa-md min-h-md non-selectable">
     <div class="my-header text-secondary">Стиль приложения</div>
-    <q-separator class="q-mb-xs" />
+    <q-separator class="q-mb-xs" :dark="viewColors.theme.is_dark" />
 
-    <q-item clickable @click="value = !value" class="non-selectable">
+    <q-item clickable @click="changeUserTheme()" class="non-selectable">
       <q-item-section top avatar class="flex flex-center">
         <div class="relative-position fit flex flex-center">
           <Transition name="slide-up">
             <q-avatar
               size="50px"
               class="absolute"
-              v-if="value"
+              v-if="viewColors.theme.is_dark"
               color="transparent"
-              text-color="black"
-              icon=" dark_mode"
+              text-color="white"
+              icon="dark_mode"
             />
             <q-avatar
               size="50px"
               class="absolute"
               v-else
               color="transparent"
-              text-color="secondary"
+              text-color="dark"
               icon="sunny"
             />
           </Transition>
         </div>
       </q-item-section>
 
-      <q-item-section>
+      <q-item-section class="text-secondary">
         <q-item-label>Сменить тему</q-item-label>
-        <q-item-label caption lines="2">
-          {{ value ? "Светлая" : "Темная" }} тема</q-item-label
+        <q-item-label class="text-secondary" caption lines="2">
+          {{ viewColors.theme.is_dark ? "Светлая" : "Темная" }}
+          тема</q-item-label
         >
       </q-item-section>
     </q-item>
@@ -45,8 +46,12 @@
         <div
           class="fit rounded-borders row relative-position"
           :style="{
-            color: color.text,
-            background: color.background,
+            color: viewColors.theme.is_dark
+              ? color.text.dark
+              : color.text.light,
+            background: viewColors.theme.is_dark
+              ? color.background.dark
+              : color.background.light,
             minHeight: '130px',
           }"
         >
@@ -64,7 +69,9 @@
           <div
             class="q-ma-md q-pa-md rounded-borders"
             :style="{
-              background: color.text,
+              background: viewColors.theme.is_dark
+                ? color.text.dark
+                : color.text.light,
             }"
           ></div>
           <div class="q-pa-md self-end">
@@ -98,7 +105,10 @@ export default {
     ...mapGetters({ viewColors: "user/viewUser" }),
   },
   methods: {
-    ...mapMutations({ changeColor: "user/changeColor" }),
+    ...mapMutations({
+      changeColor: "user/changeColor",
+      changeUserTheme: "user/changeUserTheme",
+    }),
   },
   watch: {},
 };

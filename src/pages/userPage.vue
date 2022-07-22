@@ -1,10 +1,11 @@
 <template>
-  <q-page class="bg-white">
+  <q-page>
     <!-- <div class="flex flex-center" v-if="!viewUser.status">
       Пользователь не авторизован
     </div> -->
     <q-tab-panels
       class="min"
+      :class="themeColor"
       v-model="viewTab"
       animated
       transition-prev="fade"
@@ -98,14 +99,14 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters({ viewUser: "user/viewUser", viewTab: "user/viewTab" }),
+    themeColor() {
+      return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
+    },
   },
   methods: {
     ...mapActions(["getUserData", "getAllProducts"]),
   },
-  mounted() {
-    // this.getUserData();
-    // this.getAllProducts({ category: 0, text: "" });
-  },
+  mounted() {},
 });
 </script>
 <style lang="scss" scoped>
@@ -113,7 +114,7 @@ export default defineComponent({
   min-height: 600px;
 }
 .min {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 50px);
 }
 
 @media (max-width: 450px) {

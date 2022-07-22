@@ -1,5 +1,8 @@
 <template>
-  <q-card class="flex no-wrap col q-my-xs relative-position">
+  <q-card
+    class="flex no-wrap col q-my-xs relative-position"
+    :dark="viewUser.theme.is_dark"
+  >
     <Transition name="fade">
       <div
         class="absolute fit flex flex-center bg-opacity z-max"
@@ -89,6 +92,7 @@ export default {
   computed: {
     ...mapGetters({
       viewBasket: "basket/viewBasket",
+      viewUser: "user/viewUser",
     }),
     convertСurrency() {
       switch (this.product.price.currency) {

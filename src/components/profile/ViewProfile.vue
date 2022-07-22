@@ -4,15 +4,21 @@
       <q-avatar
         size="100px"
         font-size="52px"
-        color="secondary"
-        text-color="white"
+        color="primary"
+        text-color="secondary"
         icon="person"
       />
       <div class="text-h6 q-pl-md">
-        <div class="">
+        <div class="text-secondary">
           {{ viewUser.data.first_name }} {{ viewUser.data.last_name }}
         </div>
-        <div class="text-caption">@{{ viewUser.data.username }}</div>
+        <div class="text-caption text-weight-bold">
+          <a
+            class="user text-secondary"
+            :href="`https://t.me/${viewUser.data.username}`"
+            >@{{ viewUser.data.username }}</a
+          >
+        </div>
       </div>
     </div>
 
@@ -264,6 +270,9 @@ export default defineComponent({
   &-header {
     display: flex;
   }
+}
+.user {
+  text-decoration: none;
 }
 @media (max-width: 599px) {
   .mobile {

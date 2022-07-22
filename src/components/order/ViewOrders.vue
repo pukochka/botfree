@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <q-tab-panels
+      :class="themeColor"
       v-model="viewOrders.tab"
       animated
       transition-next="slide-left"
@@ -31,7 +32,13 @@ export default defineComponent({
     return {};
   },
   computed: {
-    ...mapGetters({ viewOrders: "order/viewOrders" }),
+    ...mapGetters({
+      viewOrders: "order/viewOrders",
+      viewUser: "user/viewUser",
+    }),
+    themeColor() {
+      return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
+    },
   },
 });
 </script>

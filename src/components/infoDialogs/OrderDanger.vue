@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="viewInfo.dialogs.order.open" persistent>
-    <q-card>
+    <q-card :dark="viewUser.theme.is_dark">
       <q-card-section class="row items-center">
         <span class=""
           >Это действие отменит заказ. Вы уверены, что хотите отменить
@@ -35,7 +35,7 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters({ viewInfo: "info/viewInfo" }),
+    ...mapGetters({ viewInfo: "info/viewInfo", viewUser: "user/viewUser" }),
   },
   methods: {
     ...mapActions({ getOrders: "order/getOrders" }),

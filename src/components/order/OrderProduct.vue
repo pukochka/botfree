@@ -1,5 +1,5 @@
 <template>
-  <div class="row bg-white rounded-borders q-pa-sm">
+  <q-card class="row q-pa-sm" :dark="viewUser.theme.is_dark">
     <div class="col-4">
       <div class="bg-primary min rounded-borders flex flex-center full-height">
         <q-avatar
@@ -48,10 +48,11 @@
         :label="item.count"
       />
     </div>
-  </div>
+  </q-card>
 </template>
 <script>
 import { ref, defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   props: ["item"],
@@ -59,6 +60,7 @@ export default defineComponent({
     return {};
   },
   computed: {
+    ...mapGetters({ viewUser: "user/viewUser" }),
     convertСurrency() {
       switch (this.item.product.price.currency) {
         case "RUB":

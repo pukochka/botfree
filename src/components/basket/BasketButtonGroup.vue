@@ -31,15 +31,19 @@
       />
       <div class="q-px-xs absolute-center">
         {{ countInBasket }}
-        <q-popup-edit v-model.number="countInBasket" v-slot="scope">
+        <q-popup-edit v-model.number="countInBasket" v-slot="count">
           <q-input
             type="number"
             color="secondary"
             autofocus
             dense
+            v-model="count.value"
             input-class="text-grey-9"
-            v-model="scope.value"
-            hint="Количество товара"
+            :rules="[
+              (val) =>
+                validateCount(val) || 'Количество товара введено неверно',
+            ]"
+            hint="Введите количество товара"
           >
             <template v-slot:append>
               <q-btn
@@ -47,7 +51,7 @@
                 dense
                 color="negative"
                 icon="clear"
-                @click.stop="scope.cancel"
+                @click.stop="count.cancel"
               />
 
               <q-btn
@@ -55,14 +59,15 @@
                 dense
                 color="positive"
                 icon="check"
+                v-if="validateCount(count.value)"
                 @click="
                   getBasket({
                     action: 'set-count',
                     category_id: prod.id,
-                    count: +scope.value,
+                    count: +count.value,
                   })
                 "
-                @click.stop="scope.cancel"
+                @click.stop="count.cancel"
               />
             </template>
           </q-input>
@@ -115,6 +120,12 @@ export default {
   },
   methods: {
     ...mapActions({ getBasket: "basket/getBasket" }),
+    validateCount(value) {
+      return (
+        Number(value) > Number(this.prod.setting.min_count) &&
+        Number(value) < Number(this.prod.setting.max_count)
+      );
+    },
   },
   watch: {},
 };

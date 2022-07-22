@@ -1,8 +1,8 @@
 <template>
   <div class="max-xxl center q-pt-lg q-px-md">
-    <div class="my-header">Формирование заказа</div>
+    <div class="my-header text-secondary">Формирование заказа</div>
 
-    <q-separator class="q-my-xs" />
+    <q-separator class="q-my-xs" :dark="balance.theme.is_dark" />
   </div>
   <div class="max-xxl center q-px-md">
     <div class="max-md center q-ml-md text-grey-8 text-caption">
@@ -10,6 +10,7 @@
     </div>
     <q-tab-panels
       class="min"
+      :class="themeColor"
       v-model="steps[step]"
       animated
       transition-prev="fade"
@@ -89,6 +90,9 @@ export default defineComponent({
       viewBasket: "basket/viewBasket",
       balance: "user/viewUser",
     }),
+    themeColor() {
+      return this.balance.theme.is_dark ? "bg-dark" : "bg-white";
+    },
   },
   methods: {
     ...mapActions({ getOrders: "order/getOrders" }),

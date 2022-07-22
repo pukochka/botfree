@@ -1,7 +1,7 @@
 <template>
   <div class="max-xxl center q-px-md q-pt-lg">
     <div class="fixed-center z-max" v-if="viewOrders.loading.index">
-      <div class="bg-white rounded-borders">
+      <div class="bg-opacity rounded-borders">
         <q-spinner color="secondary" class="q-ma-xl" size="6em" />
       </div>
     </div>
@@ -11,21 +11,22 @@
         Заказы {{ viewOrders.count }}
       </div>
     </div>
-    <q-separator class="q-mt-sm" />
+    <q-separator class="q-mt-sm" :dark="viewUser.theme.is_dark" />
   </div>
   <div class="max-xxl center q-pa-md">
-    <div class="">Страница {{ page }} из {{ countOfPages }}</div>
+    <div class="text-secondary">Страница {{ page }} из {{ countOfPages }}</div>
     <div class="text-h4 text-center q-pa-lg" v-if="viewOrders.data.length == 0">
       Заказов пока нет
     </div>
     <div
-      class="bg-grey-2 rounded-borders q-my-md"
+      class="rounded-borders q-my-md"
+      :class="themeBack"
       v-for="(order, index) of viewOrders.data"
       :key="index"
     >
-      <div class="q-px-md q-py-sm text-subtitle1">
+      <div class="q-px-sm q-py-sm text-subtitle1 text-secondary">
         <div class="text-weight-bold">
-          Заказ от <span class="text-secondary">{{ order.created_at }}</span>
+          Заказ от <span class="">{{ order.created_at }}</span>
         </div>
         <div class="text-weight-bold">
           Номер <span class="text-secondary">#{{ order.id }}</span>
@@ -34,7 +35,7 @@
           Итого <span class="text-secondary">{{ order.price }}</span>
         </div>
       </div>
-      <q-separator class="q-mx-md" color="secondary" />
+      <q-separator class="q-mx-sm" color="secondary" />
       <div class="row q-col-gutter-sm q-pa-sm">
         <div
           class="col-12 col-md-4"
@@ -72,7 +73,7 @@
           icon="chevron_left"
           @click="prevPage"
         />
-        <div class="">{{ page }} из {{ countOfPages }}</div>
+        <div class="text-secondary">{{ page }} из {{ countOfPages }}</div>
         <q-btn
           class="cursor-pointer"
           :disable="page == countOfPages"
@@ -105,9 +106,18 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters({ viewOrders: "order/viewOrders" }),
+    ...mapGetters({
+      viewOrders: "order/viewOrders",
+      viewUser: "user/viewUser",
+    }),
     countOfPages() {
       return Math.ceil(this.viewOrders.count / 3);
+    },
+    themeColor() {
+      return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
+    },
+    themeBack() {
+      return this.viewUser.theme.is_dark ? "bg-grey-9" : "bg-grey-2";
     },
   },
   methods: {

@@ -1,8 +1,8 @@
 <template>
-  <q-card class="fit">
+  <q-card class="fit" :dark="viewUser.theme.is_dark">
     <Transition name="fade">
       <div
-        class="absolute fit flex flex-center bg-opacity z-max"
+        class="absolute fit flex flex-center bg-opacity z-max rounded-borders"
         v-if="
           (viewBasket.loading['subtract'] ||
             viewBasket.loading['remove'] ||
@@ -24,7 +24,9 @@
       />
     </div>
     <div class="q-pa-md">
-      <div class="end-dots title">{{ product.design.title }}</div>
+      <div class="end-dots title text-secondary">
+        {{ product.design.title }}
+      </div>
       <div class="text-caption text-weight-medium text-grey-7 end-dots caption">
         {{ product.design.rules }}
       </div>
@@ -74,7 +76,11 @@ export default {
   computed: {
     ...mapGetters({
       viewBasket: "basket/viewBasket",
+      viewUser: "user/viewUser",
     }),
+    themeColor() {
+      return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
+    },
     convertСurrency() {
       switch (this.product.price.currency) {
         case "RUB":

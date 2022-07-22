@@ -11,6 +11,7 @@
       <q-btn
         align="left"
         color="secondary"
+        text-color="primary"
         outline
         class="fit"
         no-caps
@@ -22,7 +23,7 @@
           })
         "
       >
-        <div class="text-grey-9 fit">
+        <div class="text-secondary fit">
           <div class="text-subtitle1 text-weight-bold">
             {{ delivery.title }}
           </div>

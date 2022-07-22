@@ -1,6 +1,6 @@
 <template>
   <q-dialog persistent>
-    <q-card>
+    <q-card :dark="viewUser.theme.is_dark">
       <q-card-section class="">
         <span class="">Вы уверены, что хотите очистить всю корзину?</span>
       </q-card-section>
@@ -26,7 +26,7 @@ export default defineComponent({
   },
   computed: {},
   methods: {
-    ...mapActions({ getBasket: "basket/getBasket" }),
+    ...mapActions({ getBasket: "basket/getBasket", viewUser: "user/viewUser" }),
   },
 });
 </script>

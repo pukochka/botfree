@@ -7,15 +7,15 @@
       color="secondary"
       @click="changeOrdersSelect({ order: {}, tab: 'all' })"
     />
-    <q-separator />
+    <q-separator :dark="viewUser.theme.is_dark" />
     <div class="text-h6 q-py-sm">
       <div class="q-py-md">
-        <div class="text-weight-bold">
-          Номер заказа <span class="text-secondary">#{{ select.id }}</span>
+        <div class="text-weight-bold text-secondary">
+          Номер заказа <span class="">#{{ select.id }}</span>
         </div>
-        <q-separator />
-        <div class="text-subtitle1">
-          Заказ от <span class="text-secondary">{{ select.created_at }}</span>
+        <q-separator :dark="viewUser.theme" />
+        <div class="text-subtitle1 text-secondary">
+          Заказ от <span class="">{{ select.created_at }}</span>
         </div>
       </div>
       <div class="q-py-md">
@@ -36,7 +36,7 @@
         <UsedPayment :payment="select.payment" />
       </div>
 
-      <div class="text-weight-bold">
+      <div class="text-weight-bold text-secondary">
         Итого <span class="text-secondary">{{ select.price }}</span>
       </div>
     </div>
@@ -61,6 +61,9 @@ export default defineComponent({
   },
   setup() {
     return {};
+  },
+  computed: {
+    ...mapGetters({ viewUser: "user/viewUser" }),
   },
   methods: {
     ...mapMutations({ changeOrdersSelect: "order/changeOrdersSelect" }),

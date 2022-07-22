@@ -1,6 +1,6 @@
 <template>
-  <div class="text-weight-bold">Способ оплаты</div>
-  <q-separator />
+  <div class="text-weight-bold text-secondary">Способ оплаты</div>
+  <q-separator :dark="viewUser.theme.is_dark" />
   <div class="text-subtitle1 text-red" v-if="payment == null">
     Способ оплаты не был выбран
   </div>
@@ -12,6 +12,9 @@ export default defineComponent({
   props: ["payment"],
   setup() {
     return {};
+  },
+  computed: {
+    ...mapGetters({ viewUser: "user/viewUser" }),
   },
 });
 </script>
