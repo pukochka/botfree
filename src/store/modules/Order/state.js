@@ -13,5 +13,6 @@ export default function () {
       count: 0,
       tab: "all",
     }),
+    newOrder: ref({}),
   };
 }

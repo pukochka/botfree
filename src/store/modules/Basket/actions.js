@@ -10,20 +10,16 @@ export function getBasket(
     value: true,
     elem: category_id,
   });
-  console.log(action);
   axios
     .post(
       `https://api.bot-t.com/v1/shopcart/cart/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
-      createParams(
-        ["category_id", "count"],
-        {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
-          user_id: rootGetters["user/viewUser"].data.id,
-          secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
-        },
-        category_id,
-        count
-      )
+      {
+        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        user_id: rootGetters["user/viewUser"].data.id,
+        secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+        category_id: category_id,
+        count: count,
+      }
     )
     .then((response) => {
       console.log(response, "Корзина");

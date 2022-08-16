@@ -51,34 +51,18 @@ export function getDelivery({ commit, rootGetters }, { action, order_id }) {
   axios
     .post(
       `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
-      createParams(
-        ["order_id"],
-        {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
-        },
-        order_id
-      )
+      {
+        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        order_id: order_id,
+      }
     )
     .then((response) => {
       if (response.status === 200) {
-        if (action != "set-delivery") {
-          commit("changeFormData", {
-            section: "delivery",
-            data: response.data.data,
-          });
-          commit("createAnswerGroup", {
-            section: "delivery",
-            data: {
-              fields: createFormFields(response.data.data),
-              checkboxes: createFormCheckBoxes(response.data.data),
-              files: createFormFiles(response.data.data),
-            },
-          });
-          createFormFields(response.data.data, 1);
-          commit("changeFormLoading", { section: "delivery", value: false });
-        } else {
-          let t = 0;
-        }
+        commit("changeFormData", {
+          section: "delivery",
+          data: response.data.data,
+        });
+        commit("changeFormLoading", { section: "delivery", value: false });
       }
       console.log(response, "Доставка");
     });
@@ -129,15 +113,12 @@ export function getСoupon({ commit, rootGetters }, { action, coupon }) {
   axios
     .post(
       `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
-      createParams(
-        ["code"],
-        {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
-          user_id: rootGetters["user/viewUser"].data.id,
-          secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
-        },
-        coupon
-      )
+      {
+        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        user_id: rootGetters["user/viewUser"].data.id,
+        secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+        code: coupon,
+      }
     )
     .then((response) => {
       if (response.status === 200) {

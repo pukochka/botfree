@@ -9,7 +9,10 @@
             </div>
           </q-avatar>
         </div>
-        <div class="fit text-h5 text-secondary text-weight-bold" v-if="width">
+        <div
+          class="fit text-h5 text-secondary text-weight-bold text-center"
+          v-if="width"
+        >
           {{ viewInfo.bot.title }}
         </div>
       </div>

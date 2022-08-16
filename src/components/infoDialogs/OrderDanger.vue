@@ -10,15 +10,22 @@
       <q-card-actions align="right">
         <q-btn
           flat
+          :loading="viewOrders.loading.cancel"
           label="Отменить заказ"
           color="red"
-          @click="changeTabs(viewInfo.dialogs.order.name)"
+          @click="
+            this.getOrders({
+              action: 'cancel',
+              order_id: viewNewOrder.id,
+              is_back_cart: 1,
+            })
+          "
         />
         <q-btn
           flat
           label="закончить заказ"
           color="secondary"
-          @click="changeInfoDialogs({ section: 'order', value: null })"
+          @click="changeInfoDialogs({ section: 'order' })"
         />
       </q-card-actions>
     </q-card>
@@ -35,7 +42,12 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters({ viewInfo: "info/viewInfo", viewUser: "user/viewUser" }),
+    ...mapGetters({
+      viewInfo: "info/viewInfo",
+      viewUser: "user/viewUser",
+      viewOrders: "order/viewOrders",
+      viewNewOrder: "order/viewNewOrder",
+    }),
   },
   methods: {
     ...mapActions({ getOrders: "order/getOrders" }),

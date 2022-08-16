@@ -24,11 +24,6 @@ export default function () {
         deactivate: false,
       },
     }),
-    formData: ref({
-      delivery: ref({ fields: {}, checkboxes: {}, files: {} }),
-      payments: {},
-      referalBalance: {},
-    }),
     referalBalance: ref({
       data: [],
       loading: true,

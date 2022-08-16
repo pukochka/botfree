@@ -55,6 +55,7 @@ export function changeColor(state, { text, background, add, id }) {
   state.user.colors.map((item) => (item.select = false));
   state.user.colors.filter((item) => item.id == id)[0].select = true;
 }
+//-------------------------------------------------------
 export function changeUserTheme(state) {
   state.user.theme.is_dark = !state.user.theme.is_dark;
   const { background, text, add } = state.user.colors.filter(

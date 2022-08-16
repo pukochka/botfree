@@ -16,3 +16,7 @@ export function changeOrdersLoading(state, { section, value }) {
   state.orders.loading[section] = value;
 }
 //-------------------------------------------------------
+export function createNewOrder(state, value) {
+  state.newOrder = value;
+}
+//-------------------------------------------------------

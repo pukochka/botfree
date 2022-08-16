@@ -14,15 +14,24 @@
         <q-spinner color="secondary" size="5rem" class="z-max" />
       </div>
     </Transition>
-    <div class="bg-primary flex flex-center img">
+    <div
+      class="bg-primary"
+      :class="{ 'flex flex-center': !product.design.image }"
+    >
       <q-avatar
         size="56px"
         font-size="40px"
         color="transparent"
         text-color="secondary"
         icon="image"
+        v-if="!product.design.image"
       />
+      <div
+        class="img"
+        :style="{ 'background-image': `url(${product.design.image})` }"
+      ></div>
     </div>
+
     <div class="q-pa-md">
       <div class="end-dots title text-secondary">
         {{ product.design.title }}
@@ -121,7 +130,6 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  background-color: #e3e3e3;
 }
 .underline {
   text-decoration: line-through;

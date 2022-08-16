@@ -66,8 +66,9 @@
         v-model="coupon"
         type="text"
         label="Ввести купон"
-        color="primary"
-        class="bg-secondary rounded-borders"
+        color="secondary"
+        bg-color="primary"
+        class="rounded-borders"
         dense
         borderless
         outlined

@@ -1,8 +1,14 @@
 <template>
-  <div class="flex flex-center min-h-sm" v-if="viewDelivery.loading">
+  <div class="flex flex-center min-h-sm" v-if="viewDelivery.loading && !select">
     <q-spinner color="secondary" size="3rem" />
   </div>
-  <div class="row q-col-gutter-sm" v-if="!viewDelivery.loading">
+  <div class="" v-if="select">
+    <div class="text-h6 q-py-md">
+      Для того чтобы продолжить необходимо перейти в приложение Telegram.
+    </div>
+    <q-btn class="full-width" color="secondary" label="Перейти" />
+  </div>
+  <div class="row q-col-gutter-sm" v-if="!viewDelivery.loading && !select">
     <div
       class="col-12"
       v-for="(delivery, index) of viewDelivery.data"
@@ -18,9 +24,10 @@
         @click="
           setDelivery({
             action: 'set-delivery',
-            order_id: 21228,
+            order_id: order.id,
             delivery_id: delivery.id,
-          })
+          });
+          select = !select;
         "
       >
         <div class="text-secondary fit">
@@ -45,10 +52,15 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default defineComponent({
   setup() {
-    return {};
+    return {
+      select: ref(false),
+    };
   },
   computed: {
-    ...mapGetters({ viewDelivery: "form/viewDelivery" }),
+    ...mapGetters({
+      viewDelivery: "form/viewDelivery",
+      order: "order/viewNewOrder",
+    }),
   },
   methods: {
     ...mapActions({

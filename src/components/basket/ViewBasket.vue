@@ -79,7 +79,7 @@
                 color="secondary"
                 unelevated
                 label="Перейти к оформлению"
-                @click="toFormOrder"
+                @click="getOrders({ action: 'create' })"
               />
             </div>
             <div
@@ -172,11 +172,6 @@ export default {
   methods: {
     ...mapActions({ getBasket: "getBasket", getOrders: "order/getOrders" }),
     ...mapMutations({ changeTabs: "user/changeUserTab" }),
-    toFormOrder() {
-      // this.getOrders({ action: "create" });
-      this.changeTabs("formsOrders");
-    },
-
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":
@@ -194,7 +189,6 @@ export default {
       }
     },
   },
-  mounted() {},
 };
 </script>
 <style lang="scss" scoped>

@@ -1,14 +1,22 @@
 <template>
   <q-card class="row q-pa-sm" :dark="viewUser.theme.is_dark">
     <div class="col-4">
-      <div class="bg-primary min rounded-borders flex flex-center full-height">
+      <div
+        class="bg-primary min rounded-borders"
+        :class="{ 'flex flex-center': !item.product.design.image }"
+      >
         <q-avatar
-          size="36px"
-          font-size="30px"
+          size="56px"
+          font-size="40px"
           color="transparent"
           text-color="secondary"
           icon="image"
+          v-if="!item.product.design.image"
         />
+        <div
+          class="img"
+          :style="{ 'background-image': `url(${item.product.design.image})` }"
+        ></div>
       </div>
     </div>
     <div class="col-8 q-pa-sm">
@@ -81,8 +89,12 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.min {
+.min,
+.img {
   min-height: 120px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 .title {
   line-height: 16px;

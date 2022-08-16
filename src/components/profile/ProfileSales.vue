@@ -13,18 +13,15 @@
       >
         <div class="rounded-borders q-pa-sm fit outline">
           <div class="text-weight-bold text-center">
-            {{ sale.info }}
+            {{ TagParser(sale.info) }}
           </div>
           <q-separator spaced color="secondary" />
           <div class="text-grey-8">
-            {{ sale.terms }}
+            {{ TagParser(sale.terms) }}
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="flex flex-center q-pa-lg text-h6">
-      Данный раздел находится в разработке
-    </div> -->
   </div>
 </template>
 <script>
@@ -39,6 +36,16 @@ export default defineComponent({
   },
   methods: {
     ...mapActions({ getSales: "info/getSales" }),
+    TagParser(word) {
+      let str = word;
+      for (let tag of ["b", "i", "em", "small", "strong", "q", "s", "u"]) {
+        let rgx = new RegExp(`<${tag}>`);
+        str = str.replace(rgx, "");
+        rgx = new RegExp(`</${tag}>`);
+        str = str.replace(rgx, "");
+      }
+      return str;
+    },
   },
   mounted() {
     this.getSales();

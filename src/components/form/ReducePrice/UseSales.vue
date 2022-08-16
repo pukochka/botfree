@@ -8,11 +8,11 @@
     >
       <div class="outline rounded-borders q-pa-sm">
         <div class="text-subtitle1 text-secondary text-center">
-          {{ discount.info }}
+          {{ TagParser(discount.info) }}
         </div>
         <q-separator />
         <div class="text-subtitle2 text-center">
-          {{ discount.terms }}
+          {{ TagParser(discount.terms) }}
         </div>
       </div>
     </div>
@@ -28,7 +28,18 @@ export default defineComponent({
   computed: {
     ...mapGetters({ viewBasket: "basket/viewBasket" }),
   },
-  methods: {},
+  methods: {
+    TagParser(word) {
+      let str = word;
+      for (let tag of ["b", "i", "em", "small", "strong", "q", "s", "u"]) {
+        let rgx = new RegExp(`<${tag}>`);
+        str = str.replace(rgx, "");
+        rgx = new RegExp(`</${tag}>`);
+        str = str.replace(rgx, "");
+      }
+      return str;
+    },
+  },
   mounted() {},
 });
 </script>

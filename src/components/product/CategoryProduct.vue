@@ -2,17 +2,27 @@
   <div class="fit active relative-position">
     <div class="active-drop fit absolute-center rounded-borders"></div>
     <div
-      class="bg-primary rounded-borders row items-end"
-      style="min-height: 130px"
+      class="bg-primary rounded-borders"
+      :class="{ 'flex flex-center': !product.design.image }"
     >
-      <div class="shadow q-pl-md q-pb-xs">
-        <div class="text-h6 text-secondary text-weight-medium">
-          {{ product.design.title }}
-        </div>
-        <div class="text-overline text-wight-bold text-secondary">
-          Категория
-        </div>
-      </div>
+      <q-avatar
+        size="56px"
+        font-size="40px"
+        color="transparent"
+        text-color="secondary"
+        icon="image"
+        v-if="!product.design.image"
+      />
+      <div
+        class="img"
+        :style="{
+          'background-image': `url(${product.design.image})`,
+        }"
+      ></div>
+    </div>
+
+    <div class="q-pb-sm text-h6 text-secondary text-weight-medium">
+      {{ product.design.title }}
     </div>
   </div>
 </template>
@@ -48,5 +58,13 @@ export default {
   top: 50%;
   right: 5px;
   transform: translateY(-50%);
+}
+.img {
+  min-height: 130px;
+  max-height: 130px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  border-radius: 4px;
 }
 </style>

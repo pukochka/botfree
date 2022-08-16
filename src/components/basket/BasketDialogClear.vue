@@ -24,9 +24,11 @@ export default defineComponent({
   setup() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapGetters({ viewUser: "user/viewUser" }),
+  },
   methods: {
-    ...mapActions({ getBasket: "basket/getBasket", viewUser: "user/viewUser" }),
+    ...mapActions({ getBasket: "basket/getBasket" }),
   },
 });
 </script>

@@ -12,12 +12,12 @@
       >{{ info.bot.title }}</span
     >
   </div>
-  <div class="q-pa-sm max-xxl center">
+  <!-- <div class="q-pa-sm max-xxl center">
     <div class="row items-center">
       <div class="my-header text-secondary">Каталог товаров бота</div>
     </div>
     <q-separator class="q-my-xs" :dark="viewUser.theme.is_dark" />
-  </div>
+  </div> -->
 
   <Transition name="fade">
     <div class="fixed-center" v-if="viewProducts.loading">
@@ -131,7 +131,6 @@ export default defineComponent({
   },
 
   methods: {
-    ...mapMutations(["changeTabs"]),
     ...mapActions({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",

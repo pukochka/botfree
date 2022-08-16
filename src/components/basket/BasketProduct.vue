@@ -17,14 +17,22 @@
         <q-spinner color="secondary" size="5rem" class="z-max" />
       </div>
     </Transition>
-    <div class="bg-primary width flex flex-center q-ma-xs">
+    <div
+      class="bg-primary width"
+      :class="{ 'flex flex-center': !product.design.image }"
+    >
       <q-avatar
-        size="36px"
-        font-size="30px"
+        size="56px"
+        font-size="40px"
         color="transparent"
         text-color="secondary"
-        icon="image "
+        icon="image"
+        v-if="!product.design.image"
       />
+      <div
+        class="img"
+        :style="{ 'background-image': `url(${product.design.image})` }"
+      ></div>
     </div>
     <div class="column justify-between q-pa-md" style="flex-grow: 1">
       <div class="">
@@ -130,5 +138,11 @@ export default {
   min-width: 35%;
   min-height: 120px;
   border-radius: 4px !important;
+}
+.img {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100%;
 }
 </style>
