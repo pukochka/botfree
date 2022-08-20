@@ -136,6 +136,9 @@ export default defineComponent({
       getReferalBalance: "form/getReferalBalance",
     }),
   },
+  created() {
+    this.getProducts({ category: 0, text: "" });
+  },
 });
 </script>
 <style lang="scss" scoped>

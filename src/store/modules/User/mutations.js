@@ -17,11 +17,17 @@ export function changeUserTab(state, tab) {
   }
 }
 //-------------------------------------------------------
+export function SaveBotData(state, config) {
+  state.user.bot_data = config;
+}
+//-------------------------------------------------------
 export function initApp(state) {
   state.user.loading = true;
+  state.user.status = verification(
+    state.user.init_telegram,
+    state.bot_data.secret_key
+  );
   state.user.init_telegram = convertURL(window.Telegram.WebApp.initData);
-  state.user.search = convertURL(window.location.search);
-  state.user.status = verification(state.user.init_telegram, state.user.search);
 
   if (!state.user.status) {
     state.user.search = {
@@ -34,14 +40,11 @@ export function initApp(state) {
         id: 1028741753,
       },
     };
-    state.user.warning = "Пользователь не авторизован";
   } else {
     let init = state.user.init_telegram;
     init.user = JSON.parse(init.user);
     state.user.init_telegram = init;
-    state.user.warning = "Пользователь авторизован";
   }
-  console.warn(state.user.warning);
   this.dispatch("user/getUserData");
 }
 //-------------------------------------------------------
@@ -67,4 +70,12 @@ export function changeUserTheme(state) {
   );
   setCssVar("secondary", state.user.theme.is_dark ? text.dark : text.light);
   setCssVar("accent", state.user.theme.is_dark ? add.dark : add.light);
+}
+//-------------------------------------------------------
+export function SetGuest(state, value) {
+  state.user.no_guest = value;
+}
+//-------------------------------------------------------
+export function changeDialogs(state, section) {
+  state.dialogs[section] = !state.dialogs[section];
 }

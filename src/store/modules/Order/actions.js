@@ -7,9 +7,9 @@ export function getOrders(
   commit("changeOrdersLoading", { section: action, value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/order/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
         user_id: rootGetters["user/viewUser"].data.id,
         secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
         order_id: order_id,
@@ -48,9 +48,9 @@ export function getOrders(
 export function getOrdersCount({ commit, rootGetters }) {
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/order/count?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/order/count?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
         user_id: rootGetters["user/viewUser"].data.id,
         secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
       }

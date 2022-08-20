@@ -52,7 +52,7 @@
               @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.data.countItems != 0"
+                v-if="viewBasket.data.countItems > 0"
                 class="absolute-top-right"
                 rounded
                 color="red-4"
@@ -126,7 +126,7 @@
               @click="correctWork('basket')"
             >
               <q-badge
-                v-if="viewBasket.data.countItems != 0"
+                v-if="viewBasket.data.countItems > 0"
                 class="absolute-top-right"
                 rounded
                 color="red"
@@ -200,9 +200,7 @@ export default defineComponent({
     },
   },
   watch: {},
-  mounted() {
-    this.initApp();
-  },
+  mounted() {},
 });
 </script>
 <style lang="scss" scoped>

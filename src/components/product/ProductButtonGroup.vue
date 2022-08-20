@@ -1,5 +1,15 @@
 <template>
-  <div class="absolute-bottom q-mx-sm q-my-sm">
+  <div class="absolute-bottom q-mx-sm q-my-sm" v-if="!viewUser.no_guest">
+    <q-btn
+      label="В корзину"
+      color="secondary"
+      text-color="primary"
+      class="fit"
+      padding="5px 0"
+      @click="changeDialogs('auth')"
+    />
+  </div>
+  <div class="absolute-bottom q-mx-sm q-my-sm" v-if="viewUser.no_guest">
     <q-btn
       label="В корзину"
       color="secondary"
@@ -120,7 +130,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ viewBasket: "basket/viewBasket" }),
+    ...mapGetters({
+      viewBasket: "basket/viewBasket",
+      viewUser: "user/viewUser",
+    }),
 
     countInBasket() {
       return this.viewBasket.data.items.find(
@@ -135,6 +148,7 @@ export default {
   },
   methods: {
     ...mapActions({ getBasket: "basket/getBasket" }),
+    ...mapMutations({ changeDialogs: "user/changeDialogs" }),
     validateCount(value) {
       return (
         Number(value) > Number(this.prod.setting.min_count) &&
@@ -142,7 +156,6 @@ export default {
       );
     },
   },
-  watch: {},
 };
 </script>
 <style lang="scss" scoped>

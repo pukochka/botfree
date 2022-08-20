@@ -1,11 +1,16 @@
 import { ref } from "vue";
 export default function () {
   return {
+    dialogs: ref({
+      auth: false,
+    }),
     user: ref({
       init_telegram: {},
       status: false,
+      no_guest: false,
       data: {},
       search: {},
+      bot_data: {},
       warning: "",
       loading: true,
       tab: "catalog",

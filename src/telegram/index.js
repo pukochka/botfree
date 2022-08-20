@@ -13,7 +13,7 @@ export default function (init, params) {
 
     const signature = CryptoJS.HmacSHA256(
       checkString,
-      CryptoJS.enc.Hex.parse(params.secretKey)
+      CryptoJS.enc.Hex.parse(params)
     ).toString(CryptoJS.enc.Hex);
 
     return signature == hash;

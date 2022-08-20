@@ -7,9 +7,9 @@ export function getRules({ commit, rootGetters }) {
   });
   axios
     .post(
-      `https://api.bot-t.com/v1/shoppublic/shop/info?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shoppublic/shop/info?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
       }
     )
     .then((response) => {
@@ -34,9 +34,9 @@ export function getSales({ commit, rootGetters }) {
   });
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/discount/index?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/discount/index?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
       }
     )
     .then((response) => {
@@ -61,9 +61,9 @@ export function getBot({ commit, rootGetters }) {
   });
   axios
     .post(
-      `https://api.bot-t.com/v1/bot/main/info?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/bot/main/info?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
       }
     )
     .then((response) => {

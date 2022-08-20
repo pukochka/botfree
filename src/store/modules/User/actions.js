@@ -4,9 +4,9 @@ import { createParams } from "src/store/helpers.js";
 export function getUserData({ commit, getters, rootGetters }) {
   axios
     .post(
-      `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.search.secretKey}`,
+      `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,
       {
-        bot_id: getters.viewUser.search.bot_id,
+        bot_id: getters.viewUser.bot_data.id,
         telegram_id: getters.viewUser.init_telegram.user.id,
       }
     )
@@ -26,6 +26,22 @@ export function getUserData({ commit, getters, rootGetters }) {
         this.dispatch("products/getProducts", { category: 0, text: "" });
       } else {
         commit("changeUserProp", { section: "loading", value: true });
+      }
+    });
+}
+// window.location.host ВМЕСТО PUKOCHKA.GITHUB.IO
+export function GetDataByDomain({ commit }) {
+  axios
+    .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
+      type_id: 1,
+      public_key: "pukochka.github.io",
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log(response);
+        commit("SaveBotData", response.data.data);
+      } else {
+        console.warn("Нет данных или отсуствует интернет соединение");
       }
     });
 }

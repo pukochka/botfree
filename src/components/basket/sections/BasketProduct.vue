@@ -78,13 +78,13 @@
   </q-card>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
 
-import BasketButtonGroup from "src/components/basket/BasketButtonGroup.vue";
-export default {
+import BasketButtonGroup from "src/components/basket/sections/BasketButtonGroup.vue";
+export default defineComponent({
   props: ["product"],
   components: {
     BasketButtonGroup,
@@ -122,7 +122,7 @@ export default {
   methods: {
     ...mapActions({ getBasket: "basket/getBasket" }),
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .title {

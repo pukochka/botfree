@@ -13,11 +13,11 @@ export function getPayments(
   commit("changeFormLoading", { section: "payments", value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/common/money/payment/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       createParams(
         ["group_id", "order_id"],
         {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          bot_id: rootGetters["user/viewUser"].bot_data.id,
         },
         group_id,
         order_id
@@ -50,9 +50,9 @@ export function getDelivery({ commit, rootGetters }, { action, order_id }) {
   commit("changeFormLoading", { section: "delivery", value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/delivery/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
         order_id: order_id,
       }
     )
@@ -71,11 +71,11 @@ export function getDelivery({ commit, rootGetters }, { action, order_id }) {
 export function getGifts({ commit, rootGetters }, { order_id }) {
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/discount/for-order?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/discount/for-order?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       createParams(
         ["order_id"],
         {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          bot_id: rootGetters["user/viewUser"].bot_data.id,
         },
         order_id
       )
@@ -90,11 +90,11 @@ export function getGifts({ commit, rootGetters }, { order_id }) {
 export function getReferalBalance({ commit, rootGetters }, { order_id }) {
   axios
     .post(
-      `https://api.bot-t.com/v1/shopcart/order/use-balance?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shopcart/order/use-balance?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       createParams(
         ["order_id"],
         {
-          bot_id: rootGetters["user/viewUser"].search.bot_id,
+          bot_id: rootGetters["user/viewUser"].bot_data.id,
           user_id: rootGetters["user/viewUser"].data.id,
           secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
         },
@@ -112,9 +112,9 @@ export function getСoupon({ commit, rootGetters }, { action, coupon }) {
   commit("changeCouponLoading", { section: action, value: true });
   axios
     .post(
-      `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shoppublic/coupon/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
         user_id: rootGetters["user/viewUser"].data.id,
         secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
         code: coupon,

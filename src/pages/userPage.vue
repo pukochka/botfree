@@ -43,6 +43,7 @@
       </q-tab-panel>
     </q-tab-panels>
     <OrderDanger />
+    <NoAuthDialog />
     <!-- <div class="bg-grey-2">
       <q-separator />
       <div class="q-pa-sm q-px-lg row justify-between items-center">
@@ -75,11 +76,12 @@ import Orders from "src/components/order/ViewOrders.vue";
 import FormOrder from "src/components/form/ViewForm.vue";
 
 import Profile from "src/components/profile/ViewProfile.vue";
-import AppStyle from "src/components/profile/ProfileStyle.vue";
-import BotRules from "src/components/profile/ProfileRules.vue";
-import SalesBot from "src/components/profile/ProfileSales.vue";
+import AppStyle from "src/components/profile/sections/ProfileStyle.vue";
+import BotRules from "src/components/profile/sections/ProfileRules.vue";
+import SalesBot from "src/components/profile/sections/ProfileSales.vue";
 
 import OrderDanger from "src/components/infoDialogs/OrderDanger.vue";
+import NoAuthDialog from "../components/infoDialogs/NoAuthDialog.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -93,6 +95,7 @@ export default defineComponent({
     BotRules,
     SalesBot,
     OrderDanger,
+    NoAuthDialog,
   },
   setup() {
     return {};

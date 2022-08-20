@@ -4,9 +4,9 @@ export function getProducts({ commit, rootGetters }, { category, text }) {
   commit("changeProductsLoading", true);
   axios
     .post(
-      `https://api.bot-t.com/v1/shoppublic/category/view?secretKey=${rootGetters["user/viewUser"].search.secretKey}`,
+      `https://api.bot-t.com/v1/shoppublic/category/view?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
-        bot_id: rootGetters["user/viewUser"].search.bot_id,
+        bot_id: rootGetters["user/viewUser"].bot_data.id,
         category_id: category,
       }
     )
