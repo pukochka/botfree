@@ -8,7 +8,7 @@ export default function () {
       init_telegram: {},
       status: false,
       no_guest: false,
-      error: true,
+      error: false,
       loading: {
         auth: true,
       },

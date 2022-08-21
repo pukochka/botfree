@@ -39,19 +39,19 @@ export function GetDataByDomain({ commit }) {
     .then((response) => {
       if (response.status === 200) {
         console.log(response);
-        commit("SetError", false);
+        // commit("SetError", false);
         commit("SaveBotData", response.data.data);
         commit("changeLoading", { section: "auth", value: false });
         console.warn("Данные получены успешно!");
       } else {
-        commit("SetError", true);
+        // commit("SetError", true);
         commit("changeLoading", { section: "auth", value: false });
 
         console.warn("Нет данных или отсуствует интернет соединение.");
       }
     })
     .catch((e) => {
-      commit("SetError", true);
+      // commit("SetError", true);
       commit("changeLoading", { section: "auth", value: false });
 
       console.warn("Нет данных или отсуствует интернет соединение.");
