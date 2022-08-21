@@ -22,30 +22,34 @@ export function SaveBotData(state, config) {
 }
 //-------------------------------------------------------
 export function initApp(state) {
-  state.user.loading = true;
+  for (const [key, value] of new URLSearchParams(window.location.search)) {
+    state.user.init_telegram[key] = value;
+  }
+
   state.user.status = verification(
     state.user.init_telegram,
     state.bot_data.secret_key
   );
-  state.user.init_telegram = convertURL(window.Telegram.WebApp.initData);
 
   if (!state.user.status) {
-    state.user.search = {
-      bot_id: 12845,
-      secretKey:
-        "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e",
-    };
-    state.user.init_telegram = {
-      user: {
-        id: 1028741753,
-      },
-    };
+    // state.user.search = {
+    //   bot_id: 12845,
+    //   secretKey:
+    //     "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e",
+    // };
+    // state.user.init_telegram = {
+    //   user: {
+    //     id: 1028741753,
+    //   },
+    // };
+    window.history.back();
   } else {
     let init = state.user.init_telegram;
     init.user = JSON.parse(init.user);
     state.user.init_telegram = init;
   }
-  this.dispatch("user/getUserData");
+  console.log("Авторизация прошла успешно!");
+  // this.dispatch("user/getUserData");
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {
@@ -82,4 +86,8 @@ export function SetError(state, value) {
 //-------------------------------------------------------
 export function changeDialogs(state, section) {
   state.dialogs[section] = !state.dialogs[section];
+}
+//-------------------------------------------------------
+export function changeLoading(state, { section, value }) {
+  state.user.loading[section] = value;
 }

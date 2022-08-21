@@ -8,11 +8,13 @@ export default function () {
       init_telegram: {},
       status: false,
       no_guest: false,
-      data: {},
       error: false,
+      loading: {
+        auth: true,
+      },
+      data: {},
       bot_data: {},
       warning: "",
-      loading: true,
       tab: "catalog",
       theme: {
         select: {

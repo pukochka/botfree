@@ -83,6 +83,7 @@
 
         <div class="q-pr-md">
           <q-btn
+            v-if="!viewUser.no_guest"
             padding="0 16px"
             size="16px"
             outline
@@ -219,7 +220,9 @@ export default defineComponent({
     },
   },
   watch: {},
-  mounted() {},
+  mounted() {
+    this.initApp();
+  },
 });
 </script>
 <style lang="scss" scoped>

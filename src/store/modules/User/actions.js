@@ -17,7 +17,6 @@ export function getUserData({ commit, getters, rootGetters }) {
           section: "data",
           value: response.data.data,
         });
-        commit("changeUserProp", { section: "loading", value: false });
 
         this.dispatch("info/getBot");
         this.dispatch("order/getOrders", { action: "index", offset: 0 });
@@ -31,24 +30,30 @@ export function getUserData({ commit, getters, rootGetters }) {
 }
 // window.location.host ВМЕСТО PUKOCHKA.GITHUB.IO
 export function GetDataByDomain({ commit }) {
-  try {
-    axios
-      .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
-        type_id: 1,
-        public_key: "pukochka.github.io",
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          commit("SetError", false);
-          commit("SaveBotData", response.data.data);
-        } else {
-          commit("SetError", true);
-          console.warn("Нет данных или отсуствует интернет соединение");
-        }
-      });
-  } catch (err) {
-    commit("SetError", true);
-    console.warn("Нет данных или отсуствует интернет соединение");
-  }
+  commit("changeLoading", { section: "auth", value: true });
+  axios
+    .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
+      type_id: 1,
+      public_key: "pukochka.github.io",
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log(response);
+        commit("SetError", false);
+        commit("SaveBotData", response.data.data);
+        commit("changeLoading", { section: "auth", value: false });
+        console.warn("Данные получены успешно!");
+      } else {
+        commit("SetError", true);
+        commit("changeLoading", { section: "auth", value: false });
+
+        console.warn("Нет данных или отсуствует интернет соединение.");
+      }
+    })
+    .catch((e) => {
+      commit("SetError", true);
+      commit("changeLoading", { section: "auth", value: false });
+
+      console.warn("Нет данных или отсуствует интернет соединение.");
+    });
 }

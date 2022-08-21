@@ -1,9 +1,16 @@
 <template>
   <div class="fullscreen flex flex-center">
-    <div class="text-h6 text-secondary text-center" v-if="user.error">
+    <q-spinner color="secondary" size="5rem" v-if="user.loading.auth" />
+    <div
+      class="text-h6 text-secondary text-center"
+      v-if="user.error && !user.loading.auth"
+    >
       Ошибка интернет соединения. Попробуйте перезагрузить страницу.
     </div>
-    <div class="row q-gutter-md justify-center" v-if="!user.error">
+    <div
+      class="row q-gutter-md justify-center"
+      v-if="!user.error && !user.loading.auth"
+    >
       <div class="col-10 col-sm-6 col-md-4 text-h5">
         {{ user.bot_data.name }}
       </div>
@@ -17,11 +24,11 @@
           :is="'script'"
           src="https://telegram.org/js/telegram-widget.js?19"
           data-telegram-login="SHOPCARTBOTTBOT"
-          :data-auth-url="localion"
+          :data-auth-url="localion + '/login'"
           data-size="large"
           data-radius="11"
           data-request-access="write"
-        ></component>
+        />
       </div>
 
       <q-btn
@@ -47,7 +54,7 @@ export default defineComponent({
   computed: {
     ...mapGetters({ user: "user/viewUser" }),
     localion() {
-      return window.location.origin;
+      return window.location.href;
     },
   },
   methods: {

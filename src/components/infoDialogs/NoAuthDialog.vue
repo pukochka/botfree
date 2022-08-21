@@ -36,7 +36,7 @@ export default {
   computed: {
     ...mapGetters({ viewDialogs: "user/viewDialogs" }),
     localion() {
-      return window.location.origin;
+      return window.location.href;
     },
   },
   methods: {
