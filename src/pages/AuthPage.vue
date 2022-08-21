@@ -64,10 +64,18 @@ export default defineComponent({
       this.setGuest(false);
       this.$router.push({ path: "/login" });
     },
+    setQueryStringParameter(name, value, append = false) {
+      const url = new URL(window.document.URL);
+      if (append) url.searchParams.append(name, value);
+      else url.searchParams.set(name, value);
+      window.history.replaceState(null, "", url.toString());
+    },
   },
   created() {
     this.GetBotData();
+    this.setQueryStringParameter("p", 93672);
   },
+  mounted() {},
 });
 </script>
 <style lang="scss" scoped>
