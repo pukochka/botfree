@@ -31,17 +31,24 @@ export function getUserData({ commit, getters, rootGetters }) {
 }
 // window.location.host ВМЕСТО PUKOCHKA.GITHUB.IO
 export function GetDataByDomain({ commit }) {
-  axios
-    .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
-      type_id: 1,
-      public_key: "pukochka.github.io",
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        console.log(response);
-        commit("SaveBotData", response.data.data);
-      } else {
-        console.warn("Нет данных или отсуствует интернет соединение");
-      }
-    });
+  try {
+    axios
+      .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
+        type_id: 1,
+        public_key: "pukochka.github.io",
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          commit("SetError", false);
+          commit("SaveBotData", response.data.data);
+        } else {
+          commit("SetError", true);
+          console.warn("Нет данных или отсуствует интернет соединение");
+        }
+      });
+  } catch (err) {
+    commit("SetError", true);
+    console.warn("Нет данных или отсуствует интернет соединение");
+  }
 }

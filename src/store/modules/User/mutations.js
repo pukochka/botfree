@@ -76,6 +76,10 @@ export function SetGuest(state, value) {
   state.user.no_guest = value;
 }
 //-------------------------------------------------------
+export function SetError(state, value) {
+  state.user.error = value;
+}
+//-------------------------------------------------------
 export function changeDialogs(state, section) {
   state.dialogs[section] = !state.dialogs[section];
 }

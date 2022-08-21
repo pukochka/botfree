@@ -7,8 +7,8 @@
           :is="'script'"
           src="https://telegram.org/js/telegram-widget.js?19"
           data-telegram-login="SHOPCARTBOTTBOT"
+          :data-auth-url="localion"
           data-size="large"
-          :data-auth-url="window.location.origin"
           data-radius="4"
           data-request-access="write"
         />
@@ -35,6 +35,9 @@ export default {
   },
   computed: {
     ...mapGetters({ viewDialogs: "user/viewDialogs" }),
+    localion() {
+      return window.location.origin;
+    },
   },
   methods: {
     ...mapMutations({ changeDialogs: "user/changeDialogs" }),

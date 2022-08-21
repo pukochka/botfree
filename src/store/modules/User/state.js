@@ -9,7 +9,7 @@ export default function () {
       status: false,
       no_guest: false,
       data: {},
-      search: {},
+      error: false,
       bot_data: {},
       warning: "",
       loading: true,

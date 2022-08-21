@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header bordered class="row items-center bg-primary">
+    <q-header bordered class="row items-center bg-primary no-wrap">
       <div class="row no-wrap items-center">
         <div class="q-mx-sm" :class="{ 'q-mx-lg': !width }">
           <q-avatar color="transparent" size="50px" rounded>
@@ -17,66 +17,83 @@
         </div>
       </div>
 
-      <div class="row" v-if="!width">
-        <div class="row no-wrap">
-          <div class="col-4">
-            <q-btn
-              padding="0 64px"
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary': viewTabs == 'catalog',
-                'text-accent': viewTabs != 'catalog',
-              }"
-              label="Каталог"
-              no-caps
-              no-wrap
-              @click="correctWork('catalog')"
-            />
-          </div>
-          <div class="col-4">
-            <q-btn
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary ': viewTabs == 'basket',
-                'text-accent': viewTabs != 'basket',
-              }"
-              label="Корзина"
-              no-caps
-              no-wrap
-              @click="correctWork('basket')"
-            >
-              <q-badge
-                v-if="viewBasket.data.countItems > 0"
-                class="absolute-top-right"
-                rounded
-                color="red-4"
-                >{{ viewBasket.data.countItems }}</q-badge
+      <div class="row no-wrap justify-between full-width">
+        <div class="">
+          <div class="row no-wrap" v-if="!width">
+            <div class="col-4">
+              <q-btn
+                padding="0 64px"
+                size="16px"
+                flat
+                unelevated
+                class="fit text-weight-bold"
+                :class="{
+                  'text-secondary': viewTabs == 'catalog',
+                  'text-accent': viewTabs != 'catalog',
+                }"
+                label="Каталог"
+                no-caps
+                no-wrap
+                @click="correctWork('catalog')"
+              />
+            </div>
+            <div class="col-4">
+              <q-btn
+                size="16px"
+                flat
+                unelevated
+                class="fit text-weight-bold"
+                :class="{
+                  'text-secondary ': viewTabs == 'basket',
+                  'text-accent': viewTabs != 'basket',
+                }"
+                label="Корзина"
+                no-caps
+                no-wrap
+                @click="correctWork('basket')"
               >
-            </q-btn>
+                <q-badge
+                  v-if="viewBasket.data.countItems > 0"
+                  class="absolute-top-right"
+                  rounded
+                  color="red-4"
+                  >{{ viewBasket.data.countItems }}</q-badge
+                >
+              </q-btn>
+            </div>
+            <div class="col-4">
+              <q-btn
+                size="16px"
+                flat
+                unelevated
+                class="fit text-weight-bold"
+                :class="{
+                  'text-secondary': viewTabs == 'profile',
+                  'text-accent': viewTabs != 'profile',
+                }"
+                color="secondary"
+                label="Профиль"
+                no-caps
+                no-wrap
+                @click="correctWork('profile')"
+              />
+            </div>
           </div>
-          <div class="col-4">
-            <q-btn
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary': viewTabs == 'profile',
-                'text-accent': viewTabs != 'profile',
-              }"
-              color="secondary"
-              label="Профиль"
-              no-caps
-              no-wrap
-              @click="correctWork('profile')"
-            />
-          </div>
+        </div>
+
+        <div class="q-pr-md">
+          <q-btn
+            padding="0 16px"
+            size="16px"
+            outline
+            unelevated
+            class="fit text-weight-bold"
+            color="orange"
+            label="Войти"
+            no-caps
+            no-wrap
+            @click="changeDialogs('auth')"
+          />
         </div>
       </div>
     </q-header>
@@ -134,7 +151,7 @@
               >
             </q-btn>
           </div>
-          <div class="col-4">
+          <div class="col-4" v-if="!viewUser.no_guest">
             <q-btn
               flat
               stack
@@ -180,6 +197,7 @@ export default defineComponent({
       viewBasket: "basket/viewBasket",
       viewInfo: "info/viewInfo",
       viewTabs: "user/viewTab",
+      viewUser: "user/viewUser",
     }),
   },
   methods: {
@@ -187,6 +205,7 @@ export default defineComponent({
       initApp: "user/initApp",
       changeTabs: "user/changeUserTab",
       changeInfoDialogs: "info/changeInfoDialogs",
+      changeDialogs: "user/changeDialogs",
     }),
     correctWork(tab) {
       if (this.viewInfo.dialogs.order.danger) {

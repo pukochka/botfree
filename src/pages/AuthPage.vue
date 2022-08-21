@@ -1,6 +1,9 @@
 <template>
   <div class="fullscreen flex flex-center">
-    <div class="row q-gutter-md justify-center">
+    <div class="text-h6 text-secondary text-center" v-if="user.error">
+      Ошибка интернет соединения. Попробуйте перезагрузить страницу.
+    </div>
+    <div class="row q-gutter-md justify-center" v-if="!user.error">
       <div class="col-10 col-sm-6 col-md-4 text-h5">
         {{ user.bot_data.name }}
       </div>
@@ -14,8 +17,8 @@
           :is="'script'"
           src="https://telegram.org/js/telegram-widget.js?19"
           data-telegram-login="SHOPCARTBOTTBOT"
+          :data-auth-url="localion"
           data-size="large"
-          :data-auth-url="window.location.origin"
           data-radius="11"
           data-request-access="write"
         ></component>
@@ -25,7 +28,7 @@
         class="col-10 col-sm-6 col-md-4"
         color="secondary"
         icon="person"
-        label="Войти как гость"
+        label="Продолжить без входа"
         no-caps
         no-wrap
         @click="setStatus"
@@ -43,6 +46,9 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters({ user: "user/viewUser" }),
+    localion() {
+      return window.location.origin;
+    },
   },
   methods: {
     ...mapActions({ GetBotData: "user/GetDataByDomain" }),
