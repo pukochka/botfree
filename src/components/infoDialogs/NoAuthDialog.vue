@@ -6,7 +6,7 @@
           async
           :is="'script'"
           src="https://telegram.org/js/telegram-widget.js?19"
-          data-telegram-login="SHOPCARTBOTTBOT"
+          :data-telegram-login="viewUser.bot_data.name"
           :data-auth-url="localion"
           data-size="large"
           data-radius="4"
@@ -34,7 +34,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters({ viewDialogs: "user/viewDialogs" }),
+    ...mapGetters({
+      viewDialogs: "user/viewDialogs",
+      viewUser: "user/viewUser",
+    }),
     localion() {
       return window.location.href;
     },

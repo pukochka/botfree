@@ -31,7 +31,7 @@
     >
       <div class="">
         <q-btn
-          v-if="viewItemsCategory[0].category_id != 0"
+          v-if="viewItemsCategory[0]?.category_id != 0"
           class="q-mt-md"
           flat
           color="secondary"
@@ -141,6 +141,12 @@ export default defineComponent({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",
     }),
+    ...mapMutations({ initApp: "user/initApp" }),
+  },
+  mounted() {
+    if (window.location.href.includes("first_name")) {
+      this.initApp();
+    }
   },
   created() {},
 });
