@@ -10,10 +10,10 @@
           </q-avatar>
         </div>
         <div
-          class="fit text-h5 text-secondary text-weight-bold text-center"
+          class="fit text-h5 text-secondary text-weight-bold ellipsis"
           v-if="width"
         >
-          {{ viewInfo.bot.title }}
+          {{ viewUser.bot_data.name }}
         </div>
       </div>
 
@@ -84,14 +84,15 @@
         <div class="q-pr-md">
           <q-btn
             v-if="!viewUser.no_guest"
-            padding="0 16px"
+            dense
+            padding="4px 16px"
             size="16px"
             outline
             unelevated
             class="fit text-weight-bold"
             color="orange"
             label="Войти"
-            icon="login"
+            icon-right="login"
             no-caps
             no-wrap
             @click="changeDialogs('auth')"
@@ -153,7 +154,7 @@
               >
             </q-btn>
           </div>
-          <div class="col-4" v-if="!viewUser.no_guest">
+          <div class="col-4">
             <q-btn
               flat
               stack

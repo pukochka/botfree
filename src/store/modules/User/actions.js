@@ -7,7 +7,7 @@ export function getUserData({ commit, getters, rootGetters }) {
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,
       {
         bot_id: getters.viewUser.bot_data.id,
-        telegram_id: getters.viewUser.init_telegram.user.id,
+        telegram_id: getters.viewUser.init_telegram.id,
       }
     )
     .then((response) => {
@@ -23,6 +23,8 @@ export function getUserData({ commit, getters, rootGetters }) {
         this.dispatch("order/getOrdersCount");
         this.dispatch("basket/getBasket", { action: "get" });
         this.dispatch("products/getProducts", { category: 0, text: "" });
+
+        commit("SetGuest", true);
       } else {
         commit("changeUserProp", { section: "loading", value: true });
       }

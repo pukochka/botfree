@@ -38,6 +38,13 @@
           icon="chevron_left"
           @click="getProducts({ category: 0, text: '' })"
         />
+        <!-- <q-btn
+          class="q-mt-md"
+          flat
+          color="secondary"
+          icon="update"
+          @click="initApp"
+        /> -->
         <div
           class="q-py-md row items-center"
           v-if="viewItemsCategory.length > 0"

@@ -24,13 +24,11 @@ export function SaveBotData(state, config) {
 //-------------------------------------------------------
 //window.location.search в urlsearchparams
 export function initApp(state) {
-  console.log(window.location.search, window.location.href);
-  // for (const [key, value] of new URLSearchParams(
-  //   "&id=1028741753&first_name=Artemi&last_name=Puka&username=melart1&auth_date=1661095640&hash=8ab3454d2b4eae7d129246b2e00f0675a5bd71e1ccb0bfa8715e673ff46c836f"
-  // )) {
-  //   state.user.init_telegram[key] = value;
-  // }
-  // console.log(state.user.init_telegram);
+  for (const [key, value] of new URLSearchParams(window.location.search)) {
+    state.user.init_telegram[key] = value;
+  }
+
+  console.log(state.user.init_telegram);
 
   // state.user.status = verification(
   //   state.user.init_telegram,
@@ -57,7 +55,7 @@ export function initApp(state) {
   //   console.warn("Авторизация прошла успешно!");
   // }
 
-  // this.dispatch("user/getUserData");
+  this.dispatch("user/getUserData");
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {
