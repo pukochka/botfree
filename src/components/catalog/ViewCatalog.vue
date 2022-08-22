@@ -30,13 +30,19 @@
       v-if="!viewProducts.loading"
     >
       <div class="">
-        <div class="q-py-md row items-center">
-          <div
-            class="my-header text-secondary cursor-pointer"
-            @click="getProducts({ category: 0, text: '' })"
-          >
-            Категории
-          </div>
+        <q-btn
+          v-if="viewItemsCategory[0].category_id != 0"
+          class="q-mt-md"
+          flat
+          color="secondary"
+          icon="chevron_left"
+          @click="getProducts({ category: 0, text: '' })"
+        />
+        <div
+          class="q-py-md row items-center"
+          v-if="viewItemsCategory.length > 0"
+        >
+          <div class="my-header text-secondary cursor-pointer">Категории</div>
         </div>
         <div class="row q-col-gutter-xs">
           <div
@@ -136,9 +142,7 @@ export default defineComponent({
       getReferalBalance: "form/getReferalBalance",
     }),
   },
-  created() {
-    this.getProducts({ category: 0, text: "" });
-  },
+  created() {},
 });
 </script>
 <style lang="scss" scoped>

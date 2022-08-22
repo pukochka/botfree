@@ -91,6 +91,7 @@
             class="fit text-weight-bold"
             color="orange"
             label="Войти"
+            icon="login"
             no-caps
             no-wrap
             @click="changeDialogs('auth')"
@@ -177,7 +178,7 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
 
@@ -202,6 +203,7 @@ export default defineComponent({
     }),
   },
   methods: {
+    ...mapActions({ getDomain: "user/GetDataByDomain" }),
     ...mapMutations({
       initApp: "user/initApp",
       changeTabs: "user/changeUserTab",
@@ -221,7 +223,7 @@ export default defineComponent({
   },
   watch: {},
   mounted() {
-    this.initApp();
+    this.getDomain();
   },
 });
 </script>

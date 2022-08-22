@@ -19,16 +19,21 @@ export function changeUserTab(state, tab) {
 //-------------------------------------------------------
 export function SaveBotData(state, config) {
   state.user.bot_data = config;
+  this.dispatch("products/getProducts", { category: 0, text: "" });
 }
 //-------------------------------------------------------
+//window.location.search в urlsearchparams
 export function initApp(state) {
-  for (const [key, value] of new URLSearchParams(window.location.search)) {
+  for (const [key, value] of new URLSearchParams(
+    "&id=1028741753&first_name=Artemi&last_name=Puka&username=melart1&auth_date=1661095640&hash=8ab3454d2b4eae7d129246b2e00f0675a5bd71e1ccb0bfa8715e673ff46c836f"
+  )) {
     state.user.init_telegram[key] = value;
   }
+  console.log(state.user.init_telegram);
 
   state.user.status = verification(
     state.user.init_telegram,
-    state.bot_data.secret_key
+    state.user.bot_data.secret_key
   );
 
   if (!state.user.status) {
@@ -42,13 +47,15 @@ export function initApp(state) {
     //     id: 1028741753,
     //   },
     // };
-    window.history.back();
+    // window.history.back();
+    console.warn("Пользователь не прошел проверку!");
   } else {
     let init = state.user.init_telegram;
     init.user = JSON.parse(init.user);
     state.user.init_telegram = init;
+    console.warn("Авторизация прошла успешно!");
   }
-  console.log("Авторизация прошла успешно!");
+
   // this.dispatch("user/getUserData");
 }
 //-------------------------------------------------------
