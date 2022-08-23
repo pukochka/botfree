@@ -1,6 +1,7 @@
 <template>
   <div class="">
-    {{ viewUser.warning }}
+    <span class="text-red">lll </span>{{ test
+    }}<span class="text-red"> lll</span>
   </div>
   <div class="row max-xxl center" v-if="!width">
     <span
@@ -143,6 +144,9 @@ export default defineComponent({
     },
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
+    },
+    test() {
+      return window?.Telegram?.WebApp?.initData;
     },
   },
 
