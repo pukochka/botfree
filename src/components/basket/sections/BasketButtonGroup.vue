@@ -122,8 +122,8 @@ export default {
     ...mapActions({ getBasket: "basket/getBasket" }),
     validateCount(value) {
       return (
-        Number(value) > Number(this.prod.setting.min_count) &&
-        Number(value) < Number(this.prod.setting.max_count)
+        Number(value) >= Number(this.prod.setting.min_count) &&
+        Number(value) <= Number(this.prod.setting.max_count)
       );
     },
   },

@@ -151,8 +151,8 @@ export default {
     ...mapMutations({ changeDialogs: "user/changeDialogs" }),
     validateCount(value) {
       return (
-        Number(value) > Number(this.prod.setting.min_count) &&
-        Number(value) < Number(this.prod.setting.max_count)
+        Number(value) >= Number(this.prod.setting.min_count) &&
+        Number(value) <= Number(this.prod.setting.max_count)
       );
     },
   },

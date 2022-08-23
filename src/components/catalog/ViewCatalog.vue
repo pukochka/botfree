@@ -1,5 +1,8 @@
 <template>
   <div class="row max-xxl center" v-if="!width">
+    <div class="">
+      {{ viewUser.warning }}
+    </div>
     <span
       class="
         rounded-borders
