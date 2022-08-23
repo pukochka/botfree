@@ -56,7 +56,7 @@ export function signWithWebsite(state) {
   //
   // }
   console.warn("Авторизация прошла успешно!");
-  this.dispatch("user/getUserData");
+  this.dispatch("user/getUserData", state.user.init_telegram.id);
 }
 export function signWithTelegram() {
   state.user.init_telegram = convertURL(window.Telegram.WebApp.initData);
@@ -65,7 +65,7 @@ export function signWithTelegram() {
   state.user.init_telegram = init;
   console.log(state.user.init_telegram);
   console.warn("Авторизация прошла успешно!");
-  this.dispatch("user/getUserData");
+  this.dispatch("user/getUserData", state.user.init_telegram.user.id);
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {

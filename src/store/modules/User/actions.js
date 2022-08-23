@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createParams } from "src/store/helpers.js";
 
-export function getUserData({ commit, getters, rootGetters }) {
+export function getUserData({ commit, getters, rootGetters }, id) {
   console.log(
     getters.viewUser.bot_data.secret_key,
     getters.viewUser.bot_data.id
@@ -11,7 +11,7 @@ export function getUserData({ commit, getters, rootGetters }) {
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,
       {
         bot_id: getters.viewUser.bot_data.id,
-        telegram_id: getters.viewUser.init_telegram.id,
+        telegram_id: id,
       }
     )
     .then((response) => {
