@@ -225,11 +225,12 @@ export default defineComponent({
   watch: {},
   created() {},
   mounted() {
-    if (window.location.href.includes("first_name")) {
-      this.getDomain("website");
-    } else if (window.Telegram.WebApp.initData != "") {
-      this.getDomain("telegram");
-    } else this.getDomain();
+    this.getDomain("telegram");
+    // if (window.location.href.includes("first_name")) {
+    //   this.getDomain("website");
+    // } else if (window.Telegram.WebApp.initData != "") {
+
+    // } else this.getDomain();
   },
 });
 </script>
