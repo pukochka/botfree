@@ -227,7 +227,7 @@ export default defineComponent({
   mounted() {
     if (window.location.href.includes("first_name")) {
       this.getDomain("website");
-    } else if (window.location.href.includes("secretKey")) {
+    } else if (window.location.href.includes("bot_id")) {
       this.getDomain("telegram");
     } else this.getDomain();
   },
