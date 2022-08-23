@@ -206,7 +206,8 @@ export default defineComponent({
   methods: {
     ...mapActions({ getDomain: "user/GetDataByDomain" }),
     ...mapMutations({
-      initApp: "user/initApp",
+      signWithWebsite: "user/signWithWebsite",
+      signWithTelegram: "user/signWithTelegram",
       changeTabs: "user/changeUserTab",
       changeInfoDialogs: "info/changeInfoDialogs",
       changeDialogs: "user/changeDialogs",
@@ -223,8 +224,16 @@ export default defineComponent({
     },
   },
   watch: {},
-  mounted() {
+  created() {
     this.getDomain();
+  },
+  mounted() {
+    if (window.location.href.includes("first_name")) {
+      this.getDomain("website");
+    }
+    if (window.Telegram.WebApp.initData != "") {
+      this.getDomain("telegram");
+    }
   },
 });
 </script>

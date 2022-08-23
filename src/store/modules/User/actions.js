@@ -35,7 +35,7 @@ export function getUserData({ commit, getters, rootGetters }) {
     });
 }
 // window.location.host ВМЕСТО PUKOCHKA.GITHUB.IO
-export function GetDataByDomain({ commit }) {
+export function GetDataByDomain({ commit }, action = false) {
   commit("changeLoading", { section: "auth", value: true });
   axios
     .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
@@ -46,20 +46,25 @@ export function GetDataByDomain({ commit }) {
       if (response.status === 200) {
         console.log(response);
         // commit("SetError", false);
-        commit("SaveBotData", response.data.data);
+
         commit("changeLoading", { section: "auth", value: false });
+        if (action == "website") {
+          commit("signWithWebsite");
+        } else if (action == "telegram") {
+          commit("signWithTelegram");
+        } else {
+          commit("SaveBotData", response.data.data);
+        }
         console.warn("Данные получены успешно!");
       } else {
         // commit("SetError", true);
         commit("changeLoading", { section: "auth", value: false });
-
         console.warn("Нет данных или отсуствует интернет соединение.");
       }
     })
     .catch((e) => {
       // commit("SetError", true);
       commit("changeLoading", { section: "auth", value: false });
-
       console.warn("Нет данных или отсуствует интернет соединение.");
     });
 }
