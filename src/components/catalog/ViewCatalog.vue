@@ -1,16 +1,4 @@
 <template>
-  <div class="">
-    <span class="text-red">init_telegram </span>{{ viewUser.init_telegram
-    }}<span class="text-red"> lll</span>
-  </div>
-  <div class="">
-    <span class="text-red">bot_data </span>{{ viewUser.bot_data
-    }}<span class="text-red"> lll</span>
-  </div>
-  <div class="">
-    <span class="text-red">web </span>{{ test
-    }}<span class="text-red"> lll</span>
-  </div>
   <div class="row max-xxl center" v-if="!width">
     <span
       class="
