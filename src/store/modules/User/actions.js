@@ -46,14 +46,12 @@ export function GetDataByDomain({ commit }, action = false) {
       if (response.status === 200) {
         console.log(response);
         // commit("SetError", false);
-
+        commit("SaveBotData", response.data.data);
         commit("changeLoading", { section: "auth", value: false });
         if (action == "website") {
           commit("signWithWebsite");
         } else if (action == "telegram") {
           commit("signWithTelegram");
-        } else {
-          commit("SaveBotData", response.data.data);
         }
         console.warn("Данные получены успешно!");
       } else {
