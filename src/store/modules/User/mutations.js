@@ -58,7 +58,7 @@ export function signWithWebsite(state) {
   console.warn("Авторизация прошла успешно!");
   this.dispatch("user/getUserData", state.user.init_telegram.id);
 }
-export function signWithTelegram() {
+export function signWithTelegram(state) {
   let init = convertURL(window.Telegram.WebApp.initData);
   init.user = JSON.parse(init.user);
   state.user.init_telegram = init;
