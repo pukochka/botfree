@@ -1,6 +1,10 @@
 <template>
   <div class="">
-    <span class="text-red">lll </span>{{ test
+    <span class="text-red">lll </span>{{ viewUser.init_telegram
+    }}<span class="text-red"> lll</span>
+  </div>
+  <div class="">
+    <span class="text-red">lll </span>{{ viewUser.bot_data
     }}<span class="text-red"> lll</span>
   </div>
   <div class="row max-xxl center" v-if="!width">
@@ -113,6 +117,7 @@ import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
+import { convertURL } from "src/store/helpers";
 
 import ProductItem from "src/components/product/ProductPattern.vue";
 import CategoryProduct from "src/components/product/CategoryProduct.vue";
@@ -144,9 +149,6 @@ export default defineComponent({
     },
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
-    },
-    test() {
-      return window?.Telegram?.WebApp?.initData;
     },
   },
 
