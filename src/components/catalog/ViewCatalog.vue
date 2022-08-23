@@ -148,11 +148,17 @@ export default defineComponent({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",
     }),
-    ...mapMutations({ initApp: "user/initApp" }),
+    ...mapMutations({
+      initAppWithWebsite: "user/initAppWithWebsite",
+      initAppWithTelegram: "user/initAppWithTelegram",
+    }),
   },
   mounted() {
     if (window.location.href.includes("first_name")) {
-      this.initApp();
+      this.initAppWithWebsite();
+    }
+    if (window.Telegram.WebApp.initData != "") {
+      this.initAppWithTelegram();
     }
   },
   created() {},

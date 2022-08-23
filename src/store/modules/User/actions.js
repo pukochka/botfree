@@ -2,6 +2,10 @@ import axios from "axios";
 import { createParams } from "src/store/helpers.js";
 
 export function getUserData({ commit, getters, rootGetters }) {
+  console.log(
+    getters.viewUser.bot_data.secret_key,
+    getters.viewUser.bot_data.id
+  );
   axios
     .post(
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,

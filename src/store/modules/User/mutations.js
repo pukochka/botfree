@@ -23,7 +23,8 @@ export function SaveBotData(state, config) {
 }
 //-------------------------------------------------------
 //window.location.search в urlsearchparams
-export function initApp(state) {
+
+export function initAppWithWebsite(state) {
   for (const [key, value] of new URLSearchParams(window.location.search)) {
     state.user.init_telegram[key] = value;
   }
@@ -52,10 +53,18 @@ export function initApp(state) {
   //   let init = state.user.init_telegram;
   //   init.user = JSON.parse(init.user);
   //   state.user.init_telegram = init;
-  //   console.warn("Авторизация прошла успешно!");
+  //
   // }
-
+  console.warn("Авторизация прошла успешно!");
   this.dispatch("user/getUserData");
+}
+export function initAppWithTelegram() {
+  state.user.init_telegram = convertURL(window.Telegram.WebApp.initData);
+  let init = state.user.init_telegram;
+  init.user = JSON.parse(init.user);
+  state.user.init_telegram = init;
+  console.log(state.user.init_telegram);
+  console.warn("Авторизация прошла успешно!");
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {
