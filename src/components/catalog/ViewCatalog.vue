@@ -1,4 +1,6 @@
 <template>
+  <div class="">{{ test }}</div>
+  <div class="">{{ viewUser.init_telegram }}</div>
   <div class="row max-xxl center" v-if="!width">
     <span
       class="
