@@ -1,7 +1,4 @@
 <template>
-  <div class="">secretKey {{ test1 }}</div>
-  <div class="">first_name {{ test2 }}</div>
-  <div class="">href {{ test3 }}</div>
   <div class="row max-xxl center" v-if="!width">
     <span
       class="
@@ -15,6 +12,7 @@
       >{{ info.bot.title }}</span
     >
   </div>
+
   <!-- <div class="q-pa-sm max-xxl center">
     <div class="row items-center">
       <div class="my-header text-secondary">Каталог товаров бота</div>

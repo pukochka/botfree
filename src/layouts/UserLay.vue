@@ -225,9 +225,9 @@ export default defineComponent({
   watch: {},
   created() {},
   mounted() {
-    if (window.location.href.includes("first_name")) {
+    if (window.location.href.includes("botfree/?id")) {
       this.getDomain("website");
-    } else if (window.location.href.includes("bot_id")) {
+    } else if (window.location.href.includes("query_id")) {
       this.getDomain("telegram");
     } else this.getDomain();
   },
