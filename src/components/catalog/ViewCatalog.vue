@@ -1,6 +1,7 @@
 <template>
   <div class="">secretKey {{ test1 }}</div>
   <div class="">first_name {{ test2 }}</div>
+  <div class="">href {{ test3 }}</div>
   <div class="row max-xxl center" v-if="!width">
     <span
       class="
@@ -151,6 +152,10 @@ export default defineComponent({
     test2() {
       // window?.Telegram?.WebApp?.initData
       return window.location.href.includes("first_name");
+    },
+    test3() {
+      // window?.Telegram?.WebApp?.initData
+      return window.location.href;
     },
   },
 
