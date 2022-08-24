@@ -1,6 +1,6 @@
 <template>
-  <div class="">{{ test }}</div>
-  <div class="">{{ viewUser.init_telegram }}</div>
+  <div class="">secretKey {{ test1 }}</div>
+  <div class="">first_name {{ test2 }}</div>
   <div class="row max-xxl center" v-if="!width">
     <span
       class="
@@ -144,8 +144,13 @@ export default defineComponent({
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
     },
-    test() {
-      return window?.Telegram?.WebApp?.initData;
+    test1() {
+      // window?.Telegram?.WebApp?.initData
+      return window.location.href.includes("secretKey");
+    },
+    test2() {
+      // window?.Telegram?.WebApp?.initData
+      return window.location.href.includes("first_name");
     },
   },
 
