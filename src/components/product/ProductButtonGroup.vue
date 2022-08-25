@@ -1,5 +1,20 @@
 <template>
-  <div class="absolute-bottom q-mx-sm q-my-sm" v-if="!viewUser.no_guest">
+  <div
+    class="absolute-bottom q-mx-sm q-my-sm"
+    v-if="viewUser.bot_data?.type?.id !== 7"
+  >
+    <q-btn
+      label="Купить"
+      color="secondary"
+      text-color="primary"
+      class="fit"
+      padding="5px 0"
+    />
+  </div>
+  <div
+    class="absolute-bottom q-mx-sm q-my-sm"
+    v-if="!viewUser.no_guest && viewUser.bot_data?.type?.id === 7"
+  >
     <q-btn
       label="В корзину"
       color="secondary"
@@ -9,7 +24,10 @@
       @click="changeDialogs('auth')"
     />
   </div>
-  <div class="absolute-bottom q-mx-sm q-my-sm" v-if="viewUser.no_guest">
+  <div
+    class="absolute-bottom q-mx-sm q-my-sm"
+    v-if="viewUser.no_guest && viewUser.bot_data?.type?.id === 7"
+  >
     <q-btn
       label="В корзину"
       color="secondary"

@@ -12,17 +12,10 @@
       </div>
 
       <div class="row no-wrap justify-between full-width">
-        <div
-          class="text-h5 text-secondary text-weight-bold ellipsis text-center"
-          v-if="width"
-        >
-          {{ viewUser.bot_data.name }}
-        </div>
-
         <div class="row no-wrap" v-if="!width">
-          <div class="col-4">
+          <div :class="typeOfBot">
             <q-btn
-              padding="0 64px"
+              padding="8px 16px"
               size="16px"
               flat
               unelevated
@@ -37,8 +30,9 @@
               @click="correctWork('catalog')"
             />
           </div>
-          <div class="col-4">
+          <div class="col-4" v-if="viewUser.bot_data?.type?.id === 7">
             <q-btn
+              padding="8px 16px"
               size="16px"
               flat
               unelevated
@@ -61,8 +55,9 @@
               >
             </q-btn>
           </div>
-          <div class="col-4">
+          <div :class="typeOfBot">
             <q-btn
+              padding="8px 16px"
               size="16px"
               flat
               unelevated
@@ -86,11 +81,11 @@
           v-if="!viewUser.no_guest"
           dense
           padding="4px 16px"
-          size="16px"
+          size="14px"
           outline
           unelevated
           class="fit text-weight-bold"
-          color="orange"
+          color="secondary"
           label="Войти"
           icon-right="login"
           no-caps
@@ -111,7 +106,7 @@
     >
       <q-toolbar class="" style="padding: 0">
         <div class="fit row">
-          <div class="col-4">
+          <div :class="typeOfBot">
             <q-btn
               flat
               stack
@@ -128,7 +123,7 @@
               @click="correctWork('catalog')"
             />
           </div>
-          <div class="col-4">
+          <div class="col-4" v-if="viewUser.bot_data?.type?.id === 7">
             <q-btn
               flat
               stack
@@ -153,7 +148,7 @@
               >
             </q-btn>
           </div>
-          <div class="col-4">
+          <div :class="typeOfBot">
             <q-btn
               flat
               stack
@@ -201,6 +196,11 @@ export default defineComponent({
       viewTabs: "user/viewTab",
       viewUser: "user/viewUser",
     }),
+    typeOfBot() {
+      if (this.viewUser.bot_data?.type?.id === 7) {
+        return "col-4";
+      } else return "col-6";
+    },
   },
   methods: {
     ...mapActions({ getDomain: "user/GetDataByDomain" }),

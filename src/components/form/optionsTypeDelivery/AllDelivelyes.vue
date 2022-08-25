@@ -17,7 +17,6 @@
       <q-btn
         align="left"
         color="secondary"
-        text-color="primary"
         outline
         class="fit"
         no-caps
@@ -34,7 +33,7 @@
           <div class="text-subtitle1 text-weight-bold">
             {{ delivery.title }}
           </div>
-          <q-separator color="secondary" class="q-mt-xs q-mb-xs" />
+          <q-separator color="secondary" class="q-mx-xs" />
           <div class="text-subtitle2">
             {{ delivery.description }}
           </div>

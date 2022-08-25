@@ -1,10 +1,9 @@
 <template>
   <q-page>
-    <!-- <div class="flex flex-center" v-if="!viewUser.status">
-      Пользователь не авторизован
-    </div> -->
     <q-tab-panels
-      class="min"
+      :style="{
+        'min-height': width ? 'calc(100vh - 105px)' : 'calc(100vh - 51px)',
+      }"
       :class="themeColor"
       v-model="viewTab"
       animated
@@ -42,6 +41,7 @@
         <SalesBot />
       </q-tab-panel>
     </q-tab-panels>
+
     <OrderDanger />
     <NoAuthDialog />
     <!-- <div class="bg-grey-2">
@@ -67,6 +67,8 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
+import { useQuasar } from "quasar";
+import { computed } from "vue";
 
 import Basket from "src/components/basket/ViewBasket.vue";
 
@@ -98,7 +100,13 @@ export default defineComponent({
     NoAuthDialog,
   },
   setup() {
-    return {};
+    const $q = useQuasar();
+    const width = computed(() => {
+      return $q.screen.lt.sm;
+    });
+    return {
+      width,
+    };
   },
   computed: {
     ...mapGetters({ viewUser: "user/viewUser", viewTab: "user/viewTab" }),

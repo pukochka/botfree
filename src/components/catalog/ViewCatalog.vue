@@ -1,18 +1,18 @@
 <template>
-  <div class="row max-xxl center" v-if="!width">
+  <div class="row max-xxl center">
     <span
       class="
         rounded-borders
-        text-secondary text-h4
+        text-secondary
         col-12
         decoration
         text-weight-bolder
         q-pa-sm
       "
-      >{{ info.bot.title }}</span
+      :class="{ 'text-h4': !width, 'text-h6': width }"
+      >{{ viewUser.bot_data.name }}</span
     >
   </div>
-
   <!-- <div class="q-pa-sm max-xxl center">
     <div class="row items-center">
       <div class="my-header text-secondary">Каталог товаров бота</div>
@@ -33,21 +33,28 @@
       <div class="">
         <q-btn
           v-if="viewItemsCategory[0]?.category_id != 0"
-          class="q-mt-md"
+          class="q-mt-xs"
           flat
           color="secondary"
           icon="chevron_left"
           @click="getProducts({ category: 0, text: '' })"
         />
-        <!-- <q-btn
-          class="q-mt-md"
+        <q-btn
+          class="q-mt-xs"
           flat
           color="secondary"
-          icon="update"
-          @click="initApp"
-        /> -->
+          icon="123"
+          @click="testbot(1)"
+        />
+        <q-btn
+          class="q-mt-xs"
+          flat
+          color="secondary"
+          icon="shopping_cart"
+          @click="testbot(7)"
+        />
         <div
-          class="q-py-md row items-center"
+          class="q-pb-md q-pt-sm row items-center"
           v-if="viewItemsCategory.length > 0"
         >
           <div class="my-header text-secondary cursor-pointer">Категории</div>
@@ -110,7 +117,7 @@ import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
-import { convertURL } from "src/store/helpers";
+import verification from "src/telegram";
 
 import ProductItem from "src/components/product/ProductPattern.vue";
 import CategoryProduct from "src/components/product/CategoryProduct.vue";
@@ -143,17 +150,18 @@ export default defineComponent({
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
     },
-    test1() {
-      // window?.Telegram?.WebApp?.initData
-      return window.location.href.includes("secretKey");
-    },
-    test2() {
-      // window?.Telegram?.WebApp?.initData
-      return window.location.href.includes("first_name");
-    },
-    test3() {
-      // window?.Telegram?.WebApp?.initData
-      return window.location.href;
+    test() {
+      return verification(
+        {
+          auth_date: "1661383668",
+          first_name: "Artemi",
+          hash: "17b817e797d1d435741412c65082011d530d67616be3d040f1f8a5fd813d9d6f",
+          id: "1028741753",
+          last_name: "Puka",
+          username: "melart1",
+        },
+        "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e"
+      );
     },
   },
 
@@ -162,6 +170,7 @@ export default defineComponent({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",
     }),
+    ...mapMutations({ testbot: "user/test" }),
   },
 
   created() {},

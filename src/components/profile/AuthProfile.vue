@@ -104,7 +104,7 @@
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable @click="botinfo = !botinfo" class="rounded-borders">
+      <!-- <q-item clickable @click="botinfo = !botinfo" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar
             size="30px"
@@ -158,7 +158,7 @@
             </q-list>
           </div>
         </div>
-      </q-slide-transition>
+      </q-slide-transition> -->
       <q-item clickable @click="info = !info" class="rounded-borders">
         <q-item-section avatar
           ><q-avatar

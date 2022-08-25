@@ -12,6 +12,7 @@ export default function (init, params) {
       checkString,
       CryptoJS.enc.Hex.parse(params)
     ).toString(CryptoJS.enc.Hex);
+    console.log(signature);
     return signature == init.hash;
   } else return false;
 }

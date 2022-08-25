@@ -1,21 +1,17 @@
 <template>
-  <div class="flex flex-center">
-    <div class="column q-gutter-sm">
-      <div class="col-10 col-sm-6 col-md-4 q-pa-md">
-        <q-banner class="bg-brand" rounded>
-          Чтобы совершать совешать покупки необходимо авторизироваться.
-        </q-banner>
+  <div class="">
+    <q-banner class="bg-brand q-ma-md" rounded>
+      <div class="text-subtitle2">
+        Чтобы совершать совешать покупки необходимо авторизироваться.
       </div>
-      <div class="col-10 col-sm-6 col-md-4 q-pa-md">
-        <q-btn
-          dense
-          color="orange"
-          class="fit"
-          label="Войти"
-          @click="changeDialogs('auth')"
-        />
-      </div>
-    </div>
+      <q-btn
+        padding="4px 48px"
+        class="q-mt-sm"
+        color="secondary"
+        label="Войти"
+        @click="changeDialogs('auth')"
+      />
+    </q-banner>
   </div>
 </template>
 <script>

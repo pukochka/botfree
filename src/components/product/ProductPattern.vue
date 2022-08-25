@@ -39,30 +39,29 @@
       <div class="text-caption text-weight-medium text-grey-7 end-dots caption">
         {{ product.design.rules }}
       </div>
-      <div class="row">
-        <div class="col-12 col-sm-4" v-if="product.price.old_price != 0">
-          <q-btn
-            class="text-weight-bold"
-            flat
-            size="20px"
-            padding="0"
-            no-wrap
-            :class="{ underline: product.price.old_price != 0 }"
-            :color="product.price.old_price != 0 ? 'red-5' : 'secondary'"
-            :label="product.price.old_price + ' ' + convertСurrency"
-          />
-        </div>
-        <div class="col-12 col-sm-4">
-          <q-btn
-            class="text-weight-bold"
-            flat
-            size="20px"
-            padding="0"
-            color="secondary"
-            no-wrap
-            :label="product.price.full"
-          />
-        </div>
+      <div class="">
+        <q-btn
+          v-if="product.price.old_price != 0"
+          class="text-weight-bold underline"
+          flat
+          unelevated
+          size="20px"
+          padding="0"
+          no-wrap
+          color="red-5"
+          :label="product.price.old_price + ' ' + convertСurrency"
+        />
+        <q-btn
+          class="text-weight-bold"
+          flat
+          unelevated
+          size="20px"
+          padding="0"
+          color="secondary"
+          no-wrap
+          :class="{ 'q-ml-sm': product.price.old_price != 0 }"
+          :label="product.price.full"
+        />
       </div>
 
       <div class="q-py-md">
