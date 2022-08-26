@@ -7,6 +7,7 @@ import user from "./modules/User";
 import info from "./modules/Info";
 import form from "./modules/Form";
 import products from "./modules/Products";
+import digital from "./modules/Digital";
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
@@ -17,6 +18,7 @@ export default store(function (/* { ssrContext } */) {
       user,
       form,
       products,
+      digital,
     },
     strict: process.env.DEBUGGING,
   });

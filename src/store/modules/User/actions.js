@@ -39,7 +39,7 @@ export function GetDataByDomain({ commit }, action = false) {
   axios
     .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
       type_id: 1,
-      public_key: "pukochka.github.io",
+      public_key: window.location.host,
     })
     .then((response) => {
       if (response.status === 200) {

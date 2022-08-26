@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="max-xxl center">
     <q-banner class="bg-brand q-ma-md" rounded>
       <div class="text-subtitle2">
         Чтобы совершать совешать покупки необходимо авторизироваться.
