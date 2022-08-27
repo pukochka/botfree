@@ -9,6 +9,7 @@
       text-color="primary"
       class="fit"
       padding="5px 0"
+      @click="selectDigital"
     />
   </div>
   <div
@@ -136,6 +137,7 @@
 <script>
 import { ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
+
 export default {
   props: {
     prod: {
@@ -166,7 +168,15 @@ export default {
   },
   methods: {
     ...mapActions({ getBasket: "basket/getBasket" }),
-    ...mapMutations({ changeDialogs: "user/changeDialogs" }),
+    ...mapMutations({
+      changeDialogs: "user/changeDialogs",
+      changeTab: "user/changeUserTab",
+      changeDigitalSelect: "digital/changeDigitalSelect",
+    }),
+    selectDigital() {
+      this.changeDigitalSelect(this.prod);
+      this.changeTab("digital");
+    },
     validateCount(value) {
       return (
         Number(value) >= Number(this.prod.setting.min_count) &&

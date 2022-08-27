@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header bordered class="row items-center bg-primary no-wrap">
-      <div class="row no-wrap items-center">
+    <q-header bordered class="bg-primary">
+      <!-- <div class="row no-wrap items-center">
         <div class="q-mx-sm" :class="{ 'q-mx-lg': !width }">
           <q-avatar color="transparent" size="50px" rounded>
             <div class="q-pa-xs fit">
@@ -9,9 +9,91 @@
             </div>
           </q-avatar>
         </div>
-      </div>
+      </div> -->
+      <div class="max-max center flex no-wrap justify-between q-py-xs">
+        <div class="">
+          <div class="flex no-wrap" v-if="!width">
+            <q-btn
+              fab
+              icon="menu"
+              padding="8px 16px"
+              size="16px"
+              flat
+              unelevated
+              class="text-weight-bold"
+              :class="{
+                'text-secondary': viewTabs == 'catalog',
+                'text-accent': viewTabs != 'catalog',
+              }"
+              label="Каталог"
+              no-caps
+              no-wrap
+              @click="correctWork('catalog')"
+            />
 
-      <div class="row no-wrap justify-between full-width">
+            <q-btn
+              fab
+              icon="shopping_cart"
+              v-if="viewUser.bot_data?.type?.id === 7"
+              padding="8px 16px"
+              size="16px"
+              flat
+              unelevated
+              class="text-weight-bold"
+              :class="{
+                'text-secondary ': viewTabs == 'basket',
+                'text-accent': viewTabs != 'basket',
+              }"
+              label="Корзина"
+              no-caps
+              no-wrap
+              @click="correctWork('basket')"
+            >
+              <q-badge
+                v-if="viewBasket.data.countItems > 0"
+                class="absolute-top-right"
+                rounded
+                color="red-4"
+                >{{ viewBasket.data.countItems }}</q-badge
+              >
+            </q-btn>
+
+            <q-btn
+              icon="person"
+              fab
+              padding="8px 16px"
+              size="16px"
+              flat
+              unelevated
+              class="text-weight-bold"
+              :class="{
+                'text-secondary': viewTabs == 'profile',
+                'text-accent': viewTabs != 'profile',
+              }"
+              color="secondary"
+              label="Профиль"
+              no-caps
+              no-wrap
+              @click="correctWork('profile')"
+            />
+          </div>
+        </div>
+        <q-btn
+          v-if="!viewUser.no_guest"
+          dense
+          padding="4px 16px"
+          size="14px"
+          outline
+          unelevated
+          class="text-weight-bold q-mr-md"
+          color="secondary"
+          label="Войти"
+          no-caps
+          no-wrap
+          @click="changeDialogs('auth')"
+        />
+      </div>
+      <!-- <div class="row no-wrap justify-between full-width max-max center">
         <div class="row no-wrap" v-if="!width">
           <div :class="typeOfBot">
             <q-btn
@@ -75,7 +157,6 @@
           </div>
         </div>
       </div>
-
       <div class="q-pr-md">
         <q-btn
           v-if="!viewUser.no_guest"
@@ -92,7 +173,7 @@
           no-wrap
           @click="changeDialogs('auth')"
         />
-      </div>
+      </div> -->
     </q-header>
 
     <q-page-container>
@@ -197,9 +278,8 @@ export default defineComponent({
       viewUser: "user/viewUser",
     }),
     typeOfBot() {
-      if (this.viewUser.bot_data?.type?.id === 7) {
-        return "col-4";
-      } else return "col-6";
+      if (this.viewUser.bot_data?.type?.id === 7) return "col-4";
+      else return "col-6";
     },
   },
   methods: {
@@ -228,7 +308,7 @@ export default defineComponent({
     if (window.location.href.includes("botfree/?id")) {
       this.getDomain("website");
     } else if (window.location.href.includes("query_id")) {
-      this.getDomain("telegram");
+      this.signWithTelegram();
     } else this.getDomain();
   },
 });

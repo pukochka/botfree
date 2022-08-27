@@ -4,6 +4,7 @@ export default function () {
   return {
     digital: {
       order: {},
+      select: {},
       loading: {
         create: false,
         get: false,

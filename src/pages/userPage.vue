@@ -40,27 +40,14 @@
       <q-tab-panel name="sales" class="q-pa-none">
         <SalesBot />
       </q-tab-panel>
+
+      <q-tab-panel name="digital" class="q-pa-none">
+        <DigitalSelect />
+      </q-tab-panel>
     </q-tab-panels>
 
     <OrderDanger />
     <NoAuthDialog />
-    <!-- <div class="bg-grey-2">
-      <q-separator />
-      <div class="q-pa-sm q-px-lg row justify-between items-center">
-        <q-btn
-          flat
-          dense
-          color="primary"
-          padding="4px 8px"
-          label="Другая информация"
-        />
-        <div class="social q-gutter-md">
-          <q-avatar size="30px" color="primary" text-color="white" />
-          <q-avatar size="30px" color="blue-4" text-color="white" />
-          <q-avatar size="30px" color="purple-4" text-color="white" />
-        </div>
-      </div>
-    </div> -->
   </q-page>
 </template>
 
@@ -85,6 +72,8 @@ import SalesBot from "src/components/profile/sections/ProfileSales.vue";
 import OrderDanger from "src/components/infoDialogs/OrderDanger.vue";
 import NoAuthDialog from "../components/infoDialogs/NoAuthDialog.vue";
 
+import DigitalSelect from "src/components/digital/DigitalSelect.vue";
+
 export default defineComponent({
   name: "IndexPage",
   components: {
@@ -98,6 +87,7 @@ export default defineComponent({
     SalesBot,
     OrderDanger,
     NoAuthDialog,
+    DigitalSelect,
   },
   setup() {
     const $q = useQuasar();

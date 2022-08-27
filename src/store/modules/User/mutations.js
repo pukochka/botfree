@@ -26,13 +26,15 @@ export function signWithWebsite(state) {
   for (const [key, value] of new URLSearchParams(window.location.search)) {
     state.user.init_telegram[key] = value;
   }
-  // state.user.status = verification(
-  //   state.user.init_telegram,
-  //   state.user.bot_data.secret_key
-  // );
   this.dispatch("user/getUserData", state.user.init_telegram.id);
 }
 export function signWithTelegram(state) {
+  let bot = convertURL(window.location.search);
+  state.user.bot_data = {
+    id: bot.bot_id,
+    secret_key: bot.secretKey,
+  };
+  this.dispatch("products/getProducts", { category: 0, text: "" });
   let init = convertURL(window.Telegram.WebApp.initData);
   init.user = JSON.parse(init.user);
   state.user.init_telegram = init;
@@ -53,7 +55,7 @@ export function changeColor(state, { text, background, add, id }) {
 export function changeUserTheme(state) {
   state.user.theme.is_dark = !state.user.theme.is_dark;
   const { background, text, add } = state.user.colors.filter(
-    (item) => item.select == true
+    (item) => item.select === true
   )[0];
   setCssVar(
     "primary",

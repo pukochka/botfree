@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getUserData({ commit, getters, rootGetters }, id) {
+export function getUserData({ commit, getters }, id) {
   console.log(
     getters.viewUser.bot_data.secret_key,
     getters.viewUser.bot_data.id
@@ -39,7 +39,7 @@ export function GetDataByDomain({ commit }, action = false) {
   axios
     .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
       type_id: 1,
-      public_key: window.location.host,
+      public_key: "pukochka.github.io",
     })
     .then((response) => {
       if (response.status === 200) {
