@@ -80,6 +80,9 @@ body {
   }
 }
 .min-h {
+  &-ss {
+    min-height: 50px;
+  }
   &-xs {
     min-height: 150px;
   }

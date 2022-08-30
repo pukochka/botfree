@@ -29,12 +29,6 @@ export function signWithWebsite(state) {
   this.dispatch("user/getUserData", state.user.init_telegram.id);
 }
 export function signWithTelegram(state) {
-  let bot = convertURL(window.location.search);
-  state.user.bot_data = {
-    id: bot.bot_id,
-    secret_key: bot.secretKey,
-  };
-  this.dispatch("products/getProducts", { category: 0, text: "" });
   let init = convertURL(window.Telegram.WebApp.initData);
   init.user = JSON.parse(init.user);
   state.user.init_telegram = init;

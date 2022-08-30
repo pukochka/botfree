@@ -20,9 +20,16 @@
         }"
       ></div>
     </div>
-
-    <div class="q-pb-sm text-h6 text-secondary text-weight-medium">
-      {{ product.design.title }}
+    <div class="bg-primary borders-bottom q-pl-sm">
+      <div class="text-h6 text-secondary text-weight-medium">
+        {{ product.design.title }}
+      </div>
+      <div
+        class="text-caption text-secondary q-pb-sm"
+        v-if="product.design.rules != ''"
+      >
+        {{ product.design.rules }}
+      </div>
     </div>
   </div>
 </template>
@@ -66,5 +73,9 @@ export default {
   background-size: contain;
   background-position: center;
   border-radius: 4px;
+}
+.borders-bottom {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 </style>

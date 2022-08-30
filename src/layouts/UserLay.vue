@@ -1,16 +1,7 @@
 <template>
   <q-layout view="lHr lpR lFf">
-    <q-header bordered class="bg-primary">
-      <!-- <div class="row no-wrap items-center">
-        <div class="q-mx-sm" :class="{ 'q-mx-lg': !width }">
-          <q-avatar color="transparent" size="50px" rounded>
-            <div class="q-pa-xs fit">
-              <img src="~assets/logo.png" alt="bott" />
-            </div>
-          </q-avatar>
-        </div>
-      </div> -->
-      <div class="max-max center flex no-wrap justify-between q-py-xs">
+    <q-header bordered class="bg-primary" v-if="!viewUser.no_guest || !width">
+      <div class="max-max center flex no-wrap justify-between q-py-xs min-h-ss">
         <div class="">
           <div class="flex no-wrap" v-if="!width">
             <q-btn
@@ -93,87 +84,6 @@
           @click="changeDialogs('auth')"
         />
       </div>
-      <!-- <div class="row no-wrap justify-between full-width max-max center">
-        <div class="row no-wrap" v-if="!width">
-          <div :class="typeOfBot">
-            <q-btn
-              padding="8px 16px"
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary': viewTabs == 'catalog',
-                'text-accent': viewTabs != 'catalog',
-              }"
-              label="Каталог"
-              no-caps
-              no-wrap
-              @click="correctWork('catalog')"
-            />
-          </div>
-          <div class="col-4" v-if="viewUser.bot_data?.type?.id === 7">
-            <q-btn
-              padding="8px 16px"
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary ': viewTabs == 'basket',
-                'text-accent': viewTabs != 'basket',
-              }"
-              label="Корзина"
-              no-caps
-              no-wrap
-              @click="correctWork('basket')"
-            >
-              <q-badge
-                v-if="viewBasket.data.countItems > 0"
-                class="absolute-top-right"
-                rounded
-                color="red-4"
-                >{{ viewBasket.data.countItems }}</q-badge
-              >
-            </q-btn>
-          </div>
-          <div :class="typeOfBot">
-            <q-btn
-              padding="8px 16px"
-              size="16px"
-              flat
-              unelevated
-              class="fit text-weight-bold"
-              :class="{
-                'text-secondary': viewTabs == 'profile',
-                'text-accent': viewTabs != 'profile',
-              }"
-              color="secondary"
-              label="Профиль"
-              no-caps
-              no-wrap
-              @click="correctWork('profile')"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="q-pr-md">
-        <q-btn
-          v-if="!viewUser.no_guest"
-          dense
-          padding="4px 16px"
-          size="14px"
-          outline
-          unelevated
-          class="fit text-weight-bold"
-          color="secondary"
-          label="Войти"
-          icon-right="login"
-          no-caps
-          no-wrap
-          @click="changeDialogs('auth')"
-        />
-      </div> -->
     </q-header>
 
     <q-page-container>
@@ -308,7 +218,7 @@ export default defineComponent({
     if (window.location.href.includes("botfree/?id")) {
       this.getDomain("website");
     } else if (window.location.href.includes("query_id")) {
-      this.signWithTelegram();
+      this.getDomain("telegram");
     } else this.getDomain();
   },
 });
