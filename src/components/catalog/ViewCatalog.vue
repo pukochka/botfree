@@ -13,12 +13,6 @@
       >{{ viewUser.bot_data.name }}</span
     >
   </div>
-  <!-- <div class="q-pa-sm max-xxl center">
-    <div class="row items-center">
-      <div class="my-header text-secondary">Каталог товаров бота</div>
-    </div>
-    <q-separator class="q-my-xs" :dark="viewUser.theme.is_dark" />
-  </div> -->
 
   <Transition name="fade">
     <div class="fixed-center" v-if="viewProducts.loading">
@@ -150,14 +144,6 @@ export default defineComponent({
     },
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
-    },
-    test() {
-      return verification(
-        convertURL(
-          "query_id=AAF5WlE9AAAAAHlaUT3Q6aAr&user=%7B%22id%22%3A1028741753%2C%22first_name%22%3A%22Artemi%22%2C%22last_name%22%3A%22Puka%22%2C%22username%22%3A%22melart1%22%2C%22language_code%22%3A%22ru%22%7D&auth_date=1661217705&hash=0404f29c3555a8fe4221a3a12b6075a1782069145640b84a25d78b30e23affe6"
-        ),
-        "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e"
-      );
     },
   },
 

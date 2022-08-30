@@ -1,5 +1,14 @@
 <template>
-  <div class=""></div>
+  <div class="absolute-bottom q-mx-sm q-my-sm">
+    <q-btn
+      label="Купить"
+      color="secondary"
+      text-color="primary"
+      class="fit"
+      padding="5px 0"
+      @click="changeDialogs('auth')"
+    />
+  </div>
 </template>
 <script>
 import { defineComponent, ref } from "vue";
@@ -9,6 +18,8 @@ export default defineComponent({
   setup() {
     return {};
   },
-  methods: {},
+  methods: {
+    ...mapMutations({ changeDialogs: "user/changeDialogs" }),
+  },
 });
 </script>

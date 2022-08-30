@@ -59,7 +59,7 @@ import { computed } from "vue";
 
 import Basket from "src/components/basket/ViewBasket.vue";
 
-import Catalog from "src/components/catalog/ViewCatalog.vue";
+import Catalog from "src/components/catalog/AllCatalog.vue";
 
 import Orders from "src/components/order/ViewOrders.vue";
 import FormOrder from "src/components/form/ViewForm.vue";

@@ -2,16 +2,16 @@
   <div class="">
     <q-tab-panels
       :class="themeColor"
-      v-model="viewOrders.tab"
+      v-model="viewSelectTab"
       animated
       transition-next="slide-left"
       transition-prev="slide-right"
     >
       <q-tab-panel name="all">
-        <AllOrders />
+        <ViewCatalog />
       </q-tab-panel>
-      <q-tab-panel name="selected">
-        <CurrentOrder :select="viewOrders.select" />
+      <q-tab-panel name="select">
+        <SelectProduct />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -20,20 +20,20 @@
 import { ref, defineComponent, computed } from "vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 
-import AllOrders from "src/components/order/AllOrders.vue";
-import CurrentOrder from "src/components/order/CurrentOrder.vue";
+import SelectProduct from "src/components/catalog/SelectProduct.vue";
+import ViewCatalog from "src/components/catalog/ViewCatalog.vue";
 
 export default defineComponent({
   components: {
-    AllOrders,
-    CurrentOrder,
+    SelectProduct,
+    ViewCatalog,
   },
   setup() {
     return {};
   },
   computed: {
     ...mapGetters({
-      viewOrders: "order/viewOrders",
+      viewSelectTab: "select/viewSelectTab",
       viewUser: "user/viewUser",
     }),
     themeColor() {

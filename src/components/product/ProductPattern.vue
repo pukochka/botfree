@@ -15,6 +15,7 @@
       </div>
     </Transition>
     <div
+      @click="changeSelectProduct(product)"
       class="bg-primary"
       :class="{ 'flex flex-center': !product.design.image }"
     >
@@ -33,13 +34,15 @@
     </div>
 
     <div class="q-pa-md">
-      <div class="end-dots title text-secondary">
-        {{ product.design.title }}
-      </div>
-      <div class="text-caption text-weight-medium text-grey-7 end-dots caption">
-        {{ product.design.rules }}
-      </div>
-      <div class="">
+      <q-item-section @click="changeSelectProduct(product)">
+        <q-item-label lines="1" class="text-secondary title">{{
+          product.design.title
+        }}</q-item-label>
+        <q-item-label caption lines="2" class="text-secondary">{{
+          product.design.rules
+        }}</q-item-label>
+      </q-item-section>
+      <div @click="changeSelectProduct(product)">
         <q-btn
           v-if="product.price.old_price != 0"
           class="text-weight-bold underline"
@@ -65,7 +68,7 @@
       </div>
 
       <div class="q-py-md">
-        <ProductButtonGroup class="" :prod="product" />
+        <ProductButtonGroup :prod="product" />
       </div>
     </div>
   </q-card>
@@ -106,6 +109,9 @@ export default {
       }
     },
   },
+  methods: {
+    ...mapMutations({ changeSelectProduct: "select/changeSelectProduct" }),
+  },
   setup() {},
 };
 </script>
@@ -115,9 +121,6 @@ export default {
 }
 .title {
   font-size: 16px;
-  line-height: 16px;
-  font-weight: 600;
-  margin-bottom: 6px;
 }
 .caption {
   line-height: 14px;

@@ -1,10 +1,6 @@
 import axios from "axios";
 
 export function getUserData({ commit, getters }, id) {
-  console.log(
-    getters.viewUser.bot_data.secret_key,
-    getters.viewUser.bot_data.id
-  );
   axios
     .post(
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,
@@ -39,7 +35,10 @@ export function GetDataByDomain({ commit }, action = false) {
   axios
     .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
       type_id: 1,
-      public_key: window.location.host,
+      public_key:
+        window.location.host == "localhost:8080"
+          ? "pukochka.github.io"
+          : window.location.host,
     })
     .then((response) => {
       if (response.status === 200) {

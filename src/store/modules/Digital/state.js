@@ -2,7 +2,7 @@ import { ref } from "vue";
 
 export default function () {
   return {
-    digital: {
+    digital: ref({
       order: {},
       select: {},
       loading: {
@@ -12,6 +12,6 @@ export default function () {
         count: false,
         cancel: false,
       },
-    },
+    }),
   };
 }

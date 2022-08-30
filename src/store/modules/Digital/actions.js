@@ -24,6 +24,7 @@ export function GetDigitalData(
         commit("changeDigitalLoading", { section: action, value: false });
 
         commit("changeDigitalData", response.data.data);
+        commit("user/changeUserTab", "digital", { root: true });
       }
     })
     .catch((err) => {

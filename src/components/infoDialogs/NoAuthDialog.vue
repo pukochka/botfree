@@ -29,7 +29,7 @@
 <script>
 import { ref, defineComponent } from "vue";
 import { mapMutations, mapGetters } from "vuex";
-export default {
+export default defineComponent({
   setup() {
     return {};
   },
@@ -45,5 +45,5 @@ export default {
   methods: {
     ...mapMutations({ changeDialogs: "user/changeDialogs" }),
   },
-};
+});
 </script>
