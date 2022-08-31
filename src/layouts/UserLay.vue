@@ -224,7 +224,7 @@ export default defineComponent({
       this.getDomain("website");
     } else if (window.location.href.includes("query_id")) {
       let init = convertURL(window.location.search);
-      this.GetBotData({ id: Number(init.bot_id), key: init.secretKey });
+      this.GetBotData({ id: init.bot_id, key: init.secretKey });
     } else this.getDomain();
   },
 });

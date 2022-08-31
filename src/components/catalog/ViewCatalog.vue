@@ -48,6 +48,7 @@
           icon="shopping_cart"
           @click="testbot(7)"
         />
+
         <div
           class="q-pb-md q-pt-sm row items-center"
           v-if="viewItemsCategory.length > 0"
@@ -141,6 +142,7 @@ export default defineComponent({
     ...mapActions({
       getProducts: "products/getProducts",
       getReferalBalance: "form/getReferalBalance",
+      getBotData: "user/GetBotData",
     }),
     ...mapMutations({ testbot: "user/test" }),
   },
