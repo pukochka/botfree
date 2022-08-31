@@ -1,6 +1,5 @@
 <template>
   <div class="row max-xxl center">
-    {{ href }}
     <span
       class="
         rounded-borders
@@ -34,7 +33,7 @@
           icon="chevron_left"
           @click="getProducts({ category: 0, text: '' })"
         />
-        <q-btn
+        <!-- <q-btn
           class="q-mt-xs"
           flat
           color="secondary"
@@ -47,7 +46,7 @@
           color="secondary"
           icon="shopping_cart"
           @click="testbot(7)"
-        />
+        /> -->
 
         <div
           class="q-pb-md q-pt-sm row items-center"
