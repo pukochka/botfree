@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getUserData({ commit, getters }, id) {
+export function getUserData({ commit, getters, rootGetters }, id) {
   axios
     .post(
       `https://api.bot-t.com/v1/bot/user-key/view-by-telegram-id?secretKey=${getters.viewUser.bot_data.secret_key}`,
@@ -18,9 +18,18 @@ export function getUserData({ commit, getters }, id) {
         });
 
         this.dispatch("info/getBot");
-        this.dispatch("order/getOrders", { action: "index", offset: 0 });
-        this.dispatch("order/getOrdersCount");
-        this.dispatch("basket/getBasket", { action: "get" });
+        if (getters.viewUser.bot_data.type.id === 7) {
+          this.dispatch("order/getOrders", { action: "index", offset: 0 });
+          this.dispatch("order/getOrdersCount");
+          this.dispatch("basket/getBasket", { action: "get" });
+        } else {
+          this.dispatch("digital/GetDigitalData", {
+            action: "index",
+            offset: 0,
+          });
+          this.dispatch("digital/GetDigitalOrderCount");
+        }
+
         this.dispatch("products/getProducts", { category: 0, text: "" });
 
         commit("SetGuest", true);
@@ -37,7 +46,7 @@ export function GetDataByDomain({ commit }, action = false) {
       type_id: 1,
       public_key:
         window.location.host == "localhost:8080"
-          ? "pukochka.github.io"
+          ? "shopdigital.bot-t.com"
           : window.location.host,
     })
     .then((response) => {

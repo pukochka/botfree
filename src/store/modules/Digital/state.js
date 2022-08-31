@@ -5,6 +5,8 @@ export default function () {
     digital: ref({
       order: {},
       select: {},
+      last: [],
+      count: 0,
       loading: {
         create: false,
         get: false,

@@ -1,5 +1,6 @@
 <template>
   <div class="row max-xxl center">
+    {{ href }}
     <span
       class="
         rounded-borders
@@ -10,7 +11,7 @@
         q-pa-sm
       "
       :class="{ 'text-h4': !width, 'text-h6': width }"
-      >{{ viewUser.bot_data.name }}</span
+      >{{ viewUser.bot_data.title }}</span
     >
   </div>
 
@@ -82,24 +83,10 @@
             <ProductItem class="" :product="product" />
           </div>
           <div
-            class="col-12 flex flex-center"
+            class="text-h6 text-secondary"
             v-if="viewItemsProduct.length == 0"
           >
-            <div
-              class="
-                active
-                bg-primary
-                q-pa-md
-                text-center
-                rounded-borders
-                flex flex-center
-                relative-position
-              "
-            >
-              <div class="active-drop fit absolute-center"></div>
-
-              <div class="text-white text-subtitle1">Товаров пока нет</div>
-            </div>
+            Товаров пока нет
           </div>
         </div>
       </div>
@@ -144,6 +131,9 @@ export default defineComponent({
     },
     viewItemsProduct() {
       return this.viewProducts.data.filter((item) => item.type != 0);
+    },
+    href() {
+      return window.location.href;
     },
   },
 

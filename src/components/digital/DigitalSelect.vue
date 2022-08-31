@@ -1,7 +1,7 @@
 <template>
   <div class="max-lg center">
     <div
-      class="bg-primary"
+      class="bg-primary q-mt-md"
       :class="{ 'flex flex-center': !product.design.image }"
     >
       <q-avatar
@@ -25,26 +25,46 @@
         {{ product.design.rules }}
       </div>
     </div>
-    <div class="text-subtitle1 text-orange">
-      Внимание после выбора доставки, Вас перенаправит в бота!
-    </div>
-    <div class="q-my-sm">
+
+    <!-- <div class="q-my-sm">
       <DigitalCoupon />
     </div>
+
     <div class="q-my-sm">
       <DigitalSales />
-    </div>
-    <div class="flex justify-between q-px-md">
+    </div> -->
+    <div class="flex justify-between">
       <div class="text-secondary text-weight-bold text-h6">Итого</div>
       <div class="text-secondary text-weight-bold text-h6">
-        {{ viewDigitalOrder.price.full }}
+        {{ product.price.full }}
       </div>
     </div>
-    <q-separator color="secondary" class="q-mx-md" />
+    <q-separator color="secondary" />
 
-    <div class="row">
-      <q-btn color="red" flat label="Отменить заказ" class="col-12" />
-      <q-btn color="secondary" label="Оплатить" class="col-12" />
+    <div class="row q-pt-md q-gutter-sm">
+      <q-btn
+        color="secondary"
+        label="Оплатить"
+        class="col-12"
+        :href="viewDigitalOrder.order.product.data"
+        target="_blank"
+      />
+      <q-btn
+        :loading="viewDigitalOrder.loading.cancel"
+        color="red"
+        flat
+        label="Отменить заказ"
+        class="col-12"
+        @click="
+          CancelDigitalOrder({
+            action: 'cancel',
+            order_id: viewDigitalOrder.order.id,
+          })
+        "
+      />
+      <div class="text-subtitle1 text-orange">
+        Внимание после выбора доставки, Вас перенаправит в бота!
+      </div>
     </div>
   </div>
 </template>
@@ -70,8 +90,11 @@ export default defineComponent({
   computed: {
     ...mapGetters({ viewDigitalOrder: "digital/viewDigital" }),
     product() {
-      return this.viewDigitalOrder.product;
+      return this.viewDigitalOrder.order.category;
     },
+  },
+  methods: {
+    ...mapActions({ CancelDigitalOrder: "digital/GetDigitalData" }),
   },
 });
 </script>

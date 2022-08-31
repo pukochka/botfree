@@ -45,7 +45,7 @@
       <div @click="changeSelectProduct(product)">
         <q-btn
           v-if="product.price.old_price != 0"
-          class="text-weight-bold underline"
+          class="text-weight-bold text-strike"
           flat
           unelevated
           size="20px"
@@ -132,8 +132,5 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-}
-.underline {
-  text-decoration: line-through;
 }
 </style>
