@@ -168,6 +168,8 @@ import { mapMutations, mapGetters, mapActions } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
 
+import { convertURL } from "../store/helpers";
+
 export default defineComponent({
   setup() {
     const $q = useQuasar();
@@ -193,7 +195,10 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapActions({ getDomain: "user/GetDataByDomain" }),
+    ...mapActions({
+      getDomain: "user/GetDataByDomain",
+      GetBotData: "user/GetBotData",
+    }),
     ...mapMutations({
       signWithWebsite: "user/signWithWebsite",
       signWithTelegram: "user/signWithTelegram",
@@ -218,7 +223,8 @@ export default defineComponent({
     if (window.location.href.includes("botfree/?id")) {
       this.getDomain("website");
     } else if (window.location.href.includes("query_id")) {
-      this.getDomain("telegram");
+      let init = convertURL(window.location.search);
+      this.GetBotData({ id: init.bot_id, key: init.secretKey });
     } else this.getDomain();
   },
 });

@@ -53,30 +53,3 @@ export function getSales({ commit, rootGetters }) {
       }
     });
 }
-
-export function getBot({ commit, rootGetters }) {
-  commit("changeInfoloading", {
-    section: "bot",
-    value: true,
-  });
-  axios
-    .post(
-      `https://api.bot-t.com/v1/bot/main/info?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
-      {
-        bot_id: rootGetters["user/viewUser"].bot_data.id,
-      }
-    )
-    .then((response) => {
-      console.log(response, "Бот");
-      if (response.status === 200) {
-        commit("changeInfoData", {
-          section: "bot",
-          value: JSON.parse(response.data).data,
-        });
-        commit("changeInfoloading", {
-          section: "rules",
-          value: false,
-        });
-      }
-    });
-}

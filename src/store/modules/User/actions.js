@@ -17,7 +17,6 @@ export function getUserData({ commit, getters, rootGetters }, id) {
           value: response.data.data,
         });
 
-        this.dispatch("info/getBot");
         if (getters.viewUser.bot_data.type.id === 7) {
           this.dispatch("order/getOrders", { action: "index", offset: 0 });
           this.dispatch("order/getOrdersCount");
@@ -71,5 +70,19 @@ export function GetDataByDomain({ commit }, action = false) {
       // commit("SetError", true);
       commit("changeLoading", { section: "auth", value: false });
       console.warn("Нет данных или отсуствует интернет соединение.");
+    });
+}
+
+export function GetBotData({ commit, rootGetters }, { id, key }) {
+  axios
+    .post(`https://api.bot-t.com/v1/bot/main/info?secretKey=${key}`, {
+      bot_id: id,
+    })
+    .then((response) => {
+      console.log(response, "Бот");
+      if (response.status === 200) {
+        commit("SaveBotData", response.data.data);
+        commit("signWithTelegram");
+      }
     });
 }

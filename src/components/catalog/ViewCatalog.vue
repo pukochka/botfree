@@ -133,7 +133,7 @@ export default defineComponent({
       return this.viewProducts.data.filter((item) => item.type != 0);
     },
     href() {
-      return window.location.href;
+      return convertURL(window.location.search);
     },
   },
 
