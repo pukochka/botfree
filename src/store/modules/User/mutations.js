@@ -17,9 +17,13 @@ export function changeUserTab(state, tab) {
   }
 }
 //-------------------------------------------------------
-export function SaveBotData(state, config) {
+export function SaveBotDataWeb(state, config) {
   state.user.bot_data = config;
   this.dispatch("products/getProducts", { category: 0, text: "" });
+}
+//-------------------------------------------------------
+export function SaveBotDataTelegram(state, config) {
+  state.user.bot_data = config;
 }
 //-------------------------------------------------------
 export function signWithWebsite(state) {

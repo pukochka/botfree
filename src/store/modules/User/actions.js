@@ -52,7 +52,7 @@ export function GetDataByDomain({ commit }, action = false) {
       if (response.status === 200) {
         console.log(response);
         // commit("SetError", false);
-        commit("SaveBotData", response.data.data);
+        commit("SaveBotDataWeb", response.data.data);
         commit("changeLoading", { section: "auth", value: false });
         if (action == "website") {
           commit("signWithWebsite");
@@ -81,7 +81,7 @@ export function GetBotData({ commit, rootGetters }, { id, key }) {
     .then((response) => {
       console.log(response, "Бот");
       if (response.status === 200) {
-        commit("SaveBotData", JSON.parse(response.data.data));
+        commit("SaveBotDataTelegram", JSON.parse(response.data.data));
         commit("signWithTelegram");
       }
     });
