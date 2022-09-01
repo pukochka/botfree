@@ -7,17 +7,23 @@
     </div>
     <div
       class="q-pa-md text-h6 text-secondary"
-      v-if="viewInfo.rules?.help == null && viewInfo.rules?.rules == null"
+      v-if="
+        viewInfo.rules?.help == null &&
+        viewInfo.rules?.rules == null &&
+        !viewInfo.loading.rules
+      "
     >
       Владелец магазина пока не заполнил данную информацию.
     </div>
-    <div class="q-py-md text-secondary" v-if="!viewInfo.loading.rules">
-      <div class="text-h6">Помощь</div>
-      <div class="text-secondary">{{ viewInfo.rules?.help }}</div>
-    </div>
-    <div class="q-py-md text-secondary" v-if="!viewInfo.loading.rules">
-      <div class="text-h6">Правила</div>
-      <div class="">{{ viewInfo.rules?.rules }}</div>
+    <div class="text-secondary" v-if="!viewInfo.loading.rules">
+      <div class="q-py-md">
+        <div class="text-h6">Помощь</div>
+        <div>{{ viewInfo.rules?.help }}</div>
+      </div>
+      <div class="q-py-md">
+        <div class="text-h6">Правила</div>
+        <div>{{ viewInfo.rules?.rules }}</div>
+      </div>
     </div>
   </div>
 </template>

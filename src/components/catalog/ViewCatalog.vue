@@ -83,7 +83,7 @@
             <ProductItem class="" :product="product" />
           </div>
           <div
-            class="text-h6 text-secondary"
+            class="text-h5 text-secondary"
             v-if="viewItemsProduct.length == 0"
           >
             Товаров пока нет
@@ -98,8 +98,6 @@ import { defineComponent, ref } from "vue";
 import { mapActions, mapMutations, mapGetters } from "vuex";
 import { useQuasar } from "quasar";
 import { computed } from "vue";
-import verification from "src/telegram";
-import { convertURL } from "src/store/helpers";
 
 import ProductItem from "src/components/product/ProductPattern.vue";
 import CategoryProduct from "src/components/product/CategoryProduct.vue";

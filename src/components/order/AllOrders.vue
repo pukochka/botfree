@@ -14,8 +14,13 @@
     <q-separator class="q-mt-sm" :dark="viewUser.theme.is_dark" />
   </div>
   <div class="max-xxl center q-pa-md">
-    <div class="text-secondary">Страница {{ page }} из {{ countOfPages }}</div>
-    <div class="text-h4 text-center q-pa-lg" v-if="viewOrders.data.length == 0">
+    <div class="text-secondary" v-if="viewOrders.data.length != 0">
+      Страница {{ page }} из {{ countOfPages }}
+    </div>
+    <div
+      class="text-h4 text-center q-pa-lg text-secondary"
+      v-if="viewOrders.data.length == 0"
+    >
       Заказов пока нет
     </div>
     <div
@@ -62,7 +67,10 @@
       </div>
     </div>
 
-    <div class="max-xxl center flex justify-end q-pa-sm q-pb-md">
+    <div
+      class="max-xxl center flex justify-end q-pa-sm q-pb-md"
+      v-if="viewOrders.data.length != 0"
+    >
       <div class="flex no-wrap items-center">
         <q-btn
           :disable="page == 1"
