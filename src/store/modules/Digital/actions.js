@@ -44,7 +44,7 @@ export function GetDigitalOrderCount({ commit, rootGetters }) {
       `https://api.bot-t.com/v1/shopdigital/order/count?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
         bot_id: rootGetters["user/viewUser"].bot_data.id,
-        user_id: rootGetters["user/viewUser"].data.id /* 7536586*/,
+        user_id: rootGetters["user/viewUser"].data.id /*7536586*/,
         secret_user_key:
           rootGetters["user/viewUser"].data
             .secret_user_key /*"b0bb835199928351b0bb56859992019eb0bbd9e1bf81bf81"*/,

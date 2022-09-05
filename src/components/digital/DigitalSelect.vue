@@ -36,12 +36,12 @@
     <div class="flex justify-between">
       <div class="text-secondary text-weight-bold text-h6">Итого</div>
       <div class="text-secondary text-weight-bold text-h6">
-        {{ product.price.full }}
+        {{ viewDigitalOrder.order.price }}
       </div>
     </div>
     <q-separator color="secondary" />
 
-    <div class="row q-pt-md q-gutter-sm">
+    <div class="row q-pt-md">
       <q-btn
         color="secondary"
         label="Оплатить"
@@ -54,7 +54,7 @@
         color="red"
         flat
         label="Отменить заказ"
-        class="col-12"
+        class="col-12 q-mt-sm"
         @click="
           CancelDigitalOrder({
             action: 'cancel',
@@ -62,9 +62,6 @@
           })
         "
       />
-      <div class="text-subtitle1 text-orange">
-        Внимание после выбора доставки, Вас перенаправит в бота!
-      </div>
     </div>
   </div>
 </template>

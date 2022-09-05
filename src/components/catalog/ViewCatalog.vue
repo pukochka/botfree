@@ -47,6 +47,13 @@
           icon="shopping_cart"
           @click="testbot(7)"
         /> -->
+        <!-- <q-btn
+          class="q-mt-xs"
+          flat
+          color="secondary"
+          icon="shopping_cart"
+          @click="GetDigitalData({ action: 'index', offset: 0 })"
+        /> -->
 
         <div
           class="q-pb-md q-pt-sm row items-center"
@@ -137,8 +144,8 @@ export default defineComponent({
 
   methods: {
     ...mapActions({
+      GetDigitalData: "digital/GetDigitalData",
       getProducts: "products/getProducts",
-      getReferalBalance: "form/getReferalBalance",
       getBotData: "user/GetBotData",
     }),
     ...mapMutations({ testbot: "user/test" }),

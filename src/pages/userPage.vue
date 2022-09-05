@@ -2,7 +2,7 @@
   <q-page>
     <q-tab-panels
       :style="{
-        'min-height': width ? 'calc(100vh - 105px)' : 'calc(100vh - 51px)',
+        'min-height': width ? 'calc(100vh - 51px)' : 'calc(100vh - 105px)',
       }"
       :class="themeColor"
       v-model="viewTab"
