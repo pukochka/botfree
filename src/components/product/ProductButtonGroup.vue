@@ -26,7 +26,7 @@ import CartGroup from "src/components/product/sections/CartGroup.vue";
 
 export default defineComponent({
   components: {
-    // NoAuthDigital,
+    NoAuthDigital,
     NoAuthCart,
     DigitalGroup,
     CartGroup,
