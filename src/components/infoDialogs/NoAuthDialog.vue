@@ -7,7 +7,7 @@
           :is="'script'"
           src="https://telegram.org/js/telegram-widget.js?19"
           :data-telegram-login="viewUser.bot_data.name"
-          :data-auth-url="localion"
+          :data-onauth="GetDataByDomain(user)"
           data-size="large"
           data-radius="4"
           data-request-access="write"
@@ -28,7 +28,7 @@
 </template>
 <script>
 import { ref, defineComponent } from "vue";
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 export default defineComponent({
   setup() {
     return {};
@@ -43,6 +43,7 @@ export default defineComponent({
     },
   },
   methods: {
+    ...mapActions({ GetDataByDomain: "user/GetDataByDomain" }),
     ...mapMutations({ changeDialogs: "user/changeDialogs" }),
   },
 });

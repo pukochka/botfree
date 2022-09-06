@@ -220,9 +220,10 @@ export default defineComponent({
   watch: {},
   created() {},
   mounted() {
-    if (window.location.href.includes("botfree/?id")) {
-      this.getDomain("website");
-    } else if (window.location.href.includes("query_id")) {
+    // if (window.location.href.includes("botfree/?id")) {
+    //   this.getDomain("website");
+    // } else
+    if (window.location.href.includes("query_id")) {
       let init = convertURL(window.location.search);
       this.GetBotData({ id: init.bot_id, key: init.secretKey });
     } else this.getDomain();
