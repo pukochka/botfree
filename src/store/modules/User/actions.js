@@ -56,8 +56,6 @@ export function GetDataByDomain({ commit }, { action = false, user = null }) {
         commit("changeLoading", { section: "auth", value: false });
         if (action == "website") {
           commit("signWithWebsite", user);
-        } else if (action == "telegram") {
-          commit("signWithTelegram");
         }
         console.warn("Данные получены успешно!");
       } else {
