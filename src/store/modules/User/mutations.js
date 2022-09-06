@@ -26,12 +26,10 @@ export function SaveBotDataTelegram(state, config) {
   state.user.bot_data = config;
 }
 //-------------------------------------------------------
-export function signWithWebsite(state, user) {
-  state.user.init_telegram = user;
-  console.log(user);
-  // for (const [key, value] of new URLSearchParams(window.location.search)) {
-  //   [key] = value;
-  // }
+export function signWithWebsite(state) {
+  for (const [key, value] of new URLSearchParams(window.location.search)) {
+    state.user.init_telegram[key] = value;
+  }
   this.dispatch("user/getUserData", state.user.init_telegram.id);
 }
 export function signWithTelegram(state) {

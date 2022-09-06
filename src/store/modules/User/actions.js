@@ -38,7 +38,7 @@ export function getUserData({ commit, getters, rootGetters }, id) {
     });
 }
 // window.location.host ВМЕСТО PUKOCHKA.GITHUB.IO
-export function GetDataByDomain({ commit }, { action = false, user = null }) {
+export function GetDataByDomain({ commit }, action = false) {
   commit("changeLoading", { section: "auth", value: true });
   axios
     .post(`https://api.bot-t.com/v1/module/bot/get-by-public-key`, {
@@ -55,7 +55,9 @@ export function GetDataByDomain({ commit }, { action = false, user = null }) {
         commit("SaveBotDataWeb", response.data.data);
         commit("changeLoading", { section: "auth", value: false });
         if (action == "website") {
-          commit("signWithWebsite", user);
+          commit("signWithWebsite");
+        } else if (action == "telegram") {
+          commit("signWithTelegram");
         }
         console.warn("Данные получены успешно!");
       } else {
