@@ -133,7 +133,6 @@ export default defineComponent({
         return Math.ceil(this.viewOrders.count / 3);
       } else return this.viewOrders.count;
     },
-
     themeColor() {
       return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
     },
