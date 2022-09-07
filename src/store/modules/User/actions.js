@@ -72,7 +72,7 @@ export function GetBotData({ commit }, { id, key }) {
     })
     .then((response) => {
       console.log(response, "Бот");
-      if (response.data.result) {
+      if (response.status === 200) {
         commit("SaveBotDataTelegram", JSON.parse(response.data).data);
         commit("signWithTelegram");
       }
