@@ -20,7 +20,7 @@ export function getOrders(
     )
     .then((response) => {
       console.log(response, "Заказы");
-      if (response.status == 200) {
+      if (response.data.result) {
         if (action == "create") {
           commit("changeOrdersLoading", { section: action, value: false });
           commit("createNewOrder", response.data.data);
@@ -56,7 +56,7 @@ export function getOrdersCount({ commit, rootGetters }) {
       }
     )
     .then((response) => {
-      if (response.status == 200) {
+      if (response.data.result) {
         commit("changeOrdersCount", response.data.data.count);
       }
     });

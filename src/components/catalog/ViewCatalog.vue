@@ -12,9 +12,6 @@
       :class="{ 'text-h4': !width, 'text-h6': width }"
       >{{ viewUser.bot_data.title }}</span
     >
-    <div class="">
-      {{ href }}
-    </div>
   </div>
 
   <Transition name="fade">
@@ -36,7 +33,7 @@
           icon="chevron_left"
           @click="getProducts({ category: 0, text: '' })"
         />
-        <q-btn
+        <!-- <q-btn
           class="q-mt-xs"
           flat
           color="secondary"
@@ -47,8 +44,15 @@
           class="q-mt-xs"
           flat
           color="secondary"
+          icon="done"
+          @click="GetDigitalOrderCount"
+        />
+        <q-btn
+          class="q-mt-xs"
+          flat
+          color="secondary"
           icon="shopping_cart"
-          @click="testbot(7)"
+          @click="changeUserTab('orders')"
         />
         <q-btn
           class="q-mt-xs"
@@ -56,7 +60,7 @@
           color="secondary"
           icon="shopping_cart"
           @click="getUserData"
-        />
+        /> -->
 
         <div
           class="q-pb-md q-pt-sm row items-center"
@@ -151,8 +155,12 @@ export default defineComponent({
       getProducts: "products/getProducts",
       getBotData: "user/GetBotData",
       getUserData: "user/getUserData",
+      GetDigitalOrderCount: "digital/GetDigitalOrderCount",
     }),
-    ...mapMutations({ testbot: "user/test" }),
+    ...mapMutations({
+      testbot: "user/test",
+      changeUserTab: "user/changeUserTab",
+    }),
   },
 
   created() {},

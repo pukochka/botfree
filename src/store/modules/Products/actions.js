@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function getProducts({ commit, rootGetters }, { category, text }) {
+  console.log(this.state);
   commit("changeProductsLoading", true);
   axios
     .post(
@@ -12,7 +13,7 @@ export function getProducts({ commit, rootGetters }, { category, text }) {
     )
     .then((response) => {
       console.log(response, "Витрина");
-      if (response.status === 200) {
+      if (response.data.result) {
         let categoryes = [];
         for (let category in response.data.data) {
           categoryes.push(response.data.data[category]);

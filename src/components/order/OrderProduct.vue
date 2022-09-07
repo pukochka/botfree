@@ -35,6 +35,7 @@
         :label="item.product.price.amount + ' ' + convertСurrency"
       />
       <q-btn
+        v-if="viewUser.bot_data.type.id === 7"
         color="secondary"
         dense
         flat
@@ -46,6 +47,7 @@
         no-caps
       />
       <q-btn
+        v-if="viewUser.bot_data.type.id === 7"
         color="secondary"
         dense
         flat

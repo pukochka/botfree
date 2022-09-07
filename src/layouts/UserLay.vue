@@ -220,7 +220,7 @@ export default defineComponent({
   watch: {},
   created() {},
   mounted() {
-    if (window.location.href.includes("botfree/?id")) {
+    if (window.location.href.includes("/?id")) {
       this.getDomain("website");
     } else if (window.location.href.includes("query_id")) {
       let init = convertURL(window.location.search);

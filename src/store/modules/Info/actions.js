@@ -14,7 +14,7 @@ export function getRules({ commit, rootGetters }) {
     )
     .then((response) => {
       console.log(response, "Правила");
-      if (response.status === 200) {
+      if (response.data.result) {
         commit("changeInfoData", {
           section: "rules",
           value: response.data.data,
@@ -41,7 +41,7 @@ export function getSales({ commit, rootGetters }) {
     )
     .then((response) => {
       console.log(response, "Скидки");
-      if (response.status === 200) {
+      if (response.data.result) {
         commit("changeInfoData", {
           section: "sales",
           value: response.data.data,

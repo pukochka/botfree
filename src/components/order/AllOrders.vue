@@ -1,6 +1,9 @@
 <template>
   <div class="max-xxl center q-px-md q-pt-lg">
-    <div class="fixed-center z-max" v-if="viewOrders.loading.index">
+    <div
+      class="fixed-center z-max"
+      v-if="viewOrders.loading.index || viewDigital.loading.index"
+    >
       <div class="bg-opacity rounded-borders">
         <q-spinner color="secondary" class="q-ma-xl" size="6em" />
       </div>
@@ -41,22 +44,28 @@
         </div>
       </div>
       <q-separator class="q-mx-sm" color="secondary" />
-      <div class="row q-col-gutter-sm q-pa-sm">
+      <div class="">
         <div
-          class="col-12 col-md-4"
-          v-for="(item, index) of order.items"
-          :key="index"
+          class="row q-col-gutter-sm q-pa-sm"
+          v-if="viewUser.bot_data.type.id === 7"
         >
-          <OrderProduct :item="item" />
+          <div
+            class="col-12 col-md-4"
+            v-for="(item, index) of order.items"
+            :key="index"
+          >
+            <OrderProduct :item="item" />
+          </div>
+        </div>
+        <div class="q-pa-sm" v-else>
+          <OrderProduct :item="CurrentTypeOfBot(order)" />
         </div>
       </div>
-      <div class="row justify-end q-px-sm q-pb-sm">
-        <q-btn
-          padding="4px 16px"
-          flat
-          color="secondary"
-          label="Повторить заказ"
-        />
+
+      <div
+        class="row justify-end q-px-sm q-pb-sm"
+        v-if="viewUser.bot_data.type.id === 7"
+      >
         <q-btn
           padding="4px 16px"
           flat
@@ -117,10 +126,12 @@ export default defineComponent({
     ...mapGetters({
       viewOrders: "order/viewOrders",
       viewUser: "user/viewUser",
+      viewDigital: "digital/viewDigital",
     }),
     countOfPages() {
       return Math.ceil(this.viewOrders.count / 3);
     },
+
     themeColor() {
       return this.viewUser.theme.is_dark ? "bg-dark" : "bg-white";
     },
@@ -129,8 +140,14 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapActions({ getOrders: "order/getOrders" }),
+    ...mapActions({
+      getOrders: "order/getOrders",
+      GetDigitalData: "digital/GetDigitalData",
+    }),
     ...mapMutations({ changeOrdersSelect: "order/changeOrdersSelect" }),
+    CurrentTypeOfBot(item) {
+      return { product: item.category };
+    },
     convertСurrency(currency) {
       switch (currency) {
         case "RUB":
@@ -148,14 +165,28 @@ export default defineComponent({
       }
     },
     nextPage() {
-      this.getOrders({
-        action: "index",
-        offset: (this.offset += 3),
-      });
+      if (this.viewUser.bot_data.type.id === 7) {
+        this.getOrders({
+          action: "index",
+          offset: (this.offset += 3),
+        });
+      } else {
+        this.GetDigitalData({
+          action: "index",
+          offset: (this.offset += 1),
+        });
+      }
       this.page++;
     },
     prevPage() {
-      this.getOrders({ action: "index", offset: (this.offset -= 3) });
+      if (this.viewUser.bot_data.type.id === 7) {
+        this.getOrders({ action: "index", offset: (this.offset -= 3) });
+      } else {
+        this.GetDigitalData({
+          action: "index",
+          offset: (this.offset -= 1),
+        });
+      }
       this.page--;
     },
   },

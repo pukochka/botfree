@@ -24,7 +24,7 @@ export function getPayments(
       )
     )
     .then((response) => {
-      if (response.status === 200) {
+      if (response.data.result) {
         if (action != "set-item") {
           commit("changeFormData", {
             section: "payments",
@@ -57,7 +57,7 @@ export function getDelivery({ commit, rootGetters }, { action, order_id }) {
       }
     )
     .then((response) => {
-      if (response.status === 200) {
+      if (response.data.result) {
         commit("changeFormData", {
           section: "delivery",
           data: response.data.data,
@@ -121,7 +121,7 @@ export function getСoupon({ commit, rootGetters }, { action, coupon }) {
       }
     )
     .then((response) => {
-      if (response.status === 200) {
+      if (response.data.result) {
         commit("changeCouponLoading", { section: action, value: false });
         if (action == "activate") {
           if (response.data.result) {

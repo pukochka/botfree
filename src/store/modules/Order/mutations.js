@@ -1,6 +1,11 @@
 //-------------------------------------------------------
 export function changeOrdersData(state, orders) {
-  state.orders.data = orders;
+  if (this.state.user.user.bot_data.type.id !== 7) {
+    state.orders.data = [orders];
+  } else {
+    state.orders.data = orders;
+  }
+  console.log(state.orders.data);
 }
 //-------------------------------------------------------
 export function changeOrdersSelect(state, { order, tab }) {

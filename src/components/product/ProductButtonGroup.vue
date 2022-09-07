@@ -1,9 +1,12 @@
 <template>
-  <!-- <NoAuthDigital
+  <NoAuthDigital
     v-if="viewUser.bot_data?.type?.id !== 7 && !viewUser.no_guest"
-  /> -->
-  <!-- viewUser.no_guest &&  -->
-  <DigitalGroup v-if="viewUser.bot_data?.type?.id !== 7" :product="prod" />
+  />
+
+  <DigitalGroup
+    v-if="viewUser.no_guest && viewUser.bot_data?.type?.id !== 7"
+    :product="prod"
+  />
 
   <NoAuthCart v-if="!viewUser.no_guest && viewUser.bot_data?.type?.id === 7" />
 
@@ -23,7 +26,7 @@ import CartGroup from "src/components/product/sections/CartGroup.vue";
 
 export default defineComponent({
   components: {
-    // NoAuthDigital,
+    NoAuthDigital,
     NoAuthCart,
     DigitalGroup,
     CartGroup,

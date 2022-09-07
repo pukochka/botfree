@@ -44,7 +44,7 @@
     <div class="row q-pt-md">
       <q-btn
         color="secondary"
-        label="Оплатить"
+        :label="viewDigitalOrder.order.product.title"
         class="col-12"
         :href="viewDigitalOrder.order.product.data"
         target="_blank"

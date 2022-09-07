@@ -1,5 +1,4 @@
 import { convertURL } from "src/store/helpers";
-import verification from "src/telegram";
 import { setCssVar } from "quasar";
 //-------------------------------------------------------
 export function changeUserProp(state, { section, value }) {
@@ -36,7 +35,7 @@ export function signWithTelegram(state) {
   let init = convertURL(window.Telegram.WebApp.initData);
   init.user = JSON.parse(init.user);
   state.user.init_telegram = init;
-  this.dispatch("user/getUserData", window.Telegram.WebApp.initData);
+  this.dispatch("user/getUserData", "?" + window.Telegram.WebApp.initData);
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {
