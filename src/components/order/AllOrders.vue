@@ -131,7 +131,7 @@ export default defineComponent({
     countOfPages() {
       if (this.viewUser.bot_data.type.id === 7) {
         return Math.ceil(this.viewOrders.count / 3);
-      } else this.viewOrders.count;
+      } else return this.viewOrders.count;
     },
 
     themeColor() {
