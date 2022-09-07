@@ -200,8 +200,6 @@ export default defineComponent({
       GetBotData: "user/GetBotData",
     }),
     ...mapMutations({
-      signWithWebsite: "user/signWithWebsite",
-      signWithTelegram: "user/signWithTelegram",
       changeTabs: "user/changeUserTab",
       changeInfoDialogs: "info/changeInfoDialogs",
       changeDialogs: "user/changeDialogs",
