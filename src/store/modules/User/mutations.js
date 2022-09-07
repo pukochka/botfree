@@ -27,16 +27,16 @@ export function SaveBotDataTelegram(state, config) {
 }
 //-------------------------------------------------------
 export function signWithWebsite(state) {
-  for (const [key, value] of new URLSearchParams(window.location.search)) {
-    state.user.init_telegram[key] = value;
-  }
-  this.dispatch("user/getUserData", state.user.init_telegram.id);
+  // for (const [key, value] of new URLSearchParams(window.location.search)) {
+  //   state.user.init_telegram[key] = value;
+  // }
+  this.dispatch("user/getUserData", window.location.search);
 }
 export function signWithTelegram(state) {
   let init = convertURL(window.Telegram.WebApp.initData);
   init.user = JSON.parse(init.user);
   state.user.init_telegram = init;
-  this.dispatch("user/getUserData", state.user.init_telegram.user.id);
+  this.dispatch("user/getUserData", window.Telegram.WebApp.initData);
 }
 //-------------------------------------------------------
 export function changeColor(state, { text, background, add, id }) {

@@ -1,3 +1,1 @@
-export function viewProducts(state) {
-  return state.products;
-}
+export const viewProducts = (state) => state.products;

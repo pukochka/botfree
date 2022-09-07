@@ -1,3 +1,1 @@
-export function viewBasket(state) {
-  return state.basket;
-}
+export const viewBasket = (state) => state.basket;

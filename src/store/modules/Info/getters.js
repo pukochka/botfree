@@ -1,3 +1,1 @@
-export function viewInfo(state) {
-  return state.info;
-}
+export const viewInfo = (state) => state.info;

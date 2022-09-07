@@ -1,9 +1,5 @@
-export function viewSelect(state) {
-  return state.data;
-}
-export function viewSelectLoading(state) {
-  return state.loading;
-}
-export function viewSelectTab(state) {
-  return state.tab;
-}
+export const viewSelect = (state) => state.data;
+
+export const viewSelectLoading = (state) => state.loading;
+
+export const viewSelectTab = (state) => state.tab;

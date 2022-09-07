@@ -10,10 +10,10 @@ export function GetDigitalData(
       `https://api.bot-t.com/v1/shopdigital/order/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
       {
         bot_id: rootGetters["user/viewUser"].bot_data.id,
-        user_id: rootGetters["user/viewUser"].data.id /*7536586*/,
+        user_id: /*rootGetters["user/viewUser"].data.id*/ 7536586,
         secret_user_key:
-          rootGetters["user/viewUser"].data
-            .secret_user_key /*"b0bb835199928351b0bb56859992019eb0bbd9e1bf81bf81"*/,
+          /*rootGetters["user/viewUser"].data
+            .secret_user_key */ "b0bb835199928351b0bb56859992019eb0bbd9e1bf81bf81",
         offset: offset,
         category_id: category_id,
         count: count,
@@ -22,9 +22,11 @@ export function GetDigitalData(
     )
     .then((response) => {
       console.log(response, "цифровые товары");
-      if (response.status === 200) {
+      if (response.data.result) {
         if (action == "index") {
           commit("order/changeOrdersData", response.data.data, { root: true });
+        } else if (action == "cancel") {
+          commit("user/changeUserTab", "catalog", { root: true });
         } else {
           commit("changeDigitalData", response.data.data);
           commit("user/changeUserTab", "digital", { root: true });
@@ -52,7 +54,7 @@ export function GetDigitalOrderCount({ commit, rootGetters }) {
     )
     .then((response) => {
       console.log(response, "количество заказов ЦТ");
-      if (response.status === 200) {
+      if (response.data.result) {
         commit("order/changeOrdersCount", response.data.data.count, {
           root: true,
         });

@@ -1,3 +1,1 @@
-export function viewDigital(state) {
-  return state.digital;
-}
+export const viewDigital = (state) => state.digital;

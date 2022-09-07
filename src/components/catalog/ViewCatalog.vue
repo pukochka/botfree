@@ -12,6 +12,9 @@
       :class="{ 'text-h4': !width, 'text-h6': width }"
       >{{ viewUser.bot_data.title }}</span
     >
+    <div class="">
+      {{ href }}
+    </div>
   </div>
 
   <Transition name="fade">
@@ -33,12 +36,12 @@
           icon="chevron_left"
           @click="getProducts({ category: 0, text: '' })"
         />
-        <!-- <q-btn
+        <q-btn
           class="q-mt-xs"
           flat
           color="secondary"
           icon="123"
-          @click="testbot(1)"
+          @click="GetDigitalData({ action: 'index', offset: 0 })"
         />
         <q-btn
           class="q-mt-xs"
@@ -46,14 +49,14 @@
           color="secondary"
           icon="shopping_cart"
           @click="testbot(7)"
-        /> -->
-        <!-- <q-btn
+        />
+        <q-btn
           class="q-mt-xs"
           flat
           color="secondary"
           icon="shopping_cart"
-          @click="GetDigitalData({ action: 'index', offset: 0 })"
-        /> -->
+          @click="getUserData"
+        />
 
         <div
           class="q-pb-md q-pt-sm row items-center"
@@ -138,7 +141,7 @@ export default defineComponent({
       return this.viewProducts.data.filter((item) => item.type != 0);
     },
     href() {
-      return this.viewUser.bot_data;
+      return window.Telegram.WebApp.initData;
     },
   },
 
@@ -147,6 +150,7 @@ export default defineComponent({
       GetDigitalData: "digital/GetDigitalData",
       getProducts: "products/getProducts",
       getBotData: "user/GetBotData",
+      getUserData: "user/getUserData",
     }),
     ...mapMutations({ testbot: "user/test" }),
   },

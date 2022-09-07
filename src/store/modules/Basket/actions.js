@@ -23,11 +23,13 @@ export function getBasket(
     )
     .then((response) => {
       console.log(response, "Корзина");
-      commit("changeBasketLoading", {
-        section: action,
-        value: false,
-        elem: category_id,
-      });
-      commit("changeBasketData", response.data.data);
+      if (response.data.result) {
+        commit("changeBasketLoading", {
+          section: action,
+          value: false,
+          elem: category_id,
+        });
+        commit("changeBasketData", response.data.data);
+      }
     });
 }
