@@ -81,3 +81,24 @@ export function changeLoading(state, { section, value }) {
 export function test(state, number) {
   state.user.bot_data.type.id = number;
 }
+
+export function SaveBotData(state, value) {
+  state.user.bot_data = value;
+
+  this.dispatch("products/getProducts", { category: 0, text: "" });
+
+  if (
+    window.location.href.includes("query_id") &&
+    window.Telegram.WebApp.initData != ""
+  ) {
+    let init = convertURL(window.Telegram.WebApp.initData);
+    init.user = JSON.parse(init.user);
+    state.user.init_telegram = init;
+    this.dispatch("user/getUserData", "?" + window.Telegram.WebApp.initData);
+  } else if (
+    window.location.href.includes("&id") &&
+    window.Telegram.WebApp.initData == ""
+  ) {
+    this.dispatch("user/getUserData", window.location.search);
+  }
+}

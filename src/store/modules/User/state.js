@@ -5,6 +5,7 @@ export default function () {
       auth: false,
     }),
     user: ref({
+      bot_config: {},
       init_telegram: {},
       status: false,
       no_guest: false,

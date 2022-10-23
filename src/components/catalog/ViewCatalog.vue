@@ -26,7 +26,9 @@
     >
       <div class="">
         <q-btn
-          v-if="viewItemsCategory[0]?.category_id != 0"
+          v-if="
+            viewItemsCategory[0]?.category_id != 0 && viewProducts.data.length
+          "
           class="q-mt-xs"
           flat
           color="secondary"
@@ -124,9 +126,7 @@ export default defineComponent({
   },
   setup() {
     const $q = useQuasar();
-    const width = computed(() => {
-      return $q.screen.lt.sm;
-    });
+    const width = computed(() => $q.screen.lt.sm);
     return {
       width,
       search: ref(""),

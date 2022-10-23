@@ -1,10 +1,8 @@
 const routes = [
   {
-    path: "/",
+    path: "",
     component: () => import("src/layouts/UserLay.vue"),
-    children: [
-      { path: "/", component: () => import("src/pages/UserPage.vue") },
-    ],
+    children: [{ path: "", component: () => import("src/pages/UserPage.vue") }],
   },
   {
     path: "/:catchAll(.*)*",

@@ -4,9 +4,15 @@
 
 <script>
 import { defineComponent } from "vue";
-
+import { mapMutations } from "vuex";
 export default defineComponent({
   name: "App",
+  methods: {
+    ...mapMutations({ changeUserProp: "user/changeUserProp" }),
+  },
+  created() {
+    this.changeUserProp({ section: "bot_config", value: window.BOTCONFIG });
+  },
 });
 </script>
 <style lang="scss" scoped>

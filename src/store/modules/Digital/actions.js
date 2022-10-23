@@ -1,25 +1,22 @@
-import axios from "axios";
+import { request } from "../../../boot/request.js";
 
 export function GetDigitalData(
   { commit, rootGetters },
   { action, offset, category_id, count, order_id }
 ) {
   commit("changeDigitalLoading", { section: action, value: true });
-  axios
-    .post(
-      `https://api.bot-t.com/v1/shopdigital/order/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
-      {
-        bot_id: rootGetters["user/viewUser"].bot_data.id,
-        user_id: rootGetters["user/viewUser"].data.id /* 7536586*/,
-        secret_user_key:
-          rootGetters["user/viewUser"].data
-            .secret_user_key /* "b0bb835199928351b0bb56859992019eb0bbd9e1bf81bf81"*/,
-        offset: offset,
-        category_id: category_id,
-        count: count,
-        order_id: order_id,
-      }
-    )
+  request(
+    `shopdigital/order/${action}?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
+    {
+      bot_id: rootGetters["user/viewUser"].bot_data.id,
+      user_id: rootGetters["user/viewUser"].data.id,
+      secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+      offset: offset,
+      category_id: category_id,
+      count: count,
+      order_id: order_id,
+    }
+  )
     .then((response) => {
       console.log(response, "цифровые товары");
       if (response.data.result) {
@@ -41,17 +38,14 @@ export function GetDigitalData(
 
 export function GetDigitalOrderCount({ commit, rootGetters }) {
   commit("changeDigitalLoading", { section: "count", value: true });
-  axios
-    .post(
-      `https://api.bot-t.com/v1/shopdigital/order/count?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
-      {
-        bot_id: rootGetters["user/viewUser"].bot_data.id,
-        user_id: rootGetters["user/viewUser"].data.id /*7536586*/,
-        secret_user_key:
-          rootGetters["user/viewUser"].data
-            .secret_user_key /*"b0bb835199928351b0bb56859992019eb0bbd9e1bf81bf81"*/,
-      }
-    )
+  request(
+    `shopdigital/order/count?secretKey=${rootGetters["user/viewUser"].bot_data.secret_key}`,
+    {
+      bot_id: rootGetters["user/viewUser"].bot_data.id,
+      user_id: rootGetters["user/viewUser"].data.id,
+      secret_user_key: rootGetters["user/viewUser"].data.secret_user_key,
+    }
+  )
     .then((response) => {
       console.log(response, "количество заказов ЦТ");
       if (response.data.result) {

@@ -90,11 +90,12 @@
       <router-view />
     </q-page-container>
 
-    <q-footer
-      bordered
-      class="bg-primary text-secondary mobile-footer"
-      v-if="width"
-    >
+    <div class="desktop-only" v-if="viewUser.bot_config?.footer">
+      <div class="" v-if="viewUser.bot_config?.kind" v-html="config"></div>
+      <div class="" v-else v-html="viewUser.bot_config?.html"></div>
+    </div>
+
+    <q-footer bordered class="bg-primary text-secondary mobile-footer" v-if="width">
       <q-toolbar class="" style="padding: 0">
         <div class="fit row">
           <div :class="typeOfBot">
@@ -169,7 +170,7 @@ import { useQuasar } from "quasar";
 import { computed } from "vue";
 
 import { convertURL } from "../store/helpers";
-
+import HtmlParser from "../configHtmlParser";
 export default defineComponent({
   setup() {
     const $q = useQuasar();
@@ -189,6 +190,9 @@ export default defineComponent({
       viewTabs: "user/viewTab",
       viewUser: "user/viewUser",
     }),
+    config() {
+      return HtmlParser(window.BOTCONFIG.html);
+    },
     typeOfBot() {
       if (this.viewUser.bot_data?.type?.id === 7) return "col-4";
       else return "col-6";
@@ -198,6 +202,8 @@ export default defineComponent({
     ...mapActions({
       getDomain: "user/GetDataByDomain",
       GetBotData: "user/GetBotData",
+      GetBotDataByUrl: "user/GetBotDataByUrl",
+      GetBotDataByDomain: "user/GetBotDataByDomain",
     }),
     ...mapMutations({
       changeTabs: "user/changeUserTab",
@@ -216,14 +222,27 @@ export default defineComponent({
     },
   },
   watch: {},
-  created() {},
+  created() {
+    // this.GetBotData({
+    //   id: 12845,
+    //   key: "db0b766fdbc2274841d28673d0f4cf15dc311b9827f7c7cb2539d05a0f1c317e",
+    // });
+    if (
+      window.location.search.includes("bot_id") &&
+      window.location.search.includes("secretKey")
+    ) {
+      this.GetBotDataByUrl();
+    } else {
+      this.GetBotDataByDomain();
+    }
+  },
   mounted() {
-    if (window.location.href.includes("/?id")) {
-      this.getDomain("website");
-    } else if (window.location.href.includes("query_id")) {
-      let init = convertURL(window.location.search);
-      this.GetBotData({ id: init.bot_id, key: init.secretKey });
-    } else this.getDomain();
+    // if (window.location.href.includes("/?id")) {
+    //   this.getDomain("website");
+    // } else if (window.location.href.includes("query_id")) {
+    //   let init = convertURL(window.location.search);
+    //   this.GetBotData({ id: init.bot_id, key: init.secretKey });
+    // } else this.getDomain();
   },
 });
 </script>
