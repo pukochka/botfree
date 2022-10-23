@@ -12,6 +12,7 @@
       :class="{ 'text-h4': !width, 'text-h6': width }"
       >{{ viewUser.bot_data.title }}</span
     >
+    <div class="">{{ href }}</div>
   </div>
 
   <Transition name="fade">
