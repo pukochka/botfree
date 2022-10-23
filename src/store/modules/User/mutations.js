@@ -86,14 +86,7 @@ export function SaveBotData(state, value) {
   state.user.bot_data = value;
 
   this.dispatch("products/getProducts", { category: 0, text: "" });
-  console.log(
-    window.location.href.includes("query_id") &&
-      window.Telegram.WebApp.initData != ""
-  );
-  if (
-    window.location.href.includes("query_id") &&
-    window.Telegram.WebApp.initData != ""
-  ) {
+  if (window.Telegram.WebApp.initData != "") {
     let init = convertURL(window.Telegram.WebApp.initData);
     init.user = JSON.parse(init.user);
     state.user.init_telegram = init;
