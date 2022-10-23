@@ -1,0 +1,26 @@
+{
+  "host": "https://api.bot-t.com/v1/",
+  "footer": true,
+  "kind": true,
+  "html": [
+    {
+      "element": "div",
+      "classes": "q-pa-md",
+      "text": "",
+      "childrens": [
+        {
+          "element": "div",
+          "classes": "q-pa-md",
+          "text": "Hello",
+          "childrens": []
+        },
+        {
+          "element": "div",
+          "classes": "q-pa-md",
+          "text": "world",
+          "childrens": []
+        }
+      ]
+    }
+  ]
+}
