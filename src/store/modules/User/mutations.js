@@ -86,7 +86,10 @@ export function SaveBotData(state, value) {
   state.user.bot_data = value;
 
   this.dispatch("products/getProducts", { category: 0, text: "" });
-
+  console.log(
+    window.location.href.includes("query_id") &&
+      window.Telegram.WebApp.initData != ""
+  );
   if (
     window.location.href.includes("query_id") &&
     window.Telegram.WebApp.initData != ""
@@ -96,7 +99,8 @@ export function SaveBotData(state, value) {
     state.user.init_telegram = init;
     this.dispatch("user/getUserData", "?" + window.Telegram.WebApp.initData);
   } else if (
-    window.location.href.includes("&id") &&
+    (window.location.href.includes("&id") ||
+      window.location.href.includes("?id")) &&
     window.Telegram.WebApp.initData == ""
   ) {
     this.dispatch("user/getUserData", window.location.search);
